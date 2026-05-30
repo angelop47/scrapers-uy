@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +15,7 @@
     "csv-parse": "^6.2.1",
     "csv-stringify": "^6.7.0",
     "luxon": "^3.7.2",
+    "node-cron": "^4.2.1",
     "playwright": "^1.60.0"
   }
 }

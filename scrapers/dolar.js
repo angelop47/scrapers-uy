@@ -1,13 +1,25 @@
 import { chromium } from 'playwright';
 import fs from 'fs';
+import path from 'path';
 import { DateTime } from 'luxon';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
+import cron from 'node-cron';
 
 const URL = 'https://www.brou.com.uy/cotizaciones';
-const CSV_PATH = './cotizaciones.csv';
 const LOG_PATH = './scraper.log';
 const TIMEZONE = 'America/Montevideo';
+const DOLLAR_DIR = './dollar';
+
+if (!fs.existsSync(DOLLAR_DIR)) {
+  fs.mkdirSync(DOLLAR_DIR, { recursive: true });
+}
+
+function getCsvPath() {
+  const now = DateTime.now().setZone(TIMEZONE);
+  const filename = now.toFormat('MM-yyyy') + '.csv';
+  return path.join(DOLLAR_DIR, filename);
+}
 
 function log(status, message) {
   const now = DateTime.now().setZone(TIMEZONE).toFormat('yyyy-MM-dd HH:mm:ss');
@@ -17,21 +29,22 @@ function log(status, message) {
 }
 
 async function scrape() {
-  console.log('Starting scraper...');
+  console.log('[Dólar] Starting scraper...');
+  const currentCsvPath = getCsvPath();
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
   });
   const page = await context.newPage();
-  
+
   try {
-    console.log(`Navigating to ${URL}...`);
+    console.log(`[Dólar] Navigating to ${URL}...`);
     await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
-    
+
     // Wait for the table to be visible
-    console.log('Waiting for table content...');
+    console.log('[Dólar] Waiting for table content...');
     await page.waitForSelector('.cotizacion-portlet table', { timeout: 30000 });
-    
+
     const rows = await page.$$eval('.cotizacion-portlet table tr', (trs) => {
       return trs.map(tr => {
         const moneda = tr.querySelector('td:nth-child(1) .moneda')?.innerText.trim();
@@ -54,19 +67,19 @@ async function scrape() {
     const hora = now.toFormat('HH:mm');
 
     let existingData = [];
-    if (fs.existsSync(CSV_PATH)) {
-      const fileContent = fs.readFileSync(CSV_PATH, 'utf-8');
+    if (fs.existsSync(currentCsvPath)) {
+      const fileContent = fs.readFileSync(currentCsvPath, 'utf-8');
       try {
         existingData = parse(fileContent, { columns: true, skip_empty_lines: true });
       } catch (e) {
-        console.warn('Could not parse existing CSV, starting fresh.');
+        console.warn('[Dólar] Could not parse existing CSV, starting fresh.');
       }
     }
 
     const newRecords = rows.map(row => {
       const todayRecords = existingData.filter(d => d.fecha === fecha && d.moneda === row.moneda);
       const lastRecord = existingData.length > 0 ? existingData.filter(d => d.moneda === row.moneda).pop() : null;
-      
+
       // Values are expected in "1.234,56" format, convert to 1234.56
       const parseValue = (val) => {
         if (!val || val === '-') return null;
@@ -80,7 +93,7 @@ async function scrape() {
       // If it's a new day, we should write even if value didn't change
       const isSameDayAsLast = lastRecord && lastRecord.fecha === fecha;
       if (isSameDayAsLast && lastRecord.compra === row.compra && lastRecord.venta === row.venta) {
-        log('SKIPPED', `No change detected for ${row.moneda} today.`);
+        log('SKIPPED [Dólar]', `No change detected for ${row.moneda} today.`);
         return null;
       }
 
@@ -143,15 +156,21 @@ async function scrape() {
 
     const combinedData = [...existingData, ...newRecords];
     const output = stringify(combinedData, { header: true });
-    fs.writeFileSync(CSV_PATH, output);
-    
-    log('SUCCESS', `Recorded new values for ${newRecords.length} currencies.`);
+    fs.writeFileSync(currentCsvPath, output);
+
+    log('SUCCESS [Dólar]', `Recorded new values for ${newRecords.length} currencies.`);
   } catch (error) {
-    log('ERROR', `Scraping failed: ${error.message}`);
-    process.exit(1);
+    log('ERROR [Dólar]', `Scraping failed: ${error.message}`);
   } finally {
     await browser.close();
   }
 }
 
-scrape();
+export function start() {
+  console.log('[Dólar] Scheduling scraper to run every 15 minutes (Mon-Fri)...');
+  cron.schedule('*/15 * * * 1-5', () => {
+    scrape();
+  });
+
+  scrape();
+}

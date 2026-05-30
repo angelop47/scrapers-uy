@@ -172,5 +172,10 @@ export function start() {
     scrape();
   });
 
-  scrape();
+  const now = DateTime.now().setZone(TIMEZONE);
+  if (now.weekday <= 5) {
+    scrape();
+  } else {
+    console.log('[Dólar] Skipping initial execution (it is weekend).');
+  }
 }

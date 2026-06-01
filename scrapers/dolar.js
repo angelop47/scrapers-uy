@@ -167,15 +167,15 @@ async function scrape() {
 }
 
 export function start() {
-  console.log('[Dólar] Scheduling scraper to run every 15 minutes (Mon-Fri)...');
-  cron.schedule('*/15 * * * 1-5', () => {
+  console.log('[Dólar] Scheduling scraper to run every 15 minutes between 09:00 and 18:59 (Mon-Fri)...');
+  cron.schedule('*/15 9-18 * * 1-5', () => {
     scrape();
   });
 
   const now = DateTime.now().setZone(TIMEZONE);
-  if (now.weekday <= 5) {
+  if (now.weekday <= 5 && now.hour >= 9 && now.hour <= 18) {
     scrape();
   } else {
-    console.log('[Dólar] Skipping initial execution (it is weekend).');
+    console.log('[Dólar] Skipping initial execution (outside 9-18 or weekend).');
   }
 }

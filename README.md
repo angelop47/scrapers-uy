@@ -6,7 +6,7 @@ Este repositorio contiene scripts automáticos que extraen información en tiemp
 Los datos históricos del dólar se guardan en la carpeta `dollar/` divididos por mes (por ejemplo, `05-2026.csv`). 
 
 - Se extraen de la pizarra oficial del [Banco República (BROU)](https://www.brou.com.uy/cotizaciones).
-- **Frecuencia:** Se ejecuta de manera automática cada 15 minutos, exclusivamente de Lunes a Viernes (hora de Uruguay).
+- **Frecuencia:** Se ejecuta de manera automática cada 15 minutos, de Lunes a Viernes entre las 09:00 y las 18:00 (hora de Uruguay).
 - **Qué guarda:** Detecta cambios en la cotización y guarda el precio de compra, venta, y estadísticas del día (apertura, mínimo y máximo).
 
 ### Precio del Petróleo (Brent)

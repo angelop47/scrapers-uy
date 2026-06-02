@@ -5,9 +5,9 @@ import { DateTime } from 'luxon';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import cron from 'node-cron';
+import { log } from '../logger.js';
 
 const URL = 'https://oilprice.com/';
-const LOG_PATH = './scraper.log';
 const TIMEZONE = 'America/Montevideo';
 const PETROLEO_DIR = './petroleo';
 
@@ -21,15 +21,9 @@ function getCsvPath() {
   return path.join(PETROLEO_DIR, filename);
 }
 
-function log(status, message) {
-  const now = DateTime.now().setZone(TIMEZONE).toFormat('yyyy-MM-dd HH:mm:ss');
-  const logMessage = `[${now}] ${status}: ${message}\n`;
-  fs.appendFileSync(LOG_PATH, logMessage);
-  console.log(logMessage.trim());
-}
 
 async function scrape() {
-  console.log('[Petróleo] Starting scraper...');
+  log('INFO [Petróleo]', 'Starting scraper...');
   const currentCsvPath = getCsvPath();
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
@@ -38,10 +32,10 @@ async function scrape() {
   const page = await context.newPage();
 
   try {
-    console.log(`[Petróleo] Navigating to ${URL}...`);
+    log('INFO [Petróleo]', `Navigating to ${URL}...`);
     await page.goto(URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-    console.log('[Petróleo] Waiting for price data...');
+    log('INFO [Petróleo]', 'Waiting for price data...');
     await page.waitForSelector('tr.link_oilprice_row', { timeout: 30000 });
 
     const rows = await page.$$eval('tr.link_oilprice_row', (trs) => {
@@ -76,7 +70,7 @@ async function scrape() {
       try {
         existingData = parse(fileContent, { columns: true, skip_empty_lines: true });
       } catch (e) {
-        console.warn('[Petróleo] Could not parse existing CSV, starting fresh.');
+        log('WARN [Petróleo]', 'Could not parse existing CSV, starting fresh.');
       }
     }
 
@@ -140,7 +134,7 @@ async function scrape() {
 }
 
 export function start() {
-  console.log('[Petróleo] Scheduling scraper to run every 15 minutes (Mon-Fri, US Time)...');
+  log('INFO [Petróleo]', 'Scheduling scraper to run every 15 minutes (Mon-Fri, US Time)...');
   cron.schedule('*/15 * * * 1-5', () => {
     scrape();
   }, {
@@ -151,6 +145,6 @@ export function start() {
   if (now.weekday <= 5) {
     scrape();
   } else {
-    console.log('[Petróleo] Skipping initial execution (it is weekend).');
+    log('INFO [Petróleo]', 'Skipping initial execution (it is weekend).');
   }
 }

@@ -5,9 +5,9 @@ import { DateTime } from 'luxon';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import cron from 'node-cron';
+import { log } from '../logger.js';
 
 const URL = 'https://www.brou.com.uy/cotizaciones';
-const LOG_PATH = './scraper.log';
 const TIMEZONE = 'America/Montevideo';
 const DOLLAR_DIR = './dollar';
 
@@ -21,15 +21,9 @@ function getCsvPath() {
   return path.join(DOLLAR_DIR, filename);
 }
 
-function log(status, message) {
-  const now = DateTime.now().setZone(TIMEZONE).toFormat('yyyy-MM-dd HH:mm:ss');
-  const logMessage = `[${now}] ${status}: ${message}\n`;
-  fs.appendFileSync(LOG_PATH, logMessage);
-  console.log(logMessage.trim());
-}
 
 async function scrape() {
-  console.log('[Dólar] Starting scraper...');
+  log('INFO [Dólar]', 'Starting scraper...');
   const currentCsvPath = getCsvPath();
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
@@ -38,11 +32,11 @@ async function scrape() {
   const page = await context.newPage();
 
   try {
-    console.log(`[Dólar] Navigating to ${URL}...`);
+    log('INFO [Dólar]', `Navigating to ${URL}...`);
     await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
 
     // Wait for the table to be visible
-    console.log('[Dólar] Waiting for table content...');
+    log('INFO [Dólar]', 'Waiting for table content...');
     await page.waitForSelector('.cotizacion-portlet table', { timeout: 30000 });
 
     const rows = await page.$$eval('.cotizacion-portlet table tr', (trs) => {
@@ -72,7 +66,7 @@ async function scrape() {
       try {
         existingData = parse(fileContent, { columns: true, skip_empty_lines: true });
       } catch (e) {
-        console.warn('[Dólar] Could not parse existing CSV, starting fresh.');
+        log('WARN [Dólar]', 'Could not parse existing CSV, starting fresh.');
       }
     }
 
@@ -167,7 +161,7 @@ async function scrape() {
 }
 
 export function start() {
-  console.log('[Dólar] Scheduling scraper to run every 15 minutes between 09:00 and 18:59 (Mon-Fri)...');
+  log('INFO [Dólar]', 'Scheduling scraper to run every 15 minutes between 09:00 and 18:59 (Mon-Fri)...');
   cron.schedule('*/15 9-18 * * 1-5', () => {
     scrape();
   });
@@ -176,6 +170,6 @@ export function start() {
   if (now.weekday <= 5 && now.hour >= 9 && now.hour <= 18) {
     scrape();
   } else {
-    console.log('[Dólar] Skipping initial execution (outside 9-18 or weekend).');
+    log('INFO [Dólar]', 'Skipping initial execution (outside 9-18 or weekend).');
   }
 }

@@ -1,0 +1,27 @@
+[2026-06-01 19:38:44] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 19:45:01] SKIPPED [Petróleo]: No change detected for Brent today.
+[2026-06-01 20:00:03] SKIPPED [Petróleo]: No change detected for Brent today.
+[2026-06-01 20:15:01] SKIPPED [Petróleo]: No change detected for Brent today.
+[2026-06-01 20:30:01] SKIPPED [Petróleo]: No change detected for Brent today.
+[2026-06-01 20:42:03] ERROR [Petróleo]: Scraping failed: page.goto: net::ERR_NETWORK_CHANGED at https://oilprice.com/
+Call log:
+[2m  - navigating to "https://oilprice.com/", waiting until "domcontentloaded"[22m
+
+[2026-06-01 20:45:01] SKIPPED [Petróleo]: No change detected for Brent today.
+[2026-06-01 20:53:48] SKIPPED [Petróleo]: No change detected for Brent today.
+[2026-06-01 20:56:39] ERROR [Petróleo]: Scraping failed: page.goto: net::ERR_NETWORK_CHANGED at https://oilprice.com/
+Call log:
+[2m  - navigating to "https://oilprice.com/", waiting until "domcontentloaded"[22m
+
+[2026-06-01 21:00:04] SKIPPED [Petróleo]: No change detected for Brent today.
+[2026-06-01 21:15:01] SKIPPED [Petróleo]: No change detected for Brent today.
+[2026-06-01 21:30:01] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 21:45:01] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 22:00:01] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 22:15:01] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 22:30:01] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 22:45:01] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 23:00:03] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 23:15:01] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 23:30:01] SUCCESS [Petróleo]: Recorded new values for Brent.
+[2026-06-01 23:45:01] SUCCESS [Petróleo]: Recorded new values for Brent.

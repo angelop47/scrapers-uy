@@ -22,12 +22,16 @@ function checkAndPull() {
       if (stdout.includes('Your branch is behind')) {
         log('INFO [Git-Pull]', 'Se detectaron cambios en remoto. Ejecutando git pull...');
 
-        exec('git pull', (err, stdout, stderr) => {
+        exec('git pull --rebase origin main -q', (err, stdout, stderr) => {
           if (err) {
-            log('ERROR [Git-Pull]', `Error al hacer git pull: ${stderr}`, true);
+            log('ERROR [Git-Pull]', `Error al hacer git pull --rebase: ${stderr}`, true);
+            log('INFO [Git-Pull]', 'Abortando rebase para devolver a estado limpio...');
+            exec('git rebase --abort', () => {
+              log('ERROR [Git-Pull]', 'Rebase abortado. Requiere intervención manual.');
+            });
             return;
           }
-          log('INFO [Git-Pull]', 'Git pull completado exitosamente.');
+          log('INFO [Git-Pull]', 'Git pull (con rebase) completado exitosamente.');
           log('INFO [Git-Pull]', 'NOTA: Si hubo cambios en el código fuente, el proceso actual de Node.js necesita ser reiniciado para aplicarlos.');
           process.exit(0); // Reinicia el proceso automáticamente para que PM2 lo levante con la nueva versión
         });

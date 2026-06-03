@@ -32,13 +32,25 @@ function autoCommitAndPush() {
       
       log('INFO [Git]', `Commit realizado: ${stdout.trim()}`);
       
-      // Push
-      exec('git push origin HEAD', (err, stdout, stderr) => {
-        if (err) {
-          log('ERROR [Git]', `Error al hacer push: ${stderr}`, true);
+      // Sincronizar antes de pushear para evitar conflictos (hace un pull rebase)
+      log('INFO [Git]', 'Sincronizando con remoto antes de pushear (rebase)...');
+      exec('git pull --rebase origin main -q', (errPull, stdoutPull, stderrPull) => {
+        if (errPull) {
+          log('ERROR [Git]', `Conflicto o error en rebase previo al push: ${stderrPull}`, true);
+          exec('git rebase --abort', () => {
+             log('ERROR [Git]', 'Rebase abortado. No se realizó el push.');
+          });
           return;
         }
-        log('INFO [Git]', 'Push realizado correctamente.');
+
+        // Push
+        exec('git push origin HEAD', (err, stdout, stderr) => {
+          if (err) {
+            log('ERROR [Git]', `Error al hacer push: ${stderr}`, true);
+            return;
+          }
+          log('INFO [Git]', 'Push realizado correctamente.');
+        });
       });
     });
   });

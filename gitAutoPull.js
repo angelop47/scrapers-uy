@@ -32,7 +32,7 @@ function checkAndPull() {
             return;
           }
           log('INFO [Git-Pull]', 'Git pull (con rebase) completado exitosamente.');
-          log('INFO [Git-Pull]', 'NOTA: Si hubo cambios en el código fuente, el proceso actual de Node.js necesita ser reiniciado para aplicarlos.');
+          log('INFO [Git-Pull]', 'Actualización detectada. Apagando el proceso para que PM2 lo reinicie automáticamente con el nuevo código...');
           process.exit(0); // Reinicia el proceso automáticamente para que PM2 lo levante con la nueva versión
         });
       } else {

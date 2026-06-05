@@ -134,8 +134,8 @@ async function scrape() {
 }
 
 export function start() {
-  log('INFO [Petróleo]', 'Scheduling scraper to run every 15 minutes (Mon-Fri, US Time)...');
-  cron.schedule('*/15 * * * 1-5', () => {
+  log('INFO [Petróleo]', 'Scheduling scraper to run every 1 hour (Mon-Fri, US Time)...');
+  cron.schedule('0 * * * 1-5', () => {
     scrape();
   }, {
     timezone: 'America/New_York'

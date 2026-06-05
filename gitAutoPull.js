@@ -13,17 +13,37 @@ async function checkAndPull() {
     const { stdout: statusOut } = await execGit('git status -uno');
 
     if (statusOut.includes('Your branch is behind')) {
-      log('INFO [Git-Pull]', 'Se detectaron cambios en remoto. Ejecutando git pull...');
+      log('INFO [Git-Pull]', 'Se detectaron cambios en remoto. Preparando actualización...');
 
+      let stashed = false;
       try {
+        // Verificar si hay cambios locales (staged, unstaged o archivos nuevos)
+        const { stdout: checkStatus } = await execGit('git status --porcelain');
+        if (checkStatus.trim().length > 0) {
+          log('INFO [Git-Pull]', 'Cambios locales detectados. Haciendo stash temporal...');
+          await execGit('git stash -u');
+          stashed = true;
+        }
+
+        log('INFO [Git-Pull]', 'Ejecutando git pull con rebase...');
         await execGit('git pull --rebase origin main -q');
         log('INFO [Git-Pull]', 'Git pull (con rebase) completado exitosamente.');
+
+        if (stashed) {
+          log('INFO [Git-Pull]', 'Restaurando cambios locales desde el stash...');
+          await execGit('git stash pop');
+        }
+
         log('INFO [Git-Pull]', 'Actualización detectada. Apagando el proceso para que PM2 lo reinicie automáticamente con el nuevo código...');
         process.exit(0); // Reinicia el proceso automáticamente para que PM2 lo levante con la nueva versión
       } catch (errRebase) {
         log('ERROR [Git-Pull]', `Error al hacer git pull --rebase: ${errRebase.message}`, true);
         log('INFO [Git-Pull]', 'Abortando rebase para devolver a estado limpio...');
         await execGit('git rebase --abort').catch(() => {});
+        if (stashed) {
+          log('INFO [Git-Pull]', 'Restaurando cambios locales del stash tras error...');
+          await execGit('git stash pop').catch(() => {});
+        }
         log('ERROR [Git-Pull]', 'Rebase abortado. Requiere intervención manual.');
         notifyError(`Conflicto de Git Pull en el servidor. Requiere intervención manual. Detalle: ${errRebase.message}`);
       }

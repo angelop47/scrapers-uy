@@ -1,6 +1,10 @@
 import cron from 'node-cron';
 import { log, notifyError } from './logger.js';
 import { execGit } from './gitUtils.js';
+import { exec } from 'child_process';
+import util from 'util';
+
+const execAsync = util.promisify(exec);
 
 async function checkAndPull() {
   log('INFO [Git-Pull]', 'Verificando actualizaciones en el repositorio remoto...');
@@ -34,7 +38,10 @@ async function checkAndPull() {
           await execGit('git stash pop');
         }
 
-        log('INFO [Git-Pull]', 'Actualización detectada. Apagando el proceso para que PM2 lo reinicie automáticamente con el nuevo código...');
+        log('INFO [Git-Pull]', 'Actualización detectada. Verificando e instalando nuevas dependencias (npm install)...');
+        await execAsync('npm install');
+
+        log('INFO [Git-Pull]', 'Apagando el proceso para que PM2 lo reinicie automáticamente con el nuevo código...');
         process.exit(0); // Reinicia el proceso automáticamente para que PM2 lo levante con la nueva versión
       } catch (errRebase) {
         log('ERROR [Git-Pull]', `Error al hacer git pull --rebase: ${errRebase.message}`, true);

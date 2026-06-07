@@ -16,10 +16,28 @@ Los datos históricos del petróleo se guardan en la carpeta `petroleo/` dividid
 - **Frecuencia:** Se ejecuta de manera automática cada 1 hora, de Lunes a Viernes (hora de Nueva York).
 - **Qué guarda:** Detecta cambios en el precio del crudo Brent y guarda el precio actual junto con las estadísticas del día (apertura, mínimo y máximo).
 
-### Sistema de Logs
-El sistema implementa una rotación diaria de logs para evitar archivos pesados y conflictos con el control de versiones:
+### Sistema de Logs y Alertas
+
+> [!NOTE]
+> El sistema implementa una rotación de logs de forma autónoma para evitar archivos pesados y conflictos con el control de versiones. La carpeta se ignora por defecto.
+
 - Los logs se guardan en la carpeta `logs/` bajo el formato `scraper-YYYY-MM-DD.log`.
 - La carpeta `logs/` y los logs antiguos se encuentran en `.gitignore` para no interferir con el estado local de Git.
+
+#### Alertas por Correo Electrónico
+El sistema está configurado para enviar alertas automáticas por correo electrónico en caso de errores críticos (por ejemplo, si cambian los selectores web o hay conflictos de Git). Para habilitarlas, crea un archivo `.env` en la raíz del proyecto basándote en `.env.example`:
+
+```env
+ALERT_EMAIL=correo-destino@ejemplo.com
+```
+> [!IMPORTANT]
+> La primera vez que el sistema intente enviar un error, FormSubmit enviará un correo a tu casilla pidiéndote que "Actives" o "Confirmes" la dirección. Debes hacer clic en ese enlace para que los futuros correos de alerta lleguen correctamente.
+
+**Para activar y probar el sistema por primera vez:**
+Puedes generar un error intencional sin afectar el entorno de producción utilizando el script de prueba. Vale la pena hacerlo para recibir el correo de activación de FormSubmit:
+```bash
+node test-alert.js
+```
 
 ### Sincronización Automática con Git
 El proyecto incluye automatizaciones diseñadas para ejecutarse en un servidor sin intervención manual:
@@ -34,7 +52,9 @@ npm install
 npm start
 ```
 
-Para ejecución en servidores, se recomienda utilizar PM2 para asegurar su continuidad:
+> [!TIP]
+> Para ejecución en servidores y VPS, es altamente recomendable utilizar **PM2**. Además de mantener el script corriendo, es fundamental para que el sistema de actualizaciones (`Auto-Pull`) funcione sin intervención manual.
+
 ```bash
 pm2 start index.js --name "scrapers"
 ```

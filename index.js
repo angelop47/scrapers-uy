@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { start as startDolar } from './scrapers/dolar.js';
 import { start as startPetroleo } from './scrapers/petroleo.js';
 import { start as startGitAutoCommit } from './gitAutoCommit.js';

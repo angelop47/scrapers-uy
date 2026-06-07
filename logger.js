@@ -59,9 +59,40 @@ export function log(status, message, isError = false) {
 }
 
 /**
- * Función para enviar notificaciones críticas a sistemas externos.
- * Actualmente es un stub (placeholder). 
+ * Función para enviar notificaciones críticas por correo electrónico a través de FormSubmit.
  */
-export function notifyError(message) {
+export async function notifyError(message) {
   console.error(`\n[ALERT] => ENVIANDO NOTIFICACIÓN: ${message}\n`);
+
+  if (!process.env.ALERT_EMAIL) {
+    console.error('[Logger Error] No se enviará el correo. Falta la variable de entorno ALERT_EMAIL.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`https://formsubmit.co/ajax/${process.env.ALERT_EMAIL}`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'Origin': 'https://automation-timeline.local',
+        'Referer': 'https://automation-timeline.local/'
+      },
+      body: JSON.stringify({
+        _subject: '⚠️ Alerta de Sistema - Scrapers Uruguay',
+        _template: 'box',
+        _captcha: 'false',
+        Mensaje: message
+      })
+    });
+
+    if (response.ok) {
+      console.log('[Email Alert] Correo enviado correctamente a través de FormSubmit.');
+    } else {
+      console.error(`[Logger Error] Error en la respuesta de FormSubmit: ${response.statusText}`);
+    }
+  } catch (e) {
+    console.error(`[Logger Error] Error al hacer la petición a FormSubmit: ${e.message}`);
+  }
 }

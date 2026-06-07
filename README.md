@@ -45,6 +45,19 @@ El proyecto incluye automatizaciones diseñadas para ejecutarse en un servidor s
 - **Auto-Pull:** Al iniciarse y cada hora, el sistema verifica si hay actualizaciones en el repositorio remoto de GitHub. Si existen, ejecuta un stash temporal de los datos locales, realiza un `git pull --rebase`, y finalmente restaura el stash. Esto previene conflictos por cambios locales en los CSV y permite que PM2 reinicie la aplicación de forma automática y transparente con el nuevo código.
 - **Auto-Commit:** De Lunes a Viernes a las 23:50 (hora de Montevideo), el sistema realiza un commit y push de todos los archivos generados en el día hacia GitHub mediante operaciones atómicas y seguras con bloqueo de procesos.
 
+### Sincronización con Supabase
+
+> [!NOTE]
+> Este módulo de sincronización está específicamente diseñado para alimentar la base de datos y la plataforma de **[Línea del Tiempo Uruguay](https://lineadeltiempo.uy)**.
+
+El sistema incluye un módulo de sincronización central (`supabase.js`) que se encarga de subir los datos recolectados hacia la base de datos principal en Supabase.
+
+- **Frecuencia:** Se ejecuta de manera automática a las 23:55 (hora de Uruguay) de Lunes a Viernes.
+- **Qué guarda:** 
+  - Inserta el precio final del día del **Petróleo Brent** en la tabla `oil_prices`.
+  - Inserta el último precio de venta del **Dólar** junto a sus estadísticas (apertura, mínimo y máximo) en la tabla `dollar_rates`.
+- Para activarlo, es necesario configurar las variables `SUPABASE_URL` y `SUPABASE_KEY` (usando la service role key) en tu archivo `.env`.
+
 ### Ejecución
 El proyecto usa Node.js y `node-cron` de forma interna. Para iniciarlo, basta con:
 ```bash

@@ -36,7 +36,7 @@ async function autoCommitAndPush() {
       log('ERROR [Git]', `Conflicto o error en rebase previo al push: ${errPull.message}`, true);
       await execGit('git rebase --abort').catch(() => {});
       log('ERROR [Git]', 'Rebase abortado. No se realizó el push.');
-      notifyError(`Fallo crítico en git pull rebase al intentar auto-commit: ${errPull.message}`);
+      await notifyError(`Fallo crítico en git pull rebase al intentar auto-commit: ${errPull.message}`);
       return;
     }
 

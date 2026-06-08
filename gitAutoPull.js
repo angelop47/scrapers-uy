@@ -52,7 +52,7 @@ async function checkAndPull() {
           await execGit('git stash pop').catch(() => {});
         }
         log('ERROR [Git-Pull]', 'Rebase abortado. Requiere intervención manual.');
-        notifyError(`Conflicto de Git Pull en el servidor. Requiere intervención manual. Detalle: ${errRebase.message}`);
+        await notifyError(`Conflicto de Git Pull en el servidor. Requiere intervención manual. Detalle: ${errRebase.message}`);
       }
     } else {
       log('INFO [Git-Pull]', 'El repositorio local ya se encuentra actualizado.');

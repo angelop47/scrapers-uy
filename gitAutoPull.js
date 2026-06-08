@@ -66,9 +66,9 @@ export function start() {
   // Verificamos al iniciar el script
   checkAndPull();
 
-  // verificamos automáticamente cada 1 hora
-  log('INFO [Git-Pull]', 'Programando verificación de actualizaciones cada 1 hora...');
-  cron.schedule('0 * * * *', () => {
+  // verificamos automáticamente a los 5 minutos de cada hora para evitar colisiones con los scrapers
+  log('INFO [Git-Pull]', 'Programando verificación de actualizaciones (minuto 5 de cada hora)...');
+  cron.schedule('5 * * * *', () => {
     checkAndPull();
   });
 }

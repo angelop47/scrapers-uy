@@ -42,7 +42,7 @@ node test-alert.js
 ### Sincronización Automática con Git
 El proyecto incluye automatizaciones diseñadas para ejecutarse en un servidor sin intervención manual:
 
-- **Auto-Pull:** Al iniciarse y cada hora, el sistema verifica si hay actualizaciones en el repositorio remoto de GitHub. Si existen, ejecuta un stash temporal de los datos locales, realiza un `git pull --rebase`, y finalmente restaura el stash. Esto previene conflictos por cambios locales en los CSV y permite que PM2 reinicie la aplicación de forma automática y transparente con el nuevo código.
+- **Auto-Pull:** Al iniciarse y a los 5 minutos de cada hora (ej. 10:05), el sistema verifica si hay actualizaciones en el repositorio remoto de GitHub. Si existen, ejecuta un stash temporal de los datos locales, realiza un `git pull --rebase`, y finalmente restaura el stash. Se ejecuta de forma escalonada respecto a los scrapers para prevenir condiciones de carrera al editar los CSV, y permite que PM2 reinicie la aplicación de forma automática y transparente con el nuevo código.
 - **Auto-Commit:** De Lunes a Viernes a las 23:50 (hora de Montevideo), el sistema realiza un commit y push de todos los archivos generados en el día hacia GitHub mediante operaciones atómicas y seguras con bloqueo de procesos.
 
 ### Sincronización con Supabase

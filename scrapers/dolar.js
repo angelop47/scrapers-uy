@@ -164,6 +164,8 @@ export function start() {
   log('INFO [Dólar]', 'Scheduling scraper to run every 15 minutes between 09:00 and 18:59 (Mon-Fri)...');
   cron.schedule('*/15 9-18 * * 1-5', () => {
     scrape();
+  }, {
+    timezone: TIMEZONE
   });
 
   const now = DateTime.now().setZone(TIMEZONE);

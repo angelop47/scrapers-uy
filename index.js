@@ -6,7 +6,7 @@ import { start as startGitAutoPull } from './gitAutoPull.js';
 import { start as startSupabaseSync } from './supabase.js';
 import { log } from './logger.js';
 
-log('INFO [System]', 'Iniciando sistema de scrapers...');
+log('INFO [System]', 'Starting scrapers system...');
 
 startDolar();
 startPetroleo();
@@ -14,4 +14,4 @@ startGitAutoCommit();
 startGitAutoPull();
 startSupabaseSync();
 
-log('INFO [System]', 'Todos los scrapers han sido programados.');
+log('INFO [System]', 'All scrapers have been scheduled.');

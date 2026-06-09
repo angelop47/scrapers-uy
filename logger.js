@@ -62,10 +62,10 @@ export function log(status, message, isError = false) {
  * Función para enviar notificaciones críticas por correo electrónico a través de FormSubmit.
  */
 export async function notifyError(message) {
-  console.error(`\n[ALERT] => ENVIANDO NOTIFICACIÓN: ${message}\n`);
+  console.error(`\n[ALERT] => SENDING NOTIFICATION: ${message}\n`);
 
   if (!process.env.ALERT_EMAIL) {
-    console.error('[Logger Error] No se enviará el correo. Falta la variable de entorno ALERT_EMAIL.');
+    console.error('[Logger Error] Email will not be sent. ALERT_EMAIL environment variable is missing.');
     return;
   }
 
@@ -88,11 +88,11 @@ export async function notifyError(message) {
     });
 
     if (response.ok) {
-      console.log('[Email Alert] Correo enviado correctamente a través de FormSubmit.');
+      console.log('[Email Alert] Email sent successfully via FormSubmit.');
     } else {
-      console.error(`[Logger Error] Error en la respuesta de FormSubmit: ${response.statusText}`);
+      console.error(`[Logger Error] FormSubmit response error: ${response.statusText}`);
     }
   } catch (e) {
-    console.error(`[Logger Error] Error al hacer la petición a FormSubmit: ${e.message}`);
+    console.error(`[Logger Error] Request to FormSubmit failed: ${e.message}`);
   }
 }

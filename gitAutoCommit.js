@@ -6,7 +6,7 @@ import { execGit } from './gitUtils.js';
 const TIMEZONE = 'America/Montevideo';
 
 async function autoCommitAndPush() {
-  log('INFO [Git]', 'Iniciando commit automático...');
+  log('INFO [Git]', 'Starting auto-commit...');
   
   try {
     // Agregar archivos explícitamente para evitar subir basura accidentalmente
@@ -19,39 +19,39 @@ async function autoCommitAndPush() {
     // Commit
     try {
       const { stdout } = await execGit(`git commit -m "${commitMsg}"`);
-      log('INFO [Git]', `Commit realizado: ${stdout.trim()}`);
+      log('INFO [Git]', `Commit successful: ${stdout.trim()}`);
     } catch (err) {
       if (err.stdout && err.stdout.includes('nothing to commit')) {
-        log('INFO [Git]', 'Nada para commitear.');
+        log('INFO [Git]', 'Nothing to commit.');
         return;
       }
       throw err;
     }
     
     // Sincronizar antes de pushear para evitar conflictos (hace un pull rebase)
-    log('INFO [Git]', 'Sincronizando con remoto antes de pushear (rebase)...');
+    log('INFO [Git]', 'Syncing with remote before pushing (rebase)...');
     try {
       await execGit('git pull --rebase origin main -q');
     } catch (errPull) {
-      log('ERROR [Git]', `Conflicto o error en rebase previo al push: ${errPull.message}`, true);
+      log('ERROR [Git]', `Conflict or error in rebase before push: ${errPull.message}`, true);
       await execGit('git rebase --abort').catch(() => {});
-      log('ERROR [Git]', 'Rebase abortado. No se realizó el push.');
-      await notifyError(`Fallo crítico en git pull rebase al intentar auto-commit: ${errPull.message}`);
+      log('ERROR [Git]', 'Rebase aborted. Push was not performed.');
+      await notifyError(`Critical failure in git pull rebase when attempting auto-commit: ${errPull.message}`);
       return;
     }
 
     // Push
     await execGit('git push origin HEAD');
-    log('INFO [Git]', 'Push realizado correctamente.');
+    log('INFO [Git]', 'Push performed successfully.');
     
   } catch (err) {
-    log('ERROR [Git]', `Error inesperado en autoCommitAndPush: ${err.message}`, true);
-    notifyError(`Error inesperado en autoCommitAndPush: ${err.message}`);
+    log('ERROR [Git]', `Unexpected error in autoCommitAndPush: ${err.message}`, true);
+    notifyError(`Unexpected error in autoCommitAndPush: ${err.message}`);
   }
 }
 
 export function start() {
-  log('INFO [Git]', 'Programando auto-commit a las 23:50 (Mon-Fri, Montevideo Time)...');
+  log('INFO [Git]', 'Scheduling auto-commit at 23:50 (Mon-Fri, Montevideo Time)...');
   
   // 23:50 de Lunes a Viernes
   cron.schedule('50 23 * * 1-5', () => {

@@ -1,6 +1,7 @@
 import { fetchNews } from './scrapers/events/news-fetcher.js';
 import { generateMostRelevantNews } from './scrapers/events/gemini-generator.js';
 import { writeJsonFile, getRecentLocalNewsTitles } from './scrapers/events/json-writer.js';
+import { enrichNewsContent } from './scrapers/events/news-enricher.js';
 import { log } from './logger.js';
 import cron from 'node-cron';
 import { fileURLToPath } from 'url';
@@ -50,11 +51,14 @@ async function runNewsAutomation() {
             return;
         }
 
-        // 3. Generar JSON
+        // 3. Enriquecer el contenido con IA
+        const enrichedNews = await enrichNewsContent(verifiedNews);
+
+        // 4. Generar JSON
         let filePath;
-        if (verifiedNews.length > 0) {
-            verifiedNews.forEach(news => log('SUCCESS [News]', `News approved and selected: "${news.title}"`));
-            filePath = writeJsonFile(verifiedNews);
+        if (enrichedNews && enrichedNews.length > 0) {
+            enrichedNews.forEach(news => log('SUCCESS [News]', `News approved, enriched and selected: "${news.title}"`));
+            filePath = writeJsonFile(enrichedNews);
         }
         
         if (filePath) {

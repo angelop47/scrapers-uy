@@ -61,7 +61,7 @@ Estructura de CADA objeto del arreglo:
 
     while (attempt < maxRetries) {
         try {
-            const modelName = attempt < 2 ? 'gemini-2.5-flash' : 'gemini-2.0-flash';
+            const modelName = attempt < 2 ? 'gemini-3.5-flash' : 'gemini-2.5-flash';
             log('INFO [Gemini]', `Intentando con modelo: ${modelName}`);
             
             const response = await ai.models.generateContent({

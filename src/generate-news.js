@@ -14,6 +14,7 @@ async function runNewsAutomation() {
         const newsList = await fetchNews();
         if (newsList.length === 0) {
             log('WARNING [News]', 'No news found in feeds. Aborting.');
+            await runNewsEnrichment();
             return;
         }
         log('INFO [News]', `Collected ${newsList.length} news from RSS feeds.`);
@@ -28,6 +29,7 @@ async function runNewsAutomation() {
         
         if (!relevantNewsArray || relevantNewsArray.length === 0) {
             log('INFO [News]', 'No new news selected.');
+            await runNewsEnrichment();
             return;
         }
 

@@ -27,7 +27,7 @@ export async function generateMostRelevantNews(newsList, localTitles = []) {
         'Sin contexto previo.';
 
     const localContextText = localTitles.length > 0 ?
-        `\n\nAdemás, HOY ya se generaron las siguientes noticias localmente (NO REPETIR NINGUNA DE ESTAS):\n${localTitles.map(t => `- ${t}`).join('\n')}` : '';
+        `\n\nAdemás, RECIENTEMENTE ya se generaron las siguientes noticias localmente (NO REPETIR NINGUNA DE ESTAS):\n${localTitles.map(t => `- ${t}`).join('\n')}` : '';
 
     const newsText = newsList.map((n, i) => `${i + 1}. [${n.source}] ${n.title}\nResumen: ${n.contentSnippet}`).join('\n\n');
 

@@ -3,21 +3,26 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { log } from '../../logger.js';
 
-export function getTodayLocalNewsTitles() {
-    const date = new Date().toISOString().split('T')[0];
+export function getRecentLocalNewsTitles(days = 7) {
     const outputDir = path.join(process.cwd(), 'noticias');
-    const filePath = path.join(outputDir, `${date}.json`);
-    
-    if (!fs.existsSync(filePath)) return [];
-    
+    if (!fs.existsSync(outputDir)) return [];
+
+    let allTitles = [];
     try {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        const data = JSON.parse(content);
-        return data.map(item => item.title);
+        const files = fs.readdirSync(outputDir);
+        // Ordenar alfabéticamente inverso (por fecha) y tomar los últimos 'days'
+        const jsonFiles = files.filter(f => f.endsWith('.json')).sort().reverse().slice(0, days);
+        
+        for (const file of jsonFiles) {
+            const filePath = path.join(outputDir, file);
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const data = JSON.parse(content);
+            allTitles = allTitles.concat(data.map(item => item.title));
+        }
     } catch (e) {
-        log('ERROR [JSON-Writer]', `Error reading daily JSON: ${e.message}`, true);
-        return [];
+        log('ERROR [JSON-Writer]', `Error reading recent JSONs: ${e.message}`, true);
     }
+    return allTitles;
 }
 
 export function writeJsonFile(newsArray) {

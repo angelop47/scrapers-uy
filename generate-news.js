@@ -1,6 +1,6 @@
 import { fetchNews } from './scrapers/events/news-fetcher.js';
 import { generateMostRelevantNews } from './scrapers/events/gemini-generator.js';
-import { writeJsonFile, getTodayLocalNewsTitles } from './scrapers/events/json-writer.js';
+import { writeJsonFile, getRecentLocalNewsTitles } from './scrapers/events/json-writer.js';
 import { log } from './logger.js';
 import cron from 'node-cron';
 import { fileURLToPath } from 'url';
@@ -17,9 +17,9 @@ async function runNewsAutomation() {
         }
         log('INFO [News]', `Collected ${newsList.length} news from RSS feeds.`);
 
-        const localTitles = getTodayLocalNewsTitles();
+        const localTitles = getRecentLocalNewsTitles(7); // Obtener títulos de los últimos 7 días
         if (localTitles.length > 0) {
-            log('INFO [News]', `Found ${localTitles.length} news already generated locally today.`);
+            log('INFO [News]', `Found ${localTitles.length} news already generated locally in recent days.`);
         }
 
         // 2. Procesar con IA
@@ -39,7 +39,7 @@ async function runNewsAutomation() {
             );
             
             if (isDuplicate) {
-                log('WARNING [News]', `Discarded by local verification (duplicate of today): "${news.title}"`);
+                log('WARNING [News]', `Discarded by local verification (duplicate from recent days): "${news.title}"`);
                 return false;
             }
             return true;

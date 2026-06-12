@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Línea de Tiempo - Uruguay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #fafafa;
+            --text-color: #111827;
+            --card-bg: #ffffff;
+            --card-border: #e5e7eb;
+            
+            /* Colores planos para categorías */
+            --cat-yellow: #f59e0b;
+            --cat-red: #ef4444;
+            --cat-pink: #ec4899;
+            --cat-green: #10b981;
+            --cat-indigo: #6366f1;
+            --cat-orange: #f97316;
+            --cat-teal: #14b8a6;
+            --cat-lime: #84cc16;
+            --cat-slate: #64748b;
+            --cat-purple: #a855f7;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        header {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1rem 2rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            color: #111827;
+            letter-spacing: -0.5px;
+        }
+
+        p.subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+            position: relative;
+        }
+
+        /* Línea vertical simple */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 3rem;
+            bottom: 3rem;
+            width: 2px;
+            background: #e5e7eb;
+        }
+
+        .event-card {
+            margin-left: 60px;
+            margin-bottom: 3rem;
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        /* Punto plano en la línea */
+        .event-card::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            top: 32px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--color);
+            border: 4px solid var(--bg-color);
+        }
+
+        .event-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            gap: 1rem;
+        }
+
+        .event-date {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .event-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: var(--color);
+        }
+
+        .event-title {
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .event-description {
+            color: #4b5563;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .event-content {
+            display: none;
+            color: #374151;
+            font-size: 0.95rem;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Estilos de Markdown minimalistas */
+        .event-content h2 {
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .event-content p {
+            margin-bottom: 1rem;
+        }
+        .event-content ul {
+            padding-left: 1.5rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .read-more-btn {
+            background: transparent;
+            color: #4f46e5;
+            border: none;
+            padding: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .read-more-btn:hover {
+            color: #4338ca;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: #6b7280;
+        }
+
+        /* Colores dinámicos por categoría */
+        [data-category="business"] { --color: var(--cat-yellow); }
+        [data-category="crisis"] { --color: var(--cat-red); }
+        [data-category="culture"] { --color: var(--cat-pink); }
+        [data-category="economic"] { --color: var(--cat-green); }
+        [data-category="entertainment"] { --color: var(--cat-indigo); }
+        [data-category="infrastructure"] { --color: var(--cat-orange); }
+        [data-category="international"] { --color: var(--cat-teal); }
+        [data-category="law"] { --color: var(--cat-lime); }
+        [data-category="politics"] { --color: var(--cat-slate); }
+        [data-category="social"] { --color: var(--cat-purple); }
+        
+        /* Fallback */
+        .event-card { --color: var(--cat-slate); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hitos Históricos</h1>
+        <p class="subtitle">Línea de tiempo de eventos destacados de Uruguay</p>
+    </header>
+
+    <div class="timeline-container" id="timeline">
+        <div class="loading">Cargando eventos...</div>
+    </div>
+
+    <script>
+        const categoryLabels = {
+            "business": "Negocios",
+            "crisis": "Crisis",
+            "culture": "Cultura",
+            "economic": "Económico",
+            "entertainment": "Entretenimiento",
+            "infrastructure": "Infraestructura",
+            "international": "Internacional",
+            "law": "Ley / Decreto",
+            "politics": "Política",
+            "social": "Social"
+        };
+
+        async function loadEvents() {
+            try {
+                const response = await fetch('/events');
+                const events = await response.json();
+                
+                const timeline = document.getElementById('timeline');
+                timeline.innerHTML = '';
+
+                if (events.length === 0) {
+                    timeline.innerHTML = '<div class="loading">Aún no hay eventos registrados en la historia.</div>';
+                    return;
+                }
+
+                events.forEach(event => {
+                    const card = document.createElement('div');
+                    card.className = 'event-card';
+                    card.setAttribute('data-category', event.category_id);
+
+                    const label = categoryLabels[event.category_id] || event.category_id;
+
+                    let tagsHtml = '';
+                    if (event.tags && event.tags.length > 0) {
+                        tagsHtml = `<div class="tags">${event.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>`;
+                    }
+
+                    const rawMarkdown = event.content || '';
+                    const isContentEmpty = rawMarkdown.trim().length === 0;
+                    const htmlContent = !isContentEmpty ? marked.parse(rawMarkdown) : '';
+
+                    let extraContentHtml = '';
+                    if (!isContentEmpty) {
+                        extraContentHtml = `
+                            <button class="read-more-btn" onclick="toggleContent(this)">Leer desarrollo completo</button>
+                            <div class="event-content">${htmlContent}</div>
+                        `;
+                    }
+
+                    card.innerHTML = `
+                        <div class="event-header">
+                            <span class="event-category">${label}</span>
+                            <span class="event-date">${event.date}</span>
+                        </div>
+                        <h3 class="event-title">${event.title}</h3>
+                        <p class="event-description">${event.description}</p>
+                        ${tagsHtml}
+                        ${extraContentHtml}
+                    `;
+
+                    timeline.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error fetching events:', error);
+                document.getElementById('timeline').innerHTML = '<div class="loading" style="color: #ef4444;">Error al conectar con el servidor.</div>';
+            }
+        }
+
+        function toggleContent(btn) {
+            const content = btn.nextElementSibling;
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                btn.textContent = 'Leer desarrollo completo';
+            } else {
+                content.style.display = 'block';
+                btn.textContent = 'Ocultar desarrollo';
+            }
+        }
+
+        // Iniciar
+        loadEvents();
+    </script>
+</body>
+</html>

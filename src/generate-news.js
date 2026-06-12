@@ -70,8 +70,8 @@ async function runNewsEnrichment() {
         
         for (const fileData of recentFilesData) {
             const { filePath, data } = fileData;
-            // Solo enriquecer las que tengan explícitamente isEnriched === false (o que no lo tengan y el content esté vacío)
-            const needsEnrichment = data.filter(n => !n.isEnriched && (!n.content || n.content.trim() === ''));
+            // Enriquecer todas las noticias que tengan isEnriched === false
+            const needsEnrichment = data.filter(n => !n.isEnriched);
             
             if (needsEnrichment.length > 0) {
                 log('INFO [News]', `Encontradas ${needsEnrichment.length} noticias pendientes en: ${filePath}`);

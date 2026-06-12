@@ -2,6 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { log } from '../../logger.js';
+import { DateTime } from 'luxon';
+
+const TIMEZONE = 'America/Montevideo';
 
 export function getRecentLocalNewsTitles(days = 7) {
     const outputDir = path.join(process.cwd(), 'noticias');
@@ -28,7 +31,7 @@ export function getRecentLocalNewsTitles(days = 7) {
 export function writeJsonFile(newsArray) {
     if (!newsArray || newsArray.length === 0) return null;
 
-    const date = new Date().toISOString().split('T')[0];
+    const date = DateTime.now().setZone(TIMEZONE).toISODate();
     const outputDir = path.join(process.cwd(), 'noticias');
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });

@@ -53,6 +53,7 @@ export function writeJsonFile(newsArray) {
     const newsWithIds = newsArray.map(news => ({
         id: uuidv4(),
         ...news,
+        isEnriched: news.isEnriched || false,
         tags: Array.isArray(news.tags) ? news.tags : [],
         image_url: news.image_url || null
     }));
@@ -62,4 +63,33 @@ export function writeJsonFile(newsArray) {
     fs.writeFileSync(filePath, JSON.stringify(combinedData, null, 2), 'utf-8');
     
     return filePath;
+}
+
+export function getRecentJsonFilesData(days = 3) {
+    const outputDir = path.join(process.cwd(), 'noticias');
+    if (!fs.existsSync(outputDir)) return [];
+
+    let results = [];
+    try {
+        const files = fs.readdirSync(outputDir);
+        const jsonFiles = files.filter(f => f.endsWith('.json')).sort().reverse().slice(0, days);
+        
+        for (const file of jsonFiles) {
+            const filePath = path.join(outputDir, file);
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const data = JSON.parse(content);
+            results.push({ filePath, data });
+        }
+    } catch (e) {
+        log('ERROR [JSON-Writer]', `Error reading recent JSONs data: ${e.message}`, true);
+    }
+    return results;
+}
+
+export function updateJsonFile(filePath, data) {
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    } catch (e) {
+        log('ERROR [JSON-Writer]', `Error updating JSON file: ${e.message}`, true);
+    }
 }

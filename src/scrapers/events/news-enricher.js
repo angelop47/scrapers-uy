@@ -78,7 +78,8 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
         // Devolvemos el objeto de la noticia actualizado
         enrichedNewsArray.push({
             ...news,
-            content: enrichedContent
+            content: enrichedContent,
+            isEnriched: enrichedContent !== news.content // si cambió, se enriqueció
         });
         
         // Pequeño delay entre noticias para no saturar la API

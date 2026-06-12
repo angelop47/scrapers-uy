@@ -18,15 +18,14 @@ Los datos históricos del petróleo se guardan en la carpeta `petroleo/` dividid
 
 ## Recopilación de Noticias con Inteligencia Artificial (Gemini)
 
-El sistema incluye un scraper de noticias diseñado para construir una Línea del Tiempo de Uruguay.
+El sistema incluye un scraper de noticias diseñado para construir una Línea del Tiempo de Uruguay, implementando un pipeline resiliente de dos fases (generación y enriquecimiento diferido).
 
 - **Frecuencia:** Se ejecuta de manera automática 4 veces al día (06:00, 12:00, 18:00 y 22:00).
 - **Proceso:**
-  1. Recopila noticias mediante RSS de portales de Uruguay (Montevideo Portal, Teledoce) y BBC Mundo.
-  2. Obtiene el contexto de los eventos más recientes de Supabase y las noticias locales de los últimos 7 días.
-  3. Envía toda la información a **Google Gemini 2.5 Flash** (con sistema automático de reintentos y fallback a `gemini-2.0-flash` en caso de sobrecarga de servidores).
-  4. La IA actúa como editora: filtra lo intrascendente, selecciona solo eventos de alto impacto para Uruguay, y devuelve un JSON estructurado redactado desde cero.
-- **Qué guarda:** Los resultados aprobados se guardan localmente en la carpeta `noticias/` bajo el formato `YYYY-MM-DD.json`.
+  1. **Recopilación:** Lee noticias mediante RSS de portales de Uruguay (Montevideo Portal, Teledoce) y BBC Mundo.
+  2. **Selección Editorial:** Obtiene el contexto histórico desde Supabase y envía la información a **Google Gemini 3.5 Flash** (con fallback a `2.5-flash`). La IA actúa como editora filtrando lo intrascendente y seleccionando solo eventos de alto impacto, guardándolos inicialmente en un JSON base.
+  3. **Enriquecimiento Diferido (Google Search):** El sistema revisa los JSON de los últimos 3 días en busca de noticias pendientes de investigación (`isEnriched: false`). Mediante Gemini y **Google Search**, investiga a fondo cada noticia en internet para redactar un artículo extenso con contexto histórico, desarrollo y repercusiones en formato Markdown. Si la API de Google está saturada (Error 503), el sistema no interrumpe el flujo, sino que deja la noticia "pendiente" para investigarla automáticamente en la siguiente ejecución del cron.
+- **Qué guarda:** Los resultados aprobados e investigados se guardan localmente en la carpeta `noticias/` bajo el formato `YYYY-MM-DD.json`.
 - **Interfaz Web (API y UI):** El proyecto levanta una API HTTP local y sirve una interfaz gráfica desde la carpeta `public/`. Al acceder a la raíz del servidor, se renderiza la línea de tiempo con las noticias parseadas a través de Markdown.
 
 > [!NOTE]

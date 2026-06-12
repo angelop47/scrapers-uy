@@ -1,6 +1,6 @@
 import { fetchNews } from './scrapers/events/news-fetcher.js';
 import { generateMostRelevantNews } from './scrapers/events/gemini-generator.js';
-import { writeJsonFile, getRecentLocalNewsTitles } from './scrapers/events/json-writer.js';
+import { writeJsonFile, getRecentLocalNewsTitles, getRecentJsonFilesData, updateJsonFile } from './scrapers/events/json-writer.js';
 import { enrichNewsContent } from './scrapers/events/news-enricher.js';
 import { log } from './logger.js';
 import cron from 'node-cron';
@@ -48,22 +48,36 @@ async function runNewsAutomation() {
 
         if (verifiedNews.length === 0) {
             log('WARNING [News]', 'None of the selected news passed local verification. All were duplicates.');
-            return;
+        } else {
+            // Guardar noticias base (con isEnriched: false por defecto)
+            verifiedNews.forEach(news => log('SUCCESS [News]', `News approved and selected: "${news.title}"`));
+            writeJsonFile(verifiedNews);
         }
 
-        // 3. Enriquecer el contenido con IA
-        const enrichedNews = await enrichNewsContent(verifiedNews);
-
-        // 4. Generar JSON
-        let filePath;
-        if (enrichedNews && enrichedNews.length > 0) {
-            enrichedNews.forEach(news => log('SUCCESS [News]', `News approved, enriched and selected: "${news.title}"`));
-            filePath = writeJsonFile(enrichedNews);
+        // 3. Paso de Recuperación y Enriquecimiento (Diferido)
+        log('INFO [News]', 'Buscando noticias pendientes de enriquecer en los últimos 3 días...');
+        const recentFilesData = getRecentJsonFilesData(3);
+        
+        for (const fileData of recentFilesData) {
+            const { filePath, data } = fileData;
+            // Solo enriquecer las que tengan explícitamente isEnriched === false (o que no lo tengan y el content esté vacío)
+            const needsEnrichment = data.filter(n => !n.isEnriched && (!n.content || n.content.trim() === ''));
+            
+            if (needsEnrichment.length > 0) {
+                log('INFO [News]', `Encontradas ${needsEnrichment.length} noticias pendientes en: ${filePath}`);
+                const newlyEnriched = await enrichNewsContent(needsEnrichment);
+                
+                // Actualizar el arreglo de ese archivo específico
+                const finalData = data.map(news => {
+                    const enriched = newlyEnriched.find(e => e.id === news.id);
+                    return enriched ? enriched : news;
+                });
+                
+                updateJsonFile(filePath, finalData);
+                log('SUCCESS [News]', `Archivo actualizado con contenidos enriquecidos: ${filePath}`);
+            }
         }
         
-        if (filePath) {
-            log('SUCCESS [News]', `JSON file updated successfully: ${filePath}`);
-        }
         log('INFO [News]', '--- Process finished successfully ---');
     } catch (error) {
         log('ERROR [News]', `Error during automation: ${error.message}`, true);

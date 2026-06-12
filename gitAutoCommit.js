@@ -10,7 +10,7 @@ async function autoCommitAndPush() {
   
   try {
     // Agregar archivos explícitamente para evitar subir basura accidentalmente
-    await execGit('git add petroleo/ dollar/');
+    await execGit('git add petroleo/ dollar/ noticias/');
     
     const now = DateTime.now().setZone(TIMEZONE);
     const fecha = now.toISODate();

@@ -55,6 +55,16 @@ async function runNewsAutomation() {
         }
 
         // 3. Paso de Recuperación y Enriquecimiento (Diferido)
+        await runNewsEnrichment();
+        
+        log('INFO [News]', '--- Process finished successfully ---');
+    } catch (error) {
+        log('ERROR [News]', `Error during automation: ${error.message}`, true);
+    }
+}
+
+async function runNewsEnrichment() {
+    try {
         log('INFO [News]', 'Buscando noticias pendientes de enriquecer en los últimos 3 días...');
         const recentFilesData = getRecentJsonFilesData(3);
         
@@ -77,10 +87,8 @@ async function runNewsAutomation() {
                 log('SUCCESS [News]', `Archivo actualizado con contenidos enriquecidos: ${filePath}`);
             }
         }
-        
-        log('INFO [News]', '--- Process finished successfully ---');
     } catch (error) {
-        log('ERROR [News]', `Error during automation: ${error.message}`, true);
+        log('ERROR [News]', `Error during enrichment: ${error.message}`, true);
     }
 }
 
@@ -88,6 +96,13 @@ export function start() {
     log('INFO [News]', 'Scheduling news scraper to run 4 times a day (06:00, 12:00, 18:00, 22:00)...');
     cron.schedule('0 6,12,18,22 * * *', () => {
         runNewsAutomation();
+    }, {
+        timezone: 'America/Montevideo'
+    });
+
+    log('INFO [News]', 'Scheduling news enricher to run individually at 13, 14, 19, 20, 23 hs...');
+    cron.schedule('0 13,14,19,20,23 * * *', () => {
+        runNewsEnrichment();
     }, {
         timezone: 'America/Montevideo'
     });

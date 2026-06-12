@@ -41,9 +41,11 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
 
         while (attempt < maxRetries) {
             try {
-                // Usamos gemini-2.0-flash ya que admite bien herramientas como Google Search
+                const modelName = attempt < 2 ? 'gemini-3.5-flash' : 'gemini-2.5-flash';
+                log('INFO [News-Enricher]', `Intentando enriquecer con modelo: ${modelName}`);
+
                 const response = await ai.models.generateContent({
-                    model: 'gemini-3.5-flash', // Fallback si 3.5 no admite búsqueda, podemos usar 2.5-flash o pro
+                    model: modelName,
                     contents: [
                         { role: 'user', parts: [{ text: systemPrompt }, { text: userPrompt }] }
                     ],
@@ -66,7 +68,9 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
                 if (attempt >= maxRetries) {
                     log('ERROR [News-Enricher]', `No se pudo enriquecer "${news.title}" después de ${maxRetries} intentos. Se usará el contenido original.`, true);
                 } else {
-                    await delay(15000); // 15 segundos de espera entre reintentos
+                    const waitTime = 60000; // 60 segundos
+                    log('INFO [News-Enricher]', `Reintentando en ${waitTime/1000} segundos... (${attempt}/${maxRetries})`);
+                    await delay(waitTime);
                 }
             }
         }

@@ -90,7 +90,7 @@ Estructura de CADA objeto del arreglo:
             if (attempt >= maxRetries) {
                 throw new Error('La IA no devolvió un JSON válido o la API falló después de todos los reintentos y fallbacks');
             }
-            const waitTime = 30000; // 30 segundos
+            const waitTime = 60000; // 60 segundos
             log('INFO [Gemini]', `Retrying in ${waitTime/1000} seconds... (${attempt}/${maxRetries})`);
             await delay(waitTime);
         }

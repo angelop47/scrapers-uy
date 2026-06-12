@@ -35,6 +35,6 @@ export async function fetchNews() {
 
     // Ordenar de más reciente a más antigua
     allNews.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-    // Limitar a las 100 más recientes para dar un buen abanico a la IA
-    return allNews.slice(0, 100);
+    // Limitar a las 50 más recientes para dar un buen abanico a la IA
+    return allNews.slice(0, 50);
 }

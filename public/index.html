@@ -359,6 +359,11 @@
                         tagsHtml = `<div class="tags">${event.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>`;
                     }
 
+                    let sourcesHtml = '';
+                    if (event.sources && event.sources.length > 0) {
+                        sourcesHtml = `<div style="font-size: 0.85rem; color: #6b7280; margin-bottom: 1rem;"><strong>Fuentes:</strong> ${event.sources.join(', ')}</div>`;
+                    }
+
                     const rawMarkdown = event.content || '';
                     const isContentEmpty = rawMarkdown.trim().length === 0;
                     const htmlContent = !isContentEmpty ? marked.parse(rawMarkdown) : '';
@@ -390,6 +395,7 @@
                         </div>
                         <h3 class="event-title">${event.title}</h3>
                         <p class="event-description">${event.description}</p>
+                        ${sourcesHtml}
                         ${tagsHtml}
                         ${extraContentHtml}
                     `;

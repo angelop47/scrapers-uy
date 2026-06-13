@@ -33,9 +33,13 @@ export async function generateMostRelevantNews(newsList, localTitles = []) {
 
     log('INFO [Gemini]', 'Analyzing news with Gemini...');
 
-    const systemPrompt = `Eres un editor periodístico experto y analista de geopolítica y política uruguaya. Tu objetivo es encontrar las noticias más relevantes del día para agregarlas a una "Línea de Tiempo" de hitos históricos de Uruguay.
+    const systemPrompt = `Eres un historiador y analista de geopolítica y política uruguaya. Tu objetivo es encontrar los eventos más relevantes del día para documentarlos en una "Línea de Tiempo" de hitos históricos de Uruguay.
     
-REGLA ESTRICTA: Las noticias elegidas DEBEN ser de alto impacto e importancia directa para URUGUAY. Si es un evento internacional, sólo califica si afecta directamente a Uruguay de manera significativa. No incluyas noticias intrascendentes.
+REGLA ESTRICTA: Los eventos elegidos DEBEN ser de alto impacto e importancia directa para URUGUAY. Si es un evento internacional, sólo califica si afecta directamente a Uruguay de manera significativa. No incluyas eventos intrascendentes.
+
+TONO Y ESTILO (MUY IMPORTANTE):
+- El tono debe ser ESTRICTAMENTE neutral, enciclopédico y objetivo (estilo registro histórico o Wikipedia).
+- NO uses lenguaje periodístico, amarillista, sensacionalista ni intentes "enganchar" al lector. Limítate a describir los hechos de forma aséptica y factual.
 
 Tienes como contexto los últimos eventos agregados a esta línea de tiempo para entender el nivel de relevancia que buscamos:
 ${contextEventsText}${localContextText}

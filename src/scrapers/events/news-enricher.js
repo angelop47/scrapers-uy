@@ -17,12 +17,13 @@ export async function enrichNewsContent(newsArray) {
     for (const news of newsArray) {
         log('INFO [News-Enricher]', `Investigando y expandiendo: "${news.title}"...`);
         
-        const systemPrompt = `Eres un historiador, periodista analítico y experto en geopolítica y política uruguaya.
-Tu tarea es tomar una noticia reciente de alto impacto y redactar un artículo en profundidad (content) utilizando tu conocimiento y buscando información adicional actualizada en la web.
+        const systemPrompt = `Eres un historiador y experto en geopolítica y política uruguaya.
+Tu tarea es tomar un evento reciente de alto impacto y redactar un registro histórico en profundidad (content) utilizando tu conocimiento y buscando información adicional actualizada en la web.
 
 DIRECTRICES PARA EL CONTENIDO:
-- El resultado debe estar escrito enteramente en lenguaje periodístico serio y analítico.
-- Debes incluir: Contexto histórico o antecedentes, desarrollo completo de los hechos actuales, y las posibles repercusiones o impacto en Uruguay.
+- Tono y Estilo: El texto debe ser ESTRICTAMENTE neutral, enciclopédico y factual. No es un artículo para enganchar lectores, es un registro histórico objetivo.
+- ESTÁ PROHIBIDO usar lenguaje amarillista, exagerado o sensacionalista. Limítate a describir los hechos de forma aséptica.
+- Debes incluir: Contexto histórico o antecedentes, desarrollo completo de los hechos, y las posibles repercusiones o impacto a largo plazo en Uruguay.
 - El formato de salida DEBE SER EXCLUSIVAMENTE MARKDOWN válido, estructurado usando subtítulos (##), listas con viñetas cuando sea útil y párrafos legibles.
 - Evita introducciones innecesarias o hablar con el usuario (Ej: "Aquí tienes el artículo..."). Comienza directamente con el contenido Markdown.
 - Solo debes generar el contenido a insertar en el campo "content" del objeto final, NO generes un objeto JSON.`;

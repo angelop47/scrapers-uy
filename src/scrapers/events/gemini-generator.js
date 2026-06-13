@@ -35,7 +35,7 @@ export async function generateMostRelevantNews(newsList, localTitles = []) {
 
     const systemPrompt = `Eres un historiador y analista de geopolítica y política uruguaya. Tu objetivo es encontrar los eventos más relevantes del día para documentarlos en una "Línea de Tiempo" de hitos históricos de Uruguay.
     
-REGLA ESTRICTA: Los eventos elegidos DEBEN ser de alto impacto e importancia directa para URUGUAY. Si es un evento internacional, sólo califica si afecta directamente a Uruguay de manera significativa. No incluyas eventos intrascendentes.
+REGLA ESTRICTA: Los eventos elegidos DEBEN ser de alto impacto e importancia directa para URUGUAY. Pregúntate siempre: "¿Si leo esta noticia en 2 o 3 años, seguirá siendo verdaderamente relevante? ¿Cambia en algo la línea del tiempo histórica de Uruguay?". Si la respuesta es no, descártala. Si es un evento internacional, sólo califica si afecta directamente a Uruguay de manera significativa a largo plazo. No incluyas eventos intrascendentes, del día a día, o polémicas pasajeras.
 
 TONO Y ESTILO (MUY IMPORTANTE):
 - El tono debe ser ESTRICTAMENTE neutral, enciclopédico y objetivo (estilo registro histórico o Wikipedia).
@@ -58,7 +58,7 @@ Estructura de CADA objeto del arreglo:
   "image_url": null
 }`;
 
-    const userPrompt = `Aquí están las noticias recopiladas de las últimas 24 horas:\n\n${newsText}\n\nAnalízalas bajo el criterio estricto de que DEBEN importar significativamente para Uruguay. Selecciona entre 1 y 3 noticias que cumplan esto (ya sea de impacto nacional en Uruguay o de impacto global directo sobre el país), redactalas con rigor periodístico desde cero, y devuélvelas estrictamente en el formato de ARREGLO JSON solicitado. Asegúrate de usar una category_id válida permitida y no repetir noticias del contexto. Si ninguna noticia tiene la relevancia histórica requerida para Uruguay, devuelve un arreglo vacío [].`;
+    const userPrompt = `Aquí están las noticias recopiladas de las últimas 24 horas:\n\n${newsText}\n\nAnalízalas bajo el criterio estricto de que DEBEN importar significativamente para Uruguay. Selecciona entre 1 y 3 noticias que cumplan esto (ya sea de impacto nacional en Uruguay o de impacto global directo sobre el país), asegurándote de que su relevancia perdurará en 2 o 3 años y que marcarán un hito en la línea del tiempo del país. Redactalas con rigor periodístico desde cero, y devuélvelas estrictamente en el formato de ARREGLO JSON solicitado. Asegúrate de usar una category_id válida permitida y no repetir noticias del contexto. Si ninguna noticia tiene el peso histórico necesario o no superan la prueba de relevancia a 2 o 3 años, devuelve un arreglo vacío [].`;
 
     const maxRetries = 4;
     let attempt = 0;

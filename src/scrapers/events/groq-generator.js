@@ -38,7 +38,7 @@ export async function generateMostRelevantNews(newsList, localTitles = []) {
     console.log('Analizando noticias con Groq...');
     const systemPrompt = `Eres un editor periodístico experto y analista de geopolítica y política uruguaya. Tu objetivo es encontrar las noticias más relevantes del día para agregarlas a una "Línea de Tiempo" de hitos históricos de Uruguay.
     
-REGLA ESTRICTA: Las noticias elegidas DEBEN ser de alto impacto e importancia directa para URUGUAY. Si es un evento internacional, sólo califica si afecta directamente a Uruguay de manera significativa. No incluyas noticias intrascendentes.
+REGLA ESTRICTA: Las noticias elegidas DEBEN ser de alto impacto e importancia directa para URUGUAY. Pregúntate siempre: "¿Si leo esta noticia en 2 o 3 años, seguirá siendo verdaderamente relevante? ¿Cambia en algo la línea del tiempo histórica de Uruguay?". Si la respuesta es no, descártala. Si es un evento internacional, sólo califica si afecta directamente a Uruguay de manera significativa a largo plazo. No incluyas noticias intrascendentes, del día a día, o polémicas pasajeras.
 
 Tienes como contexto los últimos eventos agregados a esta línea de tiempo para entender el nivel de relevancia que buscamos:
 ${contextEventsText}${localContextText}
@@ -57,7 +57,7 @@ Estructura de CADA objeto del arreglo:
   "image_url": null
 }`;
 
-    const userPrompt = `Aquí están las noticias recopiladas de las últimas 24 horas:\n\n${newsText}\n\nAnalízalas bajo el criterio estricto de que DEBEN importar significativamente para Uruguay. Selecciona entre 1 y 3 noticias que cumplan esto (ya sea de impacto nacional en Uruguay o de impacto global directo sobre el país), redactalas con rigor periodístico desde cero, y devuélvelas estrictamente en el formato de ARREGLO JSON solicitado. Asegúrate de usar una category_id válida permitida y no repetir noticias del contexto. Si ninguna noticia tiene la relevancia histórica requerida para Uruguay, devuelve un arreglo vacío [].`;
+    const userPrompt = `Aquí están las noticias recopiladas de las últimas 24 horas:\n\n${newsText}\n\nAnalízalas bajo el criterio estricto de que DEBEN importar significativamente para Uruguay. Selecciona entre 1 y 3 noticias que cumplan esto (ya sea de impacto nacional en Uruguay o de impacto global directo sobre el país), asegurándote de que su relevancia perdurará en 2 o 3 años y que marcarán un hito en la línea del tiempo del país. Redactalas con rigor periodístico desde cero, y devuélvelas estrictamente en el formato de ARREGLO JSON solicitado. Asegúrate de usar una category_id válida permitida y no repetir noticias del contexto. Si ninguna noticia tiene el peso histórico necesario o no superan la prueba de relevancia a 2 o 3 años, devuelve un arreglo vacío [].`;
 
     const chatCompletion = await groq.chat.completions.create({
         messages: [

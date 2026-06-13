@@ -134,8 +134,17 @@ async function scrape() {
 }
 
 export function start() {
-  log('INFO [Petróleo]', 'Scheduling scraper to run every 1 hour (Mon-Fri, US Time)...');
-  cron.schedule('0 * * * 1-5', () => {
+  log('INFO [Petróleo]', 'Scheduling scraper to run Mon-Thu all day, and Fri until 22:00 (US Time)...');
+  
+  // Monday to Thursday: every hour
+  cron.schedule('0 * * * 1-4', () => {
+    scrape();
+  }, {
+    timezone: 'America/New_York'
+  });
+
+  // Friday: every hour from 00:00 to 22:00 (avoiding 23:00 NY = 00:00 Montevideo on Saturday)
+  cron.schedule('0 0-22 * * 5', () => {
     scrape();
   }, {
     timezone: 'America/New_York'

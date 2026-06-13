@@ -109,8 +109,8 @@ export function start() {
         timezone: 'America/Montevideo'
     });
 
-    // Ejecución inmediata al iniciar el sistema
-    runNewsAutomation();
+    // Ejecución inmediata al iniciar el sistema removida para respetar estrictamente el cron
+    log('INFO [News]', 'Scraper initialized. Will run only at scheduled cron times.');
 }
 
 // Permitir ejecución directa desde la terminal

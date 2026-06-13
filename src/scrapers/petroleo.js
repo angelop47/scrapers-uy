@@ -141,10 +141,5 @@ export function start() {
     timezone: 'America/New_York'
   });
 
-  const now = DateTime.now().setZone(TIMEZONE);
-  if (now.weekday <= 5) {
-    scrape();
-  } else {
-    log('INFO [Petróleo]', 'Skipping initial execution (it is weekend).');
-  }
+  log('INFO [Petróleo]', 'Scraper initialized. Will run only at scheduled cron times.');
 }

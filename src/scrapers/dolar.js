@@ -168,10 +168,5 @@ export function start() {
     timezone: TIMEZONE
   });
 
-  const now = DateTime.now().setZone(TIMEZONE);
-  if (now.weekday <= 5 && now.hour >= 9 && now.hour <= 18) {
-    scrape();
-  } else {
-    log('INFO [Dólar]', 'Skipping initial execution (outside 9-18 or weekend).');
-  }
+  log('INFO [Dólar]', 'Scraper initialized. Will run only at scheduled cron times.');
 }

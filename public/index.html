@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,7 @@
             --text-color: #111827;
             --card-bg: #ffffff;
             --card-border: #e5e7eb;
-            
+
             /* Colores planos para categorías */
             --cat-yellow: #f59e0b;
             --cat-red: #ef4444;
@@ -147,9 +148,11 @@
             margin-bottom: 0.5rem;
             color: #111827;
         }
+
         .event-content p {
             margin-bottom: 1rem;
         }
+
         .event-content ul {
             padding-left: 1.5rem;
         }
@@ -190,22 +193,81 @@
             color: #6b7280;
         }
 
+        .copy-sql-btn {
+            background: #f3f4f6;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            transition: all 0.2s;
+        }
+
+        .copy-sql-btn:hover {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .copy-sql-btn.copied {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
         /* Colores dinámicos por categoría */
-        [data-category="business"] { --color: var(--cat-yellow); }
-        [data-category="crisis"] { --color: var(--cat-red); }
-        [data-category="culture"] { --color: var(--cat-pink); }
-        [data-category="economic"] { --color: var(--cat-green); }
-        [data-category="entertainment"] { --color: var(--cat-indigo); }
-        [data-category="infrastructure"] { --color: var(--cat-orange); }
-        [data-category="international"] { --color: var(--cat-teal); }
-        [data-category="law"] { --color: var(--cat-lime); }
-        [data-category="politics"] { --color: var(--cat-slate); }
-        [data-category="social"] { --color: var(--cat-purple); }
-        
+        [data-category="business"] {
+            --color: var(--cat-yellow);
+        }
+
+        [data-category="crisis"] {
+            --color: var(--cat-red);
+        }
+
+        [data-category="culture"] {
+            --color: var(--cat-pink);
+        }
+
+        [data-category="economic"] {
+            --color: var(--cat-green);
+        }
+
+        [data-category="entertainment"] {
+            --color: var(--cat-indigo);
+        }
+
+        [data-category="infrastructure"] {
+            --color: var(--cat-orange);
+        }
+
+        [data-category="international"] {
+            --color: var(--cat-teal);
+        }
+
+        [data-category="law"] {
+            --color: var(--cat-lime);
+        }
+
+        [data-category="politics"] {
+            --color: var(--cat-slate);
+        }
+
+        [data-category="social"] {
+            --color: var(--cat-purple);
+        }
+
         /* Fallback */
-        .event-card { --color: var(--cat-slate); }
+        .event-card {
+            --color: var(--cat-slate);
+        }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -235,7 +297,7 @@
             try {
                 const response = await fetch('/events');
                 const events = await response.json();
-                
+
                 const timeline = document.getElementById('timeline');
                 timeline.innerHTML = '';
 
@@ -268,10 +330,22 @@
                         `;
                     }
 
+                    const eventBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(event))));
+                    const copySqlBtnHtml = `
+                        <button class="copy-sql-btn" onclick="copySql('${eventBase64}', this)" title="Copiar SQL para Supabase">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            SQL
+                        </button>
+                    `;
+
                     card.innerHTML = `
                         <div class="event-header">
                             <span class="event-category">${label}</span>
                             <span class="event-date">${event.date}</span>
+                            ${copySqlBtnHtml}
                         </div>
                         <h3 class="event-title">${event.title}</h3>
                         <p class="event-description">${event.description}</p>
@@ -298,8 +372,39 @@
             }
         }
 
+        function copySql(eventBase64, btn) {
+            try {
+                const eventStr = decodeURIComponent(escape(atob(eventBase64)));
+                const event = JSON.parse(eventStr);
+
+                const escapeSql = (str) => {
+                    if (str === null || str === undefined) return 'NULL';
+                    return "'" + String(str).replace(/'/g, "''") + "'";
+                };
+
+                const tagsSql = event.tags && event.tags.length > 0
+                    ? "ARRAY[" + event.tags.map(t => escapeSql(t)).join(", ") + "]"
+                    : "NULL";
+
+                const sql = `INSERT INTO public.timeline_events (title, description, date, category_id, content, tags) VALUES (${escapeSql(event.title)}, ${escapeSql(event.description)}, ${escapeSql(event.date)}, ${escapeSql(event.category_id)}, ${escapeSql(event.content || '')}, ${tagsSql});`;
+
+                navigator.clipboard.writeText(sql).then(() => {
+                    const originalText = btn.innerHTML;
+                    btn.classList.add('copied');
+                    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copiado';
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        btn.innerHTML = originalText;
+                    }, 2000);
+                }).catch(err => console.error('Error copiando al portapapeles:', err));
+            } catch (err) {
+                console.error('Error parseando evento:', err);
+            }
+        }
+
         // Iniciar
         loadEvents();
     </script>
 </body>
+
 </html>

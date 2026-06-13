@@ -41,7 +41,8 @@ export function start() {
                         const content = fs.readFileSync(path.join(outputDir, file), 'utf-8');
                         const data = JSON.parse(content);
                         if (Array.isArray(data)) {
-                            allEvents = allEvents.concat(data);
+                            const dataWithSource = data.map(ev => ({ ...ev, sourceFile: file }));
+                            allEvents = allEvents.concat(dataWithSource);
                         }
                     }
                 } catch (e) {
@@ -49,8 +50,13 @@ export function start() {
                 }
             }
 
-            // Ordenar por fecha (más reciente primero)
-            allEvents.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            // Ordenar por archivo (más reciente primero) y luego por fecha
+            allEvents.sort((a, b) => {
+                if (a.sourceFile !== b.sourceFile) {
+                    return b.sourceFile.localeCompare(a.sourceFile);
+                }
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+            });
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(allEvents));

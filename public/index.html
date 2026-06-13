@@ -372,6 +372,33 @@
             }
         }
 
+        function copyTextToClipboard(text) {
+            if (!navigator.clipboard) {
+                return new Promise((resolve, reject) => {
+                    try {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = text;
+                        textArea.style.position = "fixed";
+                        textArea.style.top = "0";
+                        textArea.style.left = "0";
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        const successful = document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        if (successful) {
+                            resolve();
+                        } else {
+                            reject(new Error('execCommand copy failed'));
+                        }
+                    } catch (err) {
+                        reject(err);
+                    }
+                });
+            }
+            return navigator.clipboard.writeText(text);
+        }
+
         function copySql(eventBase64, btn) {
             try {
                 const eventStr = decodeURIComponent(escape(atob(eventBase64)));
@@ -388,7 +415,7 @@
 
                 const sql = `INSERT INTO public.timeline_events (title, description, date, category_id, content, tags) VALUES (${escapeSql(event.title)}, ${escapeSql(event.description)}, ${escapeSql(event.date)}, ${escapeSql(event.category_id)}, ${escapeSql(event.content || '')}, ${tagsSql});`;
 
-                navigator.clipboard.writeText(sql).then(() => {
+                copyTextToClipboard(sql).then(() => {
                     const originalText = btn.innerHTML;
                     btn.classList.add('copied');
                     btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copiado';

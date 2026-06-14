@@ -50,7 +50,12 @@ function getLatestLocalEconomy() {
 export async function runEconomyAutomation() {
     log('INFO [Economy-Runner]', '--- Starting Macroeconomic Indicators Automation ---');
     try {
-        const todayStr = DateTime.now().setZone(TIMEZONE).toISODate();
+        // Determinar la fecha para guardar. Si es Sábado (6), usamos la fecha del Viernes para sobrescribir/completar el mismo archivo.
+        let runDate = DateTime.now().setZone(TIMEZONE);
+        if (runDate.weekday === 6) {
+            runDate = runDate.minus({ days: 1 });
+        }
+        const targetDateStr = runDate.toISODate();
         
         // 1. Obtener estado anterior (Priorizamos JSON local, sino Supabase)
         let previousState = getLatestLocalEconomy();
@@ -74,7 +79,7 @@ export async function runEconomyAutomation() {
         }
 
         // 3. Merge (Last-Value-Carried-Forward)
-        const finalData = { date: todayStr };
+        const finalData = { date: targetDateStr };
         let updatedCount = 0;
         let carriedCount = 0;
 
@@ -93,9 +98,8 @@ export async function runEconomyAutomation() {
 
         log('INFO [Economy-Runner]', `Merge complete: ${updatedCount} keys updated by Gemini, ${carriedCount} keys carried forward from previous state.`);
 
-        // 4. Guardar en JSON Local
-        saveLocalJson(finalData, todayStr);
-
+        // 4. Guardar localmente
+        saveLocalJson(finalData, targetDateStr);
         log('INFO [Economy-Runner]', '--- Economy Automation finished successfully ---');
     } catch (error) {
         log('ERROR [Economy-Runner]', `Error during economy automation: ${error.message}`);

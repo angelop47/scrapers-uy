@@ -84,6 +84,28 @@ export function start() {
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(allStats));
+        } else if (req.method === 'GET' && req.url === '/economy') {
+            const economyDir = path.join(process.cwd(), 'economy');
+            let allEconomy = [];
+
+            if (fs.existsSync(economyDir)) {
+                try {
+                    const files = fs.readdirSync(economyDir).filter(f => f.endsWith('.json'));
+                    for (const file of files) {
+                        const content = fs.readFileSync(path.join(economyDir, file), 'utf-8');
+                        const data = JSON.parse(content);
+                        allEconomy.push(data);
+                    }
+                } catch (e) {
+                    console.error('Error leyendo economy:', e.message);
+                }
+            }
+
+            // Ordenar de más reciente a más antiguo
+            allEconomy.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(allEconomy));
         } else {
             res.writeHead(404, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Ruta no encontrada' }));

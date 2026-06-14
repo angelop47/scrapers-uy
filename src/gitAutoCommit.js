@@ -51,10 +51,10 @@ async function autoCommitAndPush() {
 }
 
 export function start() {
-  log('INFO [Git]', 'Scheduling auto-commit at 23:50 (Mon-Fri, Montevideo Time)...');
+  log('INFO [Git]', 'Scheduling auto-commit at 23:50 (Every day, Montevideo Time)...');
   
-  // 23:50 de Lunes a Viernes
-  cron.schedule('50 23 * * 1-5', () => {
+  // 23:50 todos los días
+  cron.schedule('50 23 * * *', () => {
     autoCommitAndPush();
   }, {
     timezone: TIMEZONE

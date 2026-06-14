@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 import { log } from '../../logger.js';
-import { getLatestEconomicIndicators, insertEconomicIndicators } from '../../supabase.js';
+import { getLatestEconomicIndicators } from '../../supabase.js';
 import { fetchEconomicIndicators } from './gemini-economy.js';
 
 const TIMEZONE = 'America/Montevideo';

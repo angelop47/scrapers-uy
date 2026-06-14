@@ -31,6 +31,18 @@ El sistema incluye un scraper de noticias diseñado para construir una Línea de
 > [!NOTE]
 > Para activar este módulo, requiere configurar la clave de Google GenAI en el archivo \`.env\` bajo la variable \`GEMINI_TOKEN\`.
 
+## Estadísticas de Mandatos con Inteligencia Artificial (Gemini)
+
+El sistema incluye un scraper automatizado que rastrea los últimos datos macroeconómicos y gubernamentales de Uruguay (Inflación, Desempleo, PIB, Aprobación Presidencial) utilizando Gemini y Google Search.
+
+- **Frecuencia:** Se ejecuta de manera automática todos los días a las 10:00 AM.
+- **Proceso:**
+  1. **Detección Dinámica:** Obtiene de manera automática el presidente en curso consultando la base de datos de Supabase, adaptándose sin mantenimiento a futuros cambios de gobierno.
+  2. **Recopilación Inteligente:** Le provee a Gemini el historial de los últimos 7 días para evitar duplicados y realiza búsquedas enfocadas exclusivamente en fuentes oficiales confiables (INE, BCU, MEF, encuestadoras).
+  3. **Extracción Estructurada:** Formatea la respuesta indicando la tendencia (positiva o negativa) y preparándola para su inserción en base de datos.
+- **Qué guarda:** Los resultados se guardan localmente en la carpeta `stats/` bajo el formato `YYYY-MM-DD.json`, para ser revisados manualmente mediante la interfaz visual.
+- **Interfaz Web (UI):** La interfaz local (`public/index.html`) presenta los resultados obtenidos en un Dashboard dinámico, brindando la posibilidad de copiarlos como sentencias SQL preparadas (`INSERT INTO mandate_stats...`) con un solo clic.
+
 ## Sistema de Logs y Alertas
 
 > [!NOTE]

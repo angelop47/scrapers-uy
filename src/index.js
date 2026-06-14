@@ -5,6 +5,7 @@ import { start as startGitAutoCommit } from './gitAutoCommit.js';
 import { start as startGitAutoPull } from './gitAutoPull.js';
 import { start as startSupabaseSync } from './supabase.js';
 import { start as startNews } from './generate-news.js';
+import { start as startStats } from './scrapers/stats/stats-runner.js';
 import { start as startServer } from './server.js';
 import { log } from './logger.js';
 
@@ -16,6 +17,7 @@ startGitAutoCommit();
 startGitAutoPull();
 startSupabaseSync();
 startNews();
+startStats();
 startServer();
 
 log('INFO [System]', 'All scrapers have been scheduled.');

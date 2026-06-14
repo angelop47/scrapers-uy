@@ -96,6 +96,29 @@ export async function syncDolar() {
   }
 }
 
+export async function getActiveMandateId() {
+  if (!supabase) return null;
+  const now = DateTime.now().setZone(TIMEZONE).toISODate();
+  
+  try {
+    const { data, error } = await supabase
+      .from('mandates')
+      .select('id')
+      .lte('start_date', now)
+      .or(`end_date.is.null,end_date.gt.${now}`)
+      .order('start_date', { ascending: false })
+      .limit(1)
+      .single();
+      
+    if (error) throw error;
+    return data?.id || null;
+  } catch (err) {
+    log('ERROR [Supabase]', `Error fetching active mandate: ${err.message}`);
+    return null;
+  }
+}
+
+
 export function start() {
   log('INFO [Supabase]', 'Scheduling sync to run at 23:55 (Mon-Fri, Uruguay Time)...');
   cron.schedule('55 23 * * 1-5', () => {

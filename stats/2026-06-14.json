@@ -1,0 +1,74 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Inflación Interanual de Mayo",
+    "description": "La inflación interanual en Uruguay registró su segunda suba consecutiva en mayo de 2026, alcanzando el 3,77%, impulsada por la volatilidad internacional y los precios de la energía.",
+    "indicator": "inflation",
+    "value": 3.77,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Tasa de Desempleo de Abril",
+    "description": "La tasa de desempleo en Uruguay se situó en 7,5% en abril de 2026, registrando una baja de 0,3 puntos porcentuales frente al mes anterior (7,8%).",
+    "indicator": "unemployment",
+    "value": 7.5,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Aprobación Presidencial de Yamandú Orsi",
+    "description": "La aprobación de la gestión del presidente Yamandú Orsi cayó al 26% en el segundo trimestre de 2026, mientras que la desaprobación se situó en el 43%, según la encuesta de Opción Consultores.",
+    "indicator": "approval_rating",
+    "value": 26,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Opción Consultores"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-04-30",
+    "title": "Déficit Fiscal de Abril",
+    "description": "El déficit fiscal del Gobierno Central y el Banco de Previsión Social (GC-BPS), excluyendo los ingresos al Fideicomiso de la Seguridad Social, se ubicó en 3,9% del PIB en los 12 meses cerrados a abril de 2026, lo que representa una reducción de 0,2 puntos porcentuales frente al mes anterior [3.1.1].",
+    "indicator": "fiscal_deficit",
+    "value": 3.9,
+    "unit": "% del PIB",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "Ministerio de Economía y Finanzas (MEF)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-04-30",
+    "title": "Salario Real de Abril",
+    "description": "El salario real en Uruguay registró un incremento interanual del 1,90% en abril de 2026, según el INE. El Índice Medio de Salarios (IMS) aumentó un 5,12% nominal en los últimos 12 meses, superando a la inflación interanual del 3,16%.",
+    "indicator": "real_wage_growth",
+    "value": 1.9,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-31",
+    "title": "Exportaciones de Bienes de Mayo",
+    "description": "Las solicitudes de exportación de bienes de Uruguay (incluyendo zonas francas) alcanzaron los 1.142 millones de dólares en mayo de 2026, registrando una caída interanual del 3% debido a menores ventas de carne bovina y celulosa.",
+    "indicator": "exports",
+    "value": 1142,
+    "unit": "millones USD",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Uruguay XXI"
+  }
+]

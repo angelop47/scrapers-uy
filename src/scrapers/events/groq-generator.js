@@ -14,7 +14,7 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 
 export async function generateMostRelevantNews(newsList, localTitles = []) {
     // 1. Obtener contexto desde Supabase (últimas 10 noticias)
-    console.log('Obteniendo contexto desde Supabase...');
+    console.log('Fetching context from Supabase...');
     const { data: recentEvents, error } = await supabase
         .from('timeline_events')
         .select('title, description, category_id, date')
@@ -22,7 +22,7 @@ export async function generateMostRelevantNews(newsList, localTitles = []) {
         .limit(10);
         
     if (error) {
-        console.error('Error al obtener contexto:', error.message);
+        console.error('Error fetching context:', error.message);
     }
 
     const contextEventsText = recentEvents && recentEvents.length > 0 ? 
@@ -35,7 +35,7 @@ export async function generateMostRelevantNews(newsList, localTitles = []) {
     // 2. Preparar el listado de noticias recolectadas para el prompt
     const newsText = newsList.map((n, i) => `${i+1}. [${n.source}] ${n.title}\nResumen: ${n.contentSnippet}`).join('\n\n');
 
-    console.log('Analizando noticias con Groq...');
+    console.log('Analyzing news with Groq...');
     const systemPrompt = `Eres un editor periodístico experto y analista de geopolítica y política uruguaya. Tu objetivo es encontrar las noticias más relevantes del día para agregarlas a una "Línea de Tiempo" de hitos históricos de Uruguay.
     
 REGLA ESTRICTA: Las noticias elegidas DEBEN ser de alto impacto e importancia directa para URUGUAY. Pregúntate siempre: "¿Si leo esta noticia en 2 o 3 años, seguirá siendo verdaderamente relevante? ¿Cambia en algo la línea del tiempo histórica de Uruguay?". Si la respuesta es no, descártala. Si es un evento internacional, sólo califica si afecta directamente a Uruguay de manera significativa a largo plazo. No incluyas noticias intrascendentes, del día a día, o polémicas pasajeras.
@@ -76,7 +76,7 @@ Estructura de CADA objeto del arreglo:
         const parsed = JSON.parse(jsonString);
         return Array.isArray(parsed) ? parsed : [parsed];
     } catch (e) {
-        console.error('Error parseando la respuesta de Groq:', aiContent);
-        throw new Error('La IA no devolvió un JSON válido');
+        console.error('Error parsing Groq response:', aiContent);
+        throw new Error('AI did not return a valid JSON');
     }
 }

@@ -67,7 +67,7 @@ Estructura de CADA objeto del arreglo:
     while (attempt < maxRetries) {
         try {
             const modelName = attempt < 2 ? 'gemini-3.5-flash' : 'gemini-2.5-flash';
-            log('INFO [Gemini]', `Intentando con modelo: ${modelName}`);
+            log('INFO [Gemini]', `Trying with model: ${modelName}`);
             
             const response = await ai.models.generateContent({
                 model: modelName,
@@ -93,7 +93,7 @@ Estructura de CADA objeto del arreglo:
             attempt++;
             log('ERROR [Gemini]', `Attempt ${attempt} failed: ${e.message}`, true);
             if (attempt >= maxRetries) {
-                throw new Error('La IA no devolvió un JSON válido o la API falló después de todos los reintentos y fallbacks');
+                throw new Error('AI did not return a valid JSON or API failed after all retries and fallbacks');
             }
             const waitTime = 60000; // 60 segundos
             log('INFO [Gemini]', `Retrying in ${waitTime/1000} seconds... (${attempt}/${maxRetries})`);

@@ -67,7 +67,7 @@ async function runNewsAutomation() {
 
 async function runNewsEnrichment() {
     try {
-        log('INFO [News]', 'Buscando noticias pendientes de enriquecer en los últimos 3 días...');
+        log('INFO [News]', 'Searching for news pending enrichment in the last 3 days...');
         const recentFilesData = getRecentJsonFilesData(3);
         
         for (const fileData of recentFilesData) {
@@ -76,7 +76,7 @@ async function runNewsEnrichment() {
             const needsEnrichment = data.filter(n => !n.isEnriched);
             
             if (needsEnrichment.length > 0) {
-                log('INFO [News]', `Encontradas ${needsEnrichment.length} noticias pendientes en: ${filePath}`);
+                log('INFO [News]', `Found ${needsEnrichment.length} pending news in: ${filePath}`);
                 const newlyEnriched = await enrichNewsContent(needsEnrichment);
                 
                 // Actualizar el arreglo de ese archivo específico
@@ -86,7 +86,7 @@ async function runNewsEnrichment() {
                 });
                 
                 updateJsonFile(filePath, finalData);
-                log('SUCCESS [News]', `Archivo actualizado con contenidos enriquecidos: ${filePath}`);
+                log('SUCCESS [News]', `File updated with enriched contents: ${filePath}`);
             }
         }
     } catch (error) {

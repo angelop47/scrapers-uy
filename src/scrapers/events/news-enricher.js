@@ -10,12 +10,12 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_TOKEN });
 export async function enrichNewsContent(newsArray) {
     if (!newsArray || newsArray.length === 0) return [];
 
-    log('INFO [News-Enricher]', `Comenzando enriquecimiento profundo de ${newsArray.length} noticias...`);
+    log('INFO [News-Enricher]', `Starting deep enrichment of ${newsArray.length} news...`);
     
     const enrichedNewsArray = [];
 
     for (const news of newsArray) {
-        log('INFO [News-Enricher]', `Investigando y expandiendo: "${news.title}"...`);
+        log('INFO [News-Enricher]', `Investigating and expanding: "${news.title}"...`);
         
         const systemPrompt = `Eres un historiador y experto en geopolítica y política uruguaya.
 Tu tarea es tomar un evento reciente de alto impacto y redactar un registro histórico en profundidad (content) utilizando tu conocimiento y buscando información adicional actualizada en la web.
@@ -43,7 +43,7 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
         while (attempt < maxRetries) {
             try {
                 const modelName = attempt < 2 ? 'gemini-3.5-flash' : 'gemini-2.5-flash';
-                log('INFO [News-Enricher]', `Intentando enriquecer con modelo: ${modelName}`);
+                log('INFO [News-Enricher]', `Trying to enrich with model: ${modelName}`);
 
                 const response = await ai.models.generateContent({
                     model: modelName,
@@ -58,19 +58,19 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
 
                 if (response.text) {
                     enrichedContent = response.text.trim();
-                    log('SUCCESS [News-Enricher]', `Contenido expandido exitosamente para: "${news.title}"`);
+                    log('SUCCESS [News-Enricher]', `Content successfully expanded for: "${news.title}"`);
                     break;
                 } else {
                     throw new Error("La respuesta fue vacía.");
                 }
             } catch (error) {
                 attempt++;
-                log('WARNING [News-Enricher]', `Intento ${attempt} fallido al enriquecer "${news.title}": ${error.message}`);
+                log('WARNING [News-Enricher]', `Attempt ${attempt} failed while enriching "${news.title}": ${error.message}`);
                 if (attempt >= maxRetries) {
-                    log('ERROR [News-Enricher]', `No se pudo enriquecer "${news.title}" después de ${maxRetries} intentos. Se usará el contenido original.`, true);
+                    log('ERROR [News-Enricher]', `Could not enrich "${news.title}" after ${maxRetries} attempts. Original content will be used.`, true);
                 } else {
                     const waitTime = 60000; // 60 segundos
-                    log('INFO [News-Enricher]', `Reintentando en ${waitTime/1000} segundos... (${attempt}/${maxRetries})`);
+                    log('INFO [News-Enricher]', `Retrying in ${waitTime/1000} seconds... (${attempt}/${maxRetries})`);
                     await delay(waitTime);
                 }
             }
@@ -87,6 +87,6 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
         if (newsArray.length > 1) await delay(5000);
     }
 
-    log('INFO [News-Enricher]', 'Enriquecimiento completado.');
+    log('INFO [News-Enricher]', 'Enrichment completed.');
     return enrichedNewsArray;
 }

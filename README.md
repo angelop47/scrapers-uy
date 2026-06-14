@@ -43,6 +43,17 @@ El sistema incluye un scraper automatizado que rastrea los últimos datos macroe
 - **Qué guarda:** Los resultados se guardan localmente en la carpeta `stats/` bajo el formato `YYYY-MM-DD.json`, para ser revisados manualmente mediante la interfaz visual.
 - **Interfaz Web (UI):** La interfaz local (`public/index.html`) presenta los resultados obtenidos en un Dashboard dinámico, brindando la posibilidad de copiarlos como sentencias SQL preparadas (`INSERT INTO mandate_stats...`) con un solo clic.
 
+## Indicadores Macroeconómicos de Uruguay
+
+Adicionalmente, el sistema incluye un scraper especializado en extraer los datos más recientes de 9 indicadores clave (Inflación, Desempleo, Riesgo País, PBI, Deuda Externa, Reservas BCU, Salario Mínimo, Pobreza y Déficit Fiscal) apoyado en IA para buscar en fuentes oficiales.
+
+- **Frecuencia:** Se ejecuta de forma programada los días Viernes y Sábados a las 18:30 hrs.
+- **Proceso:**
+  1. **Ancla Histórica:** El scraper emplea un modelo de **arrastre de último valor** (Last Observation Carried Forward). Lee los datos conocidos de la semana pasada (guardados localmente en formato JSON) y los utiliza como contexto de partida.
+  2. **Actualización Segura:** A través de Gemini y Google Search, busca datos nuevos en el INE, BCU, MEF y MTSS. Solamente sobrescribe el valor previo si logra comprobar un dato más reciente publicado por el organismo oficial.
+- **Qué guarda:** El registro depurado y combinado se guarda localmente en la carpeta `economy/` como `YYYY-MM-DD.json`.
+- **Interfaz Web (UI):** En el mismo Dashboard local (`localhost:3000`), se renderiza un historial completo con todas las métricas económicas capturadas, ofreciendo botones individuales para "Copiar SQL". Esto genera una consulta `INSERT INTO ... ON CONFLICT DO UPDATE` idónea para insertar en Supabase cuando el usuario lo valide visualmente.
+
 ## Sistema de Logs y Alertas
 
 > [!NOTE]

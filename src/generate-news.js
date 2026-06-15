@@ -18,6 +18,11 @@ async function runNewsAutomation() {
             return;
         }
         log('INFO [News]', `Collected ${newsList.length} news from RSS feeds.`);
+        
+        // Log a summary of the titles found so we know what is being evaluated
+        newsList.forEach((n, i) => {
+            log('DEBUG [News]', `  ${i + 1}. [${n.source}] ${n.title}`);
+        });
 
         const localTitles = getRecentLocalNewsTitles(7); // Obtener títulos de los últimos 7 días
         if (localTitles.length > 0) {

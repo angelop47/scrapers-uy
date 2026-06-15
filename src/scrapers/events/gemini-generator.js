@@ -87,8 +87,17 @@ Estructura de CADA objeto del arreglo:
             });
 
             const aiContent = response.text || '[]';
+            log('INFO [Gemini]', `Raw response received (length: ${aiContent.length})`);
+            
             const parsed = JSON.parse(aiContent);
-            return Array.isArray(parsed) ? parsed : [parsed];
+            const resultArray = Array.isArray(parsed) ? parsed : [parsed];
+            
+            if (resultArray.length === 0) {
+                log('DEBUG [Gemini]', `Gemini returned 0 items. Raw text was: ${aiContent}`);
+            } else {
+                log('INFO [Gemini]', `Gemini returned ${resultArray.length} items.`);
+            }
+            return resultArray;
         } catch (e) {
             attempt++;
             log('ERROR [Gemini]', `Attempt ${attempt} failed: ${e.message}`, true);

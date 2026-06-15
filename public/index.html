@@ -565,7 +565,11 @@
                     ? "ARRAY[" + event.tags.map(t => escapeSql(t)).join(", ") + "]"
                     : "NULL";
 
-                const sql = `INSERT INTO public.timeline_events (title, description, date, category_id, content, tags) VALUES (${escapeSql(event.title)}, ${escapeSql(event.description)}, ${escapeSql(event.date)}, ${escapeSql(event.category_id)}, ${escapeSql(event.content || '')}, ${tagsSql});`;
+                const sourcesSql = event.sources && event.sources.length > 0
+                    ? "ARRAY[" + event.sources.map(s => escapeSql(s)).join(", ") + "]"
+                    : "NULL";
+
+                const sql = `INSERT INTO public.timeline_events (title, description, date, category_id, content, tags, sources) VALUES (${escapeSql(event.title)}, ${escapeSql(event.description)}, ${escapeSql(event.date)}, ${escapeSql(event.category_id)}, ${escapeSql(event.content || '')}, ${tagsSql}, ${sourcesSql});`;
 
                 copyTextToClipboard(sql).then(() => {
                     const originalText = btn.innerHTML;

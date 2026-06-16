@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-15",
+    "title": "Crecimiento del PIB (I Trimestre 2026)",
+    "description": "El Producto Interno Bruto (PIB) de Uruguay registró un crecimiento interanual del 0.9% en el primer trimestre de 2026 en comparación con el mismo período de 2025, impulsado por sectores de servicios, comercio y finanzas.",
+    "indicator": "gdp_growth",
+    "value": 0.9,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-15",
+    "title": "PIB Desestacionalizado (I Trimestre 2026)",
+    "description": "En términos desestacionalizados, la actividad económica de Uruguay presentó un aumento del 0.8% en el primer trimestre de 2026 respecto al cuarto trimestre de 2025.",
+    "indicator": "gdp_growth_quarterly",
+    "value": 0.8,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-11",
+    "title": "Producción Industrial (IVFIM) de Abril",
+    "description": "El Índice de Volumen Físico de la Industria Manufacturera (IVFIM) registró una variación interanual del 4.0% en abril de 2026 en comparación con el mismo mes del año anterior.",
+    "indicator": "industrial_production",
+    "value": 4,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  }
+]

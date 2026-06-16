@@ -18,6 +18,12 @@ export function start() {
             return;
         }
 
+        if (req.url === '/favicon.ico') {
+            res.writeHead(204);
+            res.end();
+            return;
+        }
+
         if (req.method === 'GET' && req.url === '/') {
             const htmlPath = path.join(process.cwd(), 'public', 'index.html');
             if (fs.existsSync(htmlPath)) {
@@ -71,7 +77,8 @@ export function start() {
                         const content = fs.readFileSync(path.join(statsDir, file), 'utf-8');
                         const data = JSON.parse(content);
                         if (Array.isArray(data)) {
-                            allStats = allStats.concat(data);
+                            const dataWithSource = data.map(st => ({ ...st, sourceFile: file }));
+                            allStats = allStats.concat(dataWithSource);
                         }
                     }
                 } catch (e) {
@@ -79,8 +86,13 @@ export function start() {
                 }
             }
 
-            // Ordenar de más reciente a más antiguo
-            allStats.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            // Ordenar de más reciente a más antiguo por día obtenido y luego por fecha
+            allStats.sort((a, b) => {
+                if (a.sourceFile && b.sourceFile && a.sourceFile !== b.sourceFile) {
+                    return b.sourceFile.localeCompare(a.sourceFile);
+                }
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+            });
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(allStats));

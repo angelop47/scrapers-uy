@@ -628,55 +628,89 @@
                 const response = await fetch('/stats');
                 const stats = await response.json();
 
-                const grid = document.getElementById('stats-grid');
+                const gridContainer = document.getElementById('stats-grid');
                 if (!stats || stats.length === 0) return;
 
-                // Para evitar mostrar demasiadas, podemos mostrar las más recientes (ej. últimas 6 o todas)
-                stats.slice(0, 6).forEach(stat => {
-                    const card = document.createElement('div');
-                    card.className = 'stat-card';
-                    card.title = stat.description;
+                // Limpiamos el grid original
+                gridContainer.innerHTML = '';
+                gridContainer.style.display = 'block';
 
-                    let trendClass = 'neutral';
-                    let trendIcon = '';
-                    if (stat.trend === 'up') {
-                        trendIcon = '↗';
-                        trendClass = stat.trend_is_good ? 'good' : 'bad';
-                    } else if (stat.trend === 'down') {
-                        trendIcon = '↘';
-                        trendClass = stat.trend_is_good ? 'good' : 'bad';
-                    } else {
-                        trendIcon = '→';
-                    }
+                const groups = {};
+                stats.forEach(stat => {
+                    const day = stat.sourceFile ? stat.sourceFile.replace('.json', '') : 'Desconocido';
+                    if (!groups[day]) groups[day] = [];
+                    groups[day].push(stat);
+                });
 
-                    // Format value if it's a number
-                    const formattedValue = typeof stat.value === 'number'
-                        ? new Intl.NumberFormat('es-UY', { maximumFractionDigits: 2 }).format(stat.value)
-                        : stat.value;
+                Object.keys(groups).forEach(day => {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.style.marginBottom = '2.5rem';
 
-                    const statBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(stat))));
-                    const copySqlBtnHtml = `
-                        <button class="copy-sql-btn" style="margin-left:0; padding:2px 6px; font-size:0.7rem;" onclick="copyStatSql('${statBase64}', this)" title="Copiar SQL para Supabase">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                            </svg>
-                            SQL
-                        </button>
-                    `;
+                    const dateHeading = document.createElement('h3');
+                    dateHeading.style.margin = '0 0 1rem 0';
+                    dateHeading.style.fontSize = '1.1rem';
+                    dateHeading.style.color = '#374151';
+                    dateHeading.style.borderBottom = '1px solid #f3f4f6';
+                    dateHeading.style.paddingBottom = '0.5rem';
+                    dateHeading.innerText = `Obtenido el: ${day}`;
+                    dayDiv.appendChild(dateHeading);
 
-                    card.innerHTML = `
-                        <div class="stat-header">
-                            <span class="stat-title">${stat.title}</span>
-                            <span class="stat-trend ${trendClass}">${trendIcon}</span>
-                        </div>
-                        <div class="stat-value">${formattedValue} <span class="stat-unit">${stat.unit}</span></div>
-                        <div class="stat-footer" style="display: flex; justify-content: space-between; align-items: center;" title="${stat.source}">
-                            <span style="overflow: hidden; text-overflow: ellipsis; max-width: 65%;">${stat.source} • ${stat.date}</span>
-                            ${copySqlBtnHtml}
-                        </div>
-                    `;
-                    grid.appendChild(card);
+                    const innerGrid = document.createElement('div');
+                    innerGrid.style.display = 'grid';
+                    innerGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(220px, 1fr))';
+                    innerGrid.style.gap = '1rem';
+
+                    groups[day].forEach(stat => {
+                        const card = document.createElement('div');
+                        card.className = 'stat-card';
+                        card.title = stat.description;
+
+                        let trendClass = 'neutral';
+                        let trendIcon = '';
+                        if (stat.trend === 'up') {
+                            trendIcon = '↗';
+                            trendClass = stat.trend_is_good ? 'good' : 'bad';
+                        } else if (stat.trend === 'down') {
+                            trendIcon = '↘';
+                            trendClass = stat.trend_is_good ? 'good' : 'bad';
+                        } else {
+                            trendIcon = '→';
+                        }
+
+                        const formattedValue = typeof stat.value === 'number'
+                            ? new Intl.NumberFormat('es-UY', { maximumFractionDigits: 2 }).format(stat.value)
+                            : stat.value;
+
+                        const statToCopy = { ...stat };
+                        delete statToCopy.sourceFile;
+                        const statBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(statToCopy))));
+                        
+                        const copySqlBtnHtml = `
+                            <button class="copy-sql-btn" style="margin-left:0; padding:2px 6px; font-size:0.7rem;" onclick="copyStatSql('${statBase64}', this)" title="Copiar SQL para Supabase">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                SQL
+                            </button>
+                        `;
+
+                        card.innerHTML = `
+                            <div class="stat-header">
+                                <span class="stat-title">${stat.title}</span>
+                                <span class="stat-trend ${trendClass}">${trendIcon}</span>
+                            </div>
+                            <div class="stat-value">${formattedValue} <span class="stat-unit">${stat.unit}</span></div>
+                            <div class="stat-footer" style="display: flex; justify-content: space-between; align-items: center;" title="${stat.source}">
+                                <span style="overflow: hidden; text-overflow: ellipsis; max-width: 65%;">${stat.source} • ${stat.date}</span>
+                                ${copySqlBtnHtml}
+                            </div>
+                        `;
+                        innerGrid.appendChild(card);
+                    });
+
+                    dayDiv.appendChild(innerGrid);
+                    gridContainer.appendChild(dayDiv);
                 });
             } catch (error) {
                 console.error('Error fetching stats:', error);

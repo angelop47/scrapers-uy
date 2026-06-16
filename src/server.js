@@ -36,7 +36,31 @@ export function start() {
             return;
         }
 
-        if (req.method === 'GET' && req.url === '/events') {
+        if (req.method === 'GET' && req.url === '/stats') {
+            const htmlPath = path.join(process.cwd(), 'public', 'stats.html');
+            if (fs.existsSync(htmlPath)) {
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end(fs.readFileSync(htmlPath));
+            } else {
+                res.writeHead(404, { 'Content-Type': 'text/html' });
+                res.end('<h1>UI no encontrada</h1><p>Falta la carpeta public/stats.html</p>');
+            }
+            return;
+        }
+
+        if (req.method === 'GET' && req.url === '/indicadores') {
+            const htmlPath = path.join(process.cwd(), 'public', 'indicadores.html');
+            if (fs.existsSync(htmlPath)) {
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end(fs.readFileSync(htmlPath));
+            } else {
+                res.writeHead(404, { 'Content-Type': 'text/html' });
+                res.end('<h1>UI no encontrada</h1><p>Falta la carpeta public/indicadores.html</p>');
+            }
+            return;
+        }
+
+        if (req.method === 'GET' && req.url === '/api/events') {
             const outputDir = path.join(process.cwd(), 'noticias');
             let allEvents = [];
 
@@ -66,7 +90,7 @@ export function start() {
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(allEvents));
-        } else if (req.method === 'GET' && req.url === '/stats') {
+        } else if (req.method === 'GET' && req.url === '/api/stats') {
             const statsDir = path.join(process.cwd(), 'stats');
             let allStats = [];
 
@@ -96,7 +120,7 @@ export function start() {
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(allStats));
-        } else if (req.method === 'GET' && req.url === '/economy') {
+        } else if (req.method === 'GET' && req.url === '/api/economy') {
             const economyDir = path.join(process.cwd(), 'economy');
             let allEconomy = [];
 
@@ -125,6 +149,6 @@ export function start() {
     });
 
     server.listen(PORT, () => {
-        log('INFO [Server]', `API HTTP corriendo. Endpoint de noticias en http://localhost:${PORT}/events`);
+        log('INFO [Server]', `API HTTP corriendo. Endpoint de noticias en http://localhost:${PORT}/api/events`);
     });
 }

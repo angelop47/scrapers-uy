@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noticias - Uruguay</title>
+    <title>Indicadores Económicos - Uruguay</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
@@ -398,19 +398,17 @@
 <body>
 
     <nav style="max-width: 800px; margin: 0 auto; padding: 1rem; border-bottom: 1px solid var(--card-border); display: flex; gap: 1.5rem; align-items: center;">
-        <a href="/" style="text-decoration: none; color: #4f46e5; font-weight: 600;">Noticias</a>
+        <a href="/" style="text-decoration: none; color: #4b5563; font-weight: 600;">Noticias</a>
         <a href="/stats" style="text-decoration: none; color: #4b5563; font-weight: 600;">Estadísticas</a>
-        <a href="/indicadores" style="text-decoration: none; color: #4b5563; font-weight: 600;">Indicadores Económicos</a>
+        <a href="/indicadores" style="text-decoration: none; color: #4f46e5; font-weight: 600;">Indicadores Económicos</a>
     </nav>
 
     <header style="padding-top: 2rem;">
-        <h1>Hitos Históricos</h1>
-        <p class="subtitle">Línea de tiempo de eventos destacados de Uruguay</p>
+        <h1>Indicadores Económicos</h1>
+        <p class="subtitle">Últimos reportes macroeconómicos</p>
     </header>
     
-    <div class="timeline-container" id="timeline">
-        <div class="loading">Cargando eventos...</div>
-    </div>
+    <div class="stats-container" id="economy-grid" style="margin-top: 2rem;"></div>
 
     <script>
         const categoryLabels = {

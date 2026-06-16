@@ -25,6 +25,7 @@ DIRECTRICES PARA EL CONTENIDO:
 - ESTÁ PROHIBIDO usar lenguaje amarillista, exagerado o sensacionalista. Limítate a describir los hechos de forma aséptica.
 - Debes incluir: Contexto histórico o antecedentes, desarrollo completo de los hechos, y las posibles repercusiones o impacto a largo plazo en Uruguay.
 - El formato de salida DEBE SER EXCLUSIVAMENTE MARKDOWN válido, estructurado usando subtítulos (##), listas con viñetas cuando sea útil y párrafos legibles.
+- **Tablas y Datos Estructurados**: Si el evento contiene cifras estadísticas, series numéricas comparativas o datos estructurados, debes representarlos obligatoriamente utilizando tablas Markdown estándar (por ejemplo, con alineaciones como \`| Variable | Antes | Después |\` y \`| :--- | :---: | :---: |\`). Si la información recopilada o el contenido original ya incluye una tabla, **mantén la tabla intacta y conserva exactamente su formato Markdown**, sin convertirla en texto plano, párrafos o listas.
 - Evita introducciones innecesarias o hablar con el usuario (Ej: "Aquí tienes el artículo..."). Comienza directamente con el contenido Markdown.
 - Solo debes generar el contenido a insertar en el campo "content" del objeto final, NO generes un objeto JSON.`;
 

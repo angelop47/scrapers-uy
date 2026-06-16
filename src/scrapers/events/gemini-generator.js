@@ -40,6 +40,7 @@ REGLA ESTRICTA: Los eventos elegidos DEBEN ser de alto impacto e importancia dir
 TONO Y ESTILO (MUY IMPORTANTE):
 - El tono debe ser ESTRICTAMENTE neutral, enciclopédico y objetivo (estilo registro histórico o Wikipedia).
 - NO uses lenguaje periodístico, amarillista, sensacionalista ni intentes "enganchar" al lector. Limítate a describir los hechos de forma aséptica y factual.
+- **Tablas y Datos Estructurados**: Si la noticia incluye datos numéricos comparativos, cifras estadísticas o series históricas de datos, represéntalos obligatoriamente usando tablas en formato Markdown estándar (ej. \`| Variable | Antes | Después |\` y \`| :--- | :---: | :---: |\`). No conviertas tablas o datos estructurados en texto plano, listas o prosa.
 
 Tienes como contexto los últimos eventos agregados a esta línea de tiempo para entender el nivel de relevancia que buscamos:
 ${contextEventsText}${localContextText}

@@ -1,0 +1,62 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-16",
+    "title": "IPPN de Mayo 2026",
+    "description": "El Índice de Precios al Productor de Productos Nacionales (IPPN) registró una variación mensual de 1,85% en mayo de 2026, según informó el Instituto Nacional de Estadística (INE).",
+    "indicator": "producer_price_index_growth",
+    "value": 1.85,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-15",
+    "title": "Informalidad Laboral 2025",
+    "description": "El Instituto Nacional de Estadística (INE) publicó el informe sobre informalidad y subutilización de la fuerza de trabajo, indicando que la informalidad laboral alcanzó al 22,8% de las personas ocupadas en 2025, consolidando una tendencia creciente desde 2022.",
+    "indicator": "informal_employment_rate",
+    "value": 22.8,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-12",
+    "title": "Expectativas de Inflación a 12 meses (Junio 2026)",
+    "description": "La mediana de las expectativas de inflación de los analistas privados para los próximos 12 meses disminuyó de 4,9% a 4,7%, según la encuesta de junio divulgada por el Banco Central del Uruguay (BCU).",
+    "indicator": "inflation_expectations_12m",
+    "value": 4.7,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-12",
+    "title": "Expectativas de Inflación a 24 meses (Junio 2026)",
+    "description": "La mediana de las expectativas de inflación de los analistas para los próximos 24 meses se mantuvo en 4,5%, ubicándose exactamente en el centro del rango meta del Banco Central del Uruguay (BCU).",
+    "indicator": "inflation_expectations_24m",
+    "value": 4.5,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-26",
+    "title": "Tasa de Política Monetaria (Mayo 2026)",
+    "description": "El Banco Central del Uruguay (BCU) resolvió mantener la Tasa de Política Monetaria (TPM) en 5,75% en su reunión de mayo de 2026, con el objetivo de consolidar la inflación dentro del rango meta.",
+    "indicator": "monetary_policy_rate",
+    "value": 5.75,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  }
+]

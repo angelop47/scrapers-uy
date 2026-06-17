@@ -100,8 +100,8 @@ async function runNewsEnrichment() {
 }
 
 export function start() {
-    log('INFO [News]', 'Scheduling news scraper to run 4 times a day (06:00, 12:00, 18:00, 22:00)...');
-    cron.schedule('0 6,12,18,22 * * *', () => {
+    log('INFO [News]', 'Scheduling news scraper to run 4 times a day (06:05, 12:05, 18:05, 22:05)...');
+    cron.schedule('5 6,12,18,22 * * *', () => {
         runNewsAutomation();
     }, {
         timezone: 'America/Montevideo'

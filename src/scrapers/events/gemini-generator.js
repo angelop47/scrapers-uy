@@ -105,7 +105,9 @@ Estructura de CADA objeto del arreglo:
             if (attempt >= maxRetries) {
                 throw new Error('AI did not return a valid JSON or API failed after all retries and fallbacks');
             }
-            const waitTime = 60000; // 60 segundos
+            // Exponential backoff: 60s, 120s, 240s...
+            const baseWaitTime = 60000; // 60 segundos base
+            const waitTime = baseWaitTime * Math.pow(2, attempt - 1);
             log('INFO [Gemini]', `Retrying in ${waitTime/1000} seconds... (${attempt}/${maxRetries})`);
             await delay(waitTime);
         }

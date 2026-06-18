@@ -70,7 +70,9 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
                 if (attempt >= maxRetries) {
                     log('ERROR [News-Enricher]', `Could not enrich "${news.title}" after ${maxRetries} attempts. Original content will be used.`, true);
                 } else {
-                    const waitTime = 60000; // 60 segundos
+                    // Exponential backoff: 60s, 120s, 240s...
+                    const baseWaitTime = 60000; // 60 segundos base
+                    const waitTime = baseWaitTime * Math.pow(2, attempt - 1);
                     log('INFO [News-Enricher]', `Retrying in ${waitTime/1000} seconds... (${attempt}/${maxRetries})`);
                     await delay(waitTime);
                 }

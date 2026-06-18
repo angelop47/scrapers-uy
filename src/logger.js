@@ -10,7 +10,7 @@ if (!fs.existsSync(LOG_DIR)) {
   fs.mkdirSync(LOG_DIR, { recursive: true });
 }
 
-function getDailyLogPath() {
+export function getDailyLogPath() {
   const dateStr = DateTime.now().setZone(TIMEZONE).toFormat('yyyy-MM-dd');
   return path.join(LOG_DIR, `scraper-${dateStr}.log`);
 }

@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
-import { log } from './logger.js';
+import { log, getDailyLogPath } from './logger.js';
 import { scrape as scrapeDolar } from './scrapers/dolar.js';
 import { scrape as scrapePetroleo } from './scrapers/petroleo.js';
 import { runNewsAutomation } from './generate-news.js';
@@ -80,6 +80,21 @@ export function start() {
         } catch (error) {
             console.error('Error in /api/run/economy:', error);
             res.status(500).json({ error: error.message });
+        }
+    });
+
+    app.get('/api/logs', (req, res) => {
+        try {
+            const logPath = getDailyLogPath();
+            if (!fs.existsSync(logPath)) {
+                return res.json({ logs: 'No logs available for today.' });
+            }
+            const content = fs.readFileSync(logPath, 'utf-8');
+            const lines = content.split('\n').filter(Boolean);
+            const lastLines = lines.slice(-100).join('\n');
+            res.json({ logs: lastLines });
+        } catch (error) {
+            res.status(500).json({ error: 'Failed to read logs' });
         }
     });
 

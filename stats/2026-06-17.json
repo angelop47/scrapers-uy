@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-10",
+    "title": "Índice de Confianza del Consumidor (Mayo 2026)",
+    "description": "El Índice de Confianza del Consumidor (ICC) elaborado por Equipos Consultores y la UCU Business School cayó a la zona de moderado pesimismo por primera vez desde junio de 2023, situándose en 47,9 puntos.",
+    "indicator": "consumer_confidence",
+    "value": 47.9,
+    "unit": "puntos",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Equipos Consultores / UCU Business School"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-29",
+    "title": "Ingreso Medio de los Hogares (I Trimestre 2026)",
+    "description": "El ingreso medio de los hogares para el total del país en el primer trimestre de 2026 se estimó en $97.541, lo que representa un incremento respecto al trimestre anterior ($93.495) y al mismo período del año anterior ($90.469).",
+    "indicator": "household_income",
+    "value": 97541,
+    "unit": "UYU",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-29",
+    "title": "Ingreso Medio Per Cápita (I Trimestre 2026)",
+    "description": "El ingreso medio per cápita de los hogares para el total del país en el primer trimestre de 2026 se estimó en $34.606, frente a los $33.108 del trimestre anterior.",
+    "indicator": "per_capita_income",
+    "value": 34606,
+    "unit": "UYU",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  }
+]

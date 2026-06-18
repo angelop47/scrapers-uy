@@ -6,7 +6,7 @@ import { log } from './logger.js';
 import cron from 'node-cron';
 import { fileURLToPath } from 'url';
 
-async function runNewsAutomation() {
+export async function runNewsAutomation() {
     try {
         log('INFO [News]', '--- Starting news automation ---');
         

@@ -22,7 +22,7 @@ function getCsvPath() {
 }
 
 
-async function scrape() {
+export async function scrape() {
   log('INFO [Petróleo]', 'Starting scraper...');
   const currentCsvPath = getCsvPath();
   const browser = await chromium.launch({ headless: true });

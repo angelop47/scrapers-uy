@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Uruguay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+    <nav style="max-width: 800px; margin: 0 auto; padding: 1rem; border-bottom: 1px solid var(--card-border); display: flex; gap: 1.5rem; align-items: center;">
+        <a href="/" style="text-decoration: none; color: #4b5563; font-weight: 600;">Noticias</a>
+        <a href="/stats" style="text-decoration: none; color: #4b5563; font-weight: 600;">Estadísticas</a>
+        <a href="/indicadores" style="text-decoration: none; color: #4b5563; font-weight: 600;">Indicadores Económicos</a>
+        <a href="/panel" style="text-decoration: none; color: #4f46e5; font-weight: 600;">Panel de Control</a>
+    </nav>
+
+    <header style="padding-top: 2rem;">
+        <h1>Panel de Control</h1>
+        <p class="subtitle">Forzar ejecución de scrapers manualmente</p>
+    </header>
+    
+    <div style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+        <div style="background-color: var(--card-bg, #fff); padding: 2rem; border-radius: 12px; border: 1px solid var(--card-border, #e5e7eb); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--card-border, #e5e7eb);">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.1rem; color: #111827;">Scraper: Dólar (BROU)</h3>
+                        <p style="margin: 0.25rem 0 0 0; font-size: 0.875rem; color: #6b7280;">Obtiene la última cotización del dólar.</p>
+                    </div>
+                    <button id="btn-dolar" style="padding: 0.5rem 1rem; background-color: #4f46e5; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">Ejecutar Dólar</button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--card-border, #e5e7eb);">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.1rem; color: #111827;">Scraper: Petróleo (Brent)</h3>
+                        <p style="margin: 0.25rem 0 0 0; font-size: 0.875rem; color: #6b7280;">Obtiene la última cotización del petróleo Brent.</p>
+                    </div>
+                    <button id="btn-petroleo" style="padding: 0.5rem 1rem; background-color: #4f46e5; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">Ejecutar Petróleo</button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--card-border, #e5e7eb);">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.1rem; color: #111827;">Generador: Noticias</h3>
+                        <p style="margin: 0.25rem 0 0 0; font-size: 0.875rem; color: #6b7280;">Busca y enriquece las noticias más relevantes.</p>
+                    </div>
+                    <button id="btn-noticias" style="padding: 0.5rem 1rem; background-color: #4f46e5; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">Ejecutar Noticias</button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--card-border, #e5e7eb);">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.1rem; color: #111827;">Generador: Estadísticas</h3>
+                        <p style="margin: 0.25rem 0 0 0; font-size: 0.875rem; color: #6b7280;">Obtiene las últimas estadísticas económicas vía Gemini.</p>
+                    </div>
+                    <button id="btn-stats" style="padding: 0.5rem 1rem; background-color: #4f46e5; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">Ejecutar Stats</button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.1rem; color: #111827;">Generador: Indicadores Económicos</h3>
+                        <p style="margin: 0.25rem 0 0 0; font-size: 0.875rem; color: #6b7280;">Obtiene los últimos indicadores macroeconómicos.</p>
+                    </div>
+                    <button id="btn-economy" style="padding: 0.5rem 1rem; background-color: #4f46e5; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">Ejecutar Economía</button>
+                </div>
+            </div>
+            
+            <div id="status-message" style="margin-top: 1.5rem; padding: 1rem; border-radius: 6px; display: none; font-size: 0.875rem; font-weight: 500;"></div>
+        </div>
+    </div>
+
+    <script>
+        function showStatus(message, isError = false) {
+            const statusEl = document.getElementById('status-message');
+            statusEl.style.display = 'block';
+            statusEl.innerText = message;
+            statusEl.style.backgroundColor = isError ? '#fee2e2' : '#d1fae5';
+            statusEl.style.color = isError ? '#991b1b' : '#065f46';
+            
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 5000);
+        }
+
+        async function runScraper(type, buttonId) {
+            const btn = document.getElementById(buttonId);
+            const originalText = btn.innerText;
+            btn.innerText = 'Ejecutando...';
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+
+            try {
+                const response = await fetch(`/api/run/${type}`, { method: 'POST' });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus(data.message || 'Ejecutado con éxito');
+                } else {
+                    showStatus(data.error || 'Ocurrió un error', true);
+                }
+            } catch (err) {
+                showStatus('Error de conexión con el servidor', true);
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        }
+
+        document.getElementById('btn-dolar').addEventListener('click', () => runScraper('dolar', 'btn-dolar'));
+        document.getElementById('btn-petroleo').addEventListener('click', () => runScraper('petroleo', 'btn-petroleo'));
+        document.getElementById('btn-noticias').addEventListener('click', () => runScraper('noticias', 'btn-noticias'));
+        document.getElementById('btn-stats').addEventListener('click', () => runScraper('stats', 'btn-stats'));
+        document.getElementById('btn-economy').addEventListener('click', () => runScraper('economy', 'btn-economy'));
+    </script>
+</body>
+
+</html>

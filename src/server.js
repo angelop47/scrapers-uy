@@ -3,6 +3,11 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { log } from './logger.js';
+import { scrape as scrapeDolar } from './scrapers/dolar.js';
+import { scrape as scrapePetroleo } from './scrapers/petroleo.js';
+import { runNewsAutomation } from './generate-news.js';
+import { runStatsAutomation } from './scrapers/stats/stats-runner.js';
+import { runEconomyAutomation } from './scrapers/economy/economy-runner.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -22,6 +27,60 @@ export function start() {
 
     app.get('/indicadores', (req, res) => {
         res.sendFile(path.join(process.cwd(), 'public', 'indicadores.html'));
+    });
+
+    app.get('/panel', (req, res) => {
+        res.sendFile(path.join(process.cwd(), 'public', 'panel.html'));
+    });
+
+    app.post('/api/run/dolar', async (req, res) => {
+        try {
+            await scrapeDolar();
+            res.json({ success: true, message: 'Scraper de dólar ejecutado correctamente' });
+        } catch (error) {
+            console.error('Error in /api/run/dolar:', error);
+            res.status(500).json({ error: error.message });
+        }
+    });
+
+    app.post('/api/run/petroleo', async (req, res) => {
+        try {
+            await scrapePetroleo();
+            res.json({ success: true, message: 'Scraper de petróleo ejecutado correctamente' });
+        } catch (error) {
+            console.error('Error in /api/run/petroleo:', error);
+            res.status(500).json({ error: error.message });
+        }
+    });
+
+    app.post('/api/run/noticias', async (req, res) => {
+        try {
+            await runNewsAutomation();
+            res.json({ success: true, message: 'Generador de noticias ejecutado correctamente' });
+        } catch (error) {
+            console.error('Error in /api/run/noticias:', error);
+            res.status(500).json({ error: error.message });
+        }
+    });
+
+    app.post('/api/run/stats', async (req, res) => {
+        try {
+            await runStatsAutomation();
+            res.json({ success: true, message: 'Generador de estadísticas ejecutado correctamente' });
+        } catch (error) {
+            console.error('Error in /api/run/stats:', error);
+            res.status(500).json({ error: error.message });
+        }
+    });
+
+    app.post('/api/run/economy', async (req, res) => {
+        try {
+            await runEconomyAutomation();
+            res.json({ success: true, message: 'Generador de economía ejecutado correctamente' });
+        } catch (error) {
+            console.error('Error in /api/run/economy:', error);
+            res.status(500).json({ error: error.message });
+        }
     });
 
     app.get('/api/events', (req, res) => {

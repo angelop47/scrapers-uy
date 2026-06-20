@@ -6,7 +6,7 @@ import util from 'util';
 
 const execAsync = util.promisify(exec);
 
-async function checkAndPull() {
+async function checkAndPull(): Promise<void> {
   log('INFO [Git-Pull]', 'Checking for updates in remote repository...');
 
   try {
@@ -43,13 +43,13 @@ async function checkAndPull() {
 
         log('INFO [Git-Pull]', 'Shutting down process so PM2 can auto-restart with new code...');
         process.exit(0); // Reinicia el proceso automáticamente para que PM2 lo levante con la nueva versión
-      } catch (errRebase) {
+      } catch (errRebase: any) {
         log('ERROR [Git-Pull]', `Error executing git pull --rebase: ${errRebase.message}`, true);
         log('INFO [Git-Pull]', 'Aborting rebase to return to clean state...');
-        await execGit('git rebase --abort').catch(() => {});
+        await execGit('git rebase --abort').catch(() => { });
         if (stashed) {
           log('INFO [Git-Pull]', 'Restoring local changes from stash after error...');
-          await execGit('git stash pop').catch(() => {});
+          await execGit('git stash pop').catch(() => { });
         }
         log('ERROR [Git-Pull]', 'Rebase aborted. Manual intervention required.');
         await notifyError(`Git Pull conflict on server. Manual intervention required. Details: ${errRebase.message}`);
@@ -57,12 +57,12 @@ async function checkAndPull() {
     } else {
       log('INFO [Git-Pull]', 'Local repository is already up to date.');
     }
-  } catch (err) {
+  } catch (err: any) {
     log('ERROR [Git-Pull]', `General error checking for updates: ${err.message}`, true);
   }
 }
 
-export function start() {
+export function start(): void {
   // Verificamos al iniciar el script
   checkAndPull();
 
@@ -72,4 +72,3 @@ export function start() {
     checkAndPull();
   });
 }
-

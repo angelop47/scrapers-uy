@@ -10,12 +10,12 @@ if (!fs.existsSync(LOG_DIR)) {
   fs.mkdirSync(LOG_DIR, { recursive: true });
 }
 
-export function getDailyLogPath() {
+export function getDailyLogPath(): string {
   const dateStr = DateTime.now().setZone(TIMEZONE).toFormat('yyyy-MM-dd');
   return path.join(LOG_DIR, `scraper-${dateStr}.log`);
 }
 
-function cleanOldLogs() {
+function cleanOldLogs(): void {
   try {
     const files = fs.readdirSync(LOG_DIR);
     const now = DateTime.now().setZone(TIMEZONE);
@@ -31,12 +31,12 @@ function cleanOldLogs() {
         }
       }
     });
-  } catch (e) {
+  } catch (e: any) {
     console.error(`[Logger Error] Could not clean old logs: ${e.message}`);
   }
 }
 
-export function log(status, message, isError = false) {
+export function log(status: string, message: string, isError: boolean = false): void {
   const now = DateTime.now().setZone(TIMEZONE).toFormat('yyyy-MM-dd HH:mm:ss');
   const logMessage = `[${now}] ${status}: ${message}\n`;
 
@@ -47,7 +47,7 @@ export function log(status, message, isError = false) {
     if (Math.random() < 0.05) {
       cleanOldLogs();
     }
-  } catch (e) {
+  } catch (e: any) {
     console.error(`[Logger Error] Could not write to log file: ${e.message}`);
   }
 
@@ -61,7 +61,7 @@ export function log(status, message, isError = false) {
 /**
  * Función para enviar notificaciones críticas por correo electrónico a través de FormSubmit.
  */
-export async function notifyError(message) {
+export async function notifyError(message: string): Promise<void> {
   console.error(`\n[ALERT] => SENDING NOTIFICATION: ${message}\n`);
 
   if (!process.env.ALERT_EMAIL) {
@@ -72,7 +72,7 @@ export async function notifyError(message) {
   try {
     const response = await fetch(`https://formsubmit.co/ajax/${process.env.ALERT_EMAIL}`, {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
@@ -92,7 +92,7 @@ export async function notifyError(message) {
     } else {
       console.error(`[Logger Error] FormSubmit response error: ${response.statusText}`);
     }
-  } catch (e) {
+  } catch (e: any) {
     console.error(`[Logger Error] Request to FormSubmit failed: ${e.message}`);
   }
 }

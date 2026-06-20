@@ -3,7 +3,7 @@ import path from 'path';
 import { DateTime } from 'luxon';
 import { parse } from 'csv-parse/sync';
 import cron from 'node-cron';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { log } from './logger.js';
 
 const TIMEZONE = 'America/Montevideo';
@@ -12,9 +12,14 @@ const DOLLAR_DIR = './dollar';
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
-export const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
-function getCsvData(dir) {
+export const supabase: SupabaseClient | null = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
+
+interface CsvRowRecord {
+  [key: string]: string;
+}
+
+function getCsvData(dir: string): CsvRowRecord[] {
   const now = DateTime.now().setZone(TIMEZONE);
   const filename = now.toFormat('MM-yyyy') + '.csv';
   const filepath = path.join(dir, filename);
@@ -25,18 +30,18 @@ function getCsvData(dir) {
 
   const fileContent = fs.readFileSync(filepath, 'utf-8');
   try {
-    return parse(fileContent, { columns: true, skip_empty_lines: true });
+    return parse(fileContent, { columns: true, skip_empty_lines: true }) as CsvRowRecord[];
   } catch (e) {
     return [];
   }
 }
 
-export async function syncPetroleo() {
+export async function syncPetroleo(): Promise<void> {
   if (!supabase) return;
   log('INFO [Supabase]', 'Syncing petroleo...');
   const data = getCsvData(PETROLEO_DIR);
   const now = DateTime.now().setZone(TIMEZONE);
-  const fecha = now.toISODate();
+  const fecha = now.toISODate() as string;
 
   const todayRecords = data.filter(d => d.fecha === fecha && d.tipo === 'Brent');
   if (todayRecords.length === 0) {
@@ -52,17 +57,17 @@ export async function syncPetroleo() {
     const { error } = await supabase.from('oil_prices').upsert({ date: fecha, price: precio }, { onConflict: 'date' });
     if (error) throw error;
     log('SUCCESS [Supabase]', `Synced petroleo for ${fecha}`);
-  } catch (err) {
+  } catch (err: any) {
     log('ERROR [Supabase]', err.message);
   }
 }
 
-export async function syncDolar() {
+export async function syncDolar(): Promise<void> {
   if (!supabase) return;
   log('INFO [Supabase]', 'Syncing dolar...');
   const data = getCsvData(DOLLAR_DIR);
   const now = DateTime.now().setZone(TIMEZONE);
-  const fecha = now.toISODate();
+  const fecha = now.toISODate() as string;
 
   const todayRecords = data.filter(d => d.fecha === fecha && d.moneda === 'Dólar');
   if (todayRecords.length === 0) {
@@ -74,7 +79,7 @@ export async function syncDolar() {
 
   // Utilizaremos los datos de VENTA (venta) como el precio principal
   const ultimoStr = lastRecord.venta;
-  const ultimo = parseFloat(ultimoStr ? ultimoStr.replace(/\\./g, '').replace(',', '.') : 'NaN');
+  const ultimo = parseFloat(ultimoStr ? ultimoStr.replace(/\./g, '').replace(',', '.') : 'NaN');
   const apertura = parseFloat(lastRecord.venta_apertura);
   const maximo = parseFloat(lastRecord.venta_maximo);
   const minimo = parseFloat(lastRecord.venta_minimo);
@@ -91,14 +96,14 @@ export async function syncDolar() {
     }, { onConflict: 'date' });
     if (error) throw error;
     log('SUCCESS [Supabase]', `Synced dolar for ${fecha}`);
-  } catch (err) {
+  } catch (err: any) {
     log('ERROR [Supabase]', err.message);
   }
 }
 
-export async function getActiveMandateId() {
+export async function getActiveMandateId(): Promise<string | null> {
   if (!supabase) return null;
-  const now = DateTime.now().setZone(TIMEZONE).toISODate();
+  const now = DateTime.now().setZone(TIMEZONE).toISODate() as string;
 
   try {
     const { data, error } = await supabase
@@ -112,14 +117,13 @@ export async function getActiveMandateId() {
 
     if (error) throw error;
     return data?.id || null;
-  } catch (err) {
+  } catch (err: any) {
     log('ERROR [Supabase]', `Error fetching active mandate: ${err.message}`);
     return null;
   }
 }
 
-
-export async function getLatestEconomicIndicators() {
+export async function getLatestEconomicIndicators(): Promise<any | null> {
   if (!supabase) return null;
   try {
     const { data, error } = await supabase
@@ -131,13 +135,13 @@ export async function getLatestEconomicIndicators() {
 
     if (error && error.code !== 'PGRST116') throw error; // Ignorar error si no hay filas
     return data || null;
-  } catch (err) {
+  } catch (err: any) {
     log('ERROR [Supabase]', `Error fetching latest economic indicators: ${err.message}`);
     return null;
   }
 }
 
-export function start() {
+export function start(): void {
   log('INFO [Supabase]', 'Scheduling sync to run at 23:55 (Mon-Fri, Uruguay Time)...');
   cron.schedule('55 23 * * 1-5', () => {
     syncPetroleo();

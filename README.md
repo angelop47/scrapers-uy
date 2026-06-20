@@ -86,7 +86,7 @@ npx tsx src/test-alert.ts
 
 El proyecto incluye automatizaciones diseñadas para ejecutarse en un servidor sin intervención manual:
 
-- **Auto-Pull:** Al iniciarse y a los 5 minutos de cada hora (ej. 10:05), el sistema verifica si hay actualizaciones en el repositorio remoto de GitHub. Si existen, ejecuta un stash temporal de los datos locales, realiza un `git pull --rebase`, y finalmente restaura el stash. Se ejecuta de forma escalonada respecto a los scrapers para prevenir condiciones de carrera al editar los CSV, y permite que PM2 reinicie la aplicación de forma automática y transparente con el nuevo código.
+- **Auto-Pull:** Al iniciarse y a los 10 minutos de cada hora (ej. 10:10), el sistema verifica si hay actualizaciones en el repositorio remoto de GitHub. Si existen, ejecuta un stash temporal de los datos locales, realiza un `git pull --rebase`, y finalmente restaura el stash. Se ejecuta de forma escalonada respecto a los scrapers para prevenir condiciones de carrera al editar los CSV, y permite que PM2 reinicie la aplicación de forma automática y transparente con el nuevo código.
 - **Auto-Commit:** Todos los días a las 23:59 (hora de Montevideo), el sistema realiza un commit y push de todos los archivos generados en el día hacia GitHub mediante operaciones atómicas y seguras con bloqueo de procesos.
 
 ## Sincronización con Supabase
@@ -112,6 +112,24 @@ Dado que este proyecto está diseñado para la infraestructura de la **[Línea d
   - Descarga los registros en lotes de forma paginada para evitar límites en el tamaño de la respuesta.
   - Guarda los respaldos en formato JSON bajo el directorio `backups/` (ej. `backups/timeline_events.json`).
   - Estos archivos son rastreados por Git y subidos automáticamente a GitHub ese mismo día mediante el proceso de **Auto-Commit** a las 23:59, manteniendo un historial de cambios eficiente, legible y versionado a lo largo del tiempo.
+
+## Cronología de Tareas (Cron)
+
+Para facilitar la administración y el monitoreo, a continuación se presenta la cronología completa de las tareas automáticas del sistema, ordenadas por horario de ejecución. La zona horaria de referencia es **Uruguay (America/Montevideo)** excepto donde se especifique lo contrario.
+
+| Horario | Frecuencia / Días | Tarea / Módulo | Descripción |
+| :--- | :--- | :--- | :--- |
+| **Minuto 10 de cada hora** | Todos los días | **Actualización de Código** ([gitAutoPull.ts](src/gitAutoPull.ts)) | Verifica actualizaciones remotas en GitHub, realiza pull con rebase y ejecuta `npm install` si hay cambios. |
+| **Cada 15 min (09:00 - 18:45)** | Lunes a Viernes | **Scraper de Dólar** ([dolar.ts](src/scrapers/dolar.ts)) | Extrae cotización del Dólar BROU y calcula estadísticas diarias si cambian los valores. |
+| **Cada hora en punto (00:00)** | Lun - Vie* | **Scraper de Petróleo** ([petroleo.ts](src/scrapers/petroleo.ts)) | Obtiene el precio de Brent en base a la hora de **Nueva York (America/New_York)**. Ejecuta Lun-Jue todo el día; Viernes hasta 22:00 NY. |
+| **06:05, 12:05, 18:05, 22:05** | Todos los días | **Generación de Noticias (RSS)** ([generate-news.ts](src/generate-news.ts)) | Recopila portales nacionales e internacionales y selecciona noticias de alto impacto usando Gemini. |
+| **10:00** | Todos los días | **Estadísticas de Mandato** ([stats-runner.ts](src/scrapers/stats/stats-runner.ts)) | Rastrea encuestas de aprobación presidencial e inflación mensual utilizando Gemini + Google Search. |
+| **13:00, 14:00, 19:00, 20:00, 23:00** | Todos los días | **Enriquecimiento de Noticias** ([generate-news.ts](src/generate-news.ts)) | Investiga en internet y redacta a fondo las noticias seleccionadas pendientes de enriquecer. |
+| **18:30** | Viernes y Sábados | **Indicadores Macroeconómicos** ([economy-runner.ts](src/scrapers/economy/economy-runner.ts)) | Actualiza 9 indicadores clave (PIB, desempleo, riesgo país) arrastrando el último valor (LOCF) y validando datos nuevos con IA. |
+| **23:50** | Todos los días | **Respaldo de Base de Datos** ([backup.ts](src/backup.ts)) | Ejecuta un backup completo de las tablas de Supabase en formato JSON en `backups/`. |
+| **23:55** | Lunes a Viernes | **Sincronización a Supabase** ([supabase.ts](src/supabase.ts)) | Sube los valores recopilados del día de Dólar y Petróleo a la base de datos de Supabase. |
+| **23:59** | Todos los días | **Commit & Push de Datos** ([gitAutoCommit.ts](src/gitAutoCommit.ts)) | Sube todos los CSV y JSON generados/modificados durante el día al repositorio GitHub de manera atómica. |
+
 
 ## Ejecución
 

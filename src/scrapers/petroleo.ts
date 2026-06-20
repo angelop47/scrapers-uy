@@ -48,12 +48,15 @@ export async function scrape(): Promise<void> {
     log('INFO [Petróleo]', `Fetching main page at ${URL}...`);
     const response = await fetch(URL, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-      }
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+      },
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch oilprice.com: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch oilprice.com: ${response.status} ${response.statusText}`,
+      );
     }
 
     const html = await response.text();
@@ -68,12 +71,15 @@ export async function scrape(): Promise<void> {
         if (valText) {
           const precioStr = valText.replace(/[^0-9.]/g, '');
           const precio = parseFloat(precioStr);
-          
+
           const parsed = ScrapedRowSchema.safeParse({ tipo, precio });
           if (parsed.success) {
             rows.push(parsed.data);
           } else {
-            log('WARN [Petróleo]', `Zod validation failed for ${tipo}: ${parsed.error.message}`);
+            log(
+              'WARN [Petróleo]',
+              `Zod validation failed for ${tipo}: ${parsed.error.message}`,
+            );
           }
         }
       }
@@ -91,52 +97,69 @@ export async function scrape(): Promise<void> {
     if (fs.existsSync(currentCsvPath)) {
       const fileContent = fs.readFileSync(currentCsvPath, 'utf-8');
       try {
-        existingData = parse(fileContent, { columns: true, skip_empty_lines: true }) as PetroleoRecord[];
+        existingData = parse(fileContent, {
+          columns: true,
+          skip_empty_lines: true,
+        }) as PetroleoRecord[];
       } catch (e) {
         log('WARN [Petróleo]', 'Could not parse existing CSV, starting fresh.');
       }
     }
 
-    const newRecords = rows.map((row: ScrapedRow) => {
-      const todayRecords = existingData.filter(d => d.fecha === fecha && d.tipo === row.tipo);
-      const lastRecord = existingData.length > 0 ? existingData.filter(d => d.tipo === row.tipo).pop() : null;
+    const newRecords = rows
+      .map((row: ScrapedRow) => {
+        const todayRecords = existingData.filter(
+          (d) => d.fecha === fecha && d.tipo === row.tipo,
+        );
+        const lastRecord =
+          existingData.length > 0
+            ? existingData.filter((d) => d.tipo === row.tipo).pop()
+            : null;
 
-      const precioVal = row.precio;
+        const precioVal = row.precio;
 
-      const isSameDayAsLast = lastRecord && lastRecord.fecha === fecha;
-      if (isSameDayAsLast && parseFloat(lastRecord?.precio || '0') === precioVal) {
-        log('SKIPPED [Petróleo]', `No change detected for ${row.tipo} today.`);
-        return null;
-      }
+        const isSameDayAsLast = lastRecord && lastRecord.fecha === fecha;
+        if (
+          isSameDayAsLast &&
+          parseFloat(lastRecord?.precio || '0') === precioVal
+        ) {
+          log(
+            'SKIPPED [Petróleo]',
+            `No change detected for ${row.tipo} today.`,
+          );
+          return null;
+        }
 
-      let apertura = precioVal;
-      let minimo = precioVal;
-      let maximo = precioVal;
+        let apertura = precioVal;
+        let minimo = precioVal;
+        let maximo = precioVal;
 
-      if (todayRecords.length > 0) {
-        const prevApertura = parseFloat(todayRecords[0].apertura);
-        if (!isNaN(prevApertura)) apertura = prevApertura;
+        if (todayRecords.length > 0) {
+          const prevApertura = parseFloat(todayRecords[0].apertura);
+          if (!isNaN(prevApertura)) apertura = prevApertura;
 
-        const allPrecios = todayRecords
-          .map(r => parseFloat(r.precio))
-          .filter(v => !isNaN(v))
-          .concat(precioVal);
-        minimo = Math.min(...allPrecios);
-        maximo = Math.max(...allPrecios);
-      }
+          const allPrecios = todayRecords
+            .map((r) => parseFloat(r.precio))
+            .filter((v) => !isNaN(v))
+            .concat(precioVal);
+          minimo = Math.min(...allPrecios);
+          maximo = Math.max(...allPrecios);
+        }
 
-      const format = (val: number | null): string => (val !== null && !isNaN(val) ? val.toFixed(2) : '-');
+        const format = (val: number | null): string =>
+          val !== null && !isNaN(val) ? val.toFixed(2) : '-';
 
-      return {
-        fecha: fecha!,
-        hora,
-        tipo: row.tipo,
-        precio: format(precioVal),
-        apertura: format(apertura),
-        minimo: format(minimo),
-        maximo: format(maximo)
-      } as PetroleoRecord;
-    }).filter(Boolean) as PetroleoRecord[];
+        return {
+          fecha: fecha!,
+          hora,
+          tipo: row.tipo,
+          precio: format(precioVal),
+          apertura: format(apertura),
+          minimo: format(minimo),
+          maximo: format(maximo),
+        } as PetroleoRecord;
+      })
+      .filter(Boolean) as PetroleoRecord[];
 
     if (newRecords.length === 0) {
       return;
@@ -146,28 +169,45 @@ export async function scrape(): Promise<void> {
     const output = stringify(combinedData, { header: true });
     fs.writeFileSync(currentCsvPath, output);
 
-    log('SUCCESS [Petróleo]', `Recorded new values for ${newRecords.map(r => r.tipo).join(', ')}.`);
+    log(
+      'SUCCESS [Petróleo]',
+      `Recorded new values for ${newRecords.map((r) => r.tipo).join(', ')}.`,
+    );
   } catch (error: any) {
     log('ERROR [Petróleo]', `Scraping failed: ${error.message}`);
   }
 }
 
 export function start(): void {
-  log('INFO [Petróleo]', 'Scheduling scraper to run Mon-Thu all day, and Fri until 22:00 (US Time)...');
-  
+  log(
+    'INFO [Petróleo]',
+    'Scheduling scraper to run Mon-Thu all day, and Fri until 22:00 (US Time)...',
+  );
+
   // Monday to Thursday: every hour
-  cron.schedule('0 * * * 1-4', () => {
-    scrape();
-  }, {
-    timezone: 'America/New_York'
-  });
+  cron.schedule(
+    '0 * * * 1-4',
+    () => {
+      scrape();
+    },
+    {
+      timezone: 'America/New_York',
+    },
+  );
 
   // Friday: every hour from 00:00 to 22:00 (avoiding 23:00 NY = 00:00 Montevideo on Saturday)
-  cron.schedule('0 0-22 * * 5', () => {
-    scrape();
-  }, {
-    timezone: 'America/New_York'
-  });
+  cron.schedule(
+    '0 0-22 * * 5',
+    () => {
+      scrape();
+    },
+    {
+      timezone: 'America/New_York',
+    },
+  );
 
-  log('INFO [Petróleo]', 'Scraper initialized. Will run only at scheduled cron times.');
+  log(
+    'INFO [Petróleo]',
+    'Scraper initialized. Will run only at scheduled cron times.',
+  );
 }

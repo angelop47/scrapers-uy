@@ -36,7 +36,10 @@ export function start(): void {
   app.post('/api/run/dolar', async (req: Request, res: Response) => {
     try {
       await scrapeDolar();
-      res.json({ success: true, message: 'Scraper de dólar ejecutado correctamente' });
+      res.json({
+        success: true,
+        message: 'Scraper de dólar ejecutado correctamente',
+      });
     } catch (error: any) {
       console.error('Error in /api/run/dolar:', error);
       res.status(500).json({ error: error.message });
@@ -46,7 +49,10 @@ export function start(): void {
   app.post('/api/run/petroleo', async (req: Request, res: Response) => {
     try {
       await scrapePetroleo();
-      res.json({ success: true, message: 'Scraper de petróleo ejecutado correctamente' });
+      res.json({
+        success: true,
+        message: 'Scraper de petróleo ejecutado correctamente',
+      });
     } catch (error: any) {
       console.error('Error in /api/run/petroleo:', error);
       res.status(500).json({ error: error.message });
@@ -56,7 +62,10 @@ export function start(): void {
   app.post('/api/run/noticias', async (req: Request, res: Response) => {
     try {
       await runNewsAutomation();
-      res.json({ success: true, message: 'Generador de noticias ejecutado correctamente' });
+      res.json({
+        success: true,
+        message: 'Generador de noticias ejecutado correctamente',
+      });
     } catch (error: any) {
       console.error('Error in /api/run/noticias:', error);
       res.status(500).json({ error: error.message });
@@ -66,7 +75,10 @@ export function start(): void {
   app.post('/api/run/stats', async (req: Request, res: Response) => {
     try {
       await runStatsAutomation();
-      res.json({ success: true, message: 'Generador de estadísticas ejecutado correctamente' });
+      res.json({
+        success: true,
+        message: 'Generador de estadísticas ejecutado correctamente',
+      });
     } catch (error: any) {
       console.error('Error in /api/run/stats:', error);
       res.status(500).json({ error: error.message });
@@ -76,7 +88,10 @@ export function start(): void {
   app.post('/api/run/economy', async (req: Request, res: Response) => {
     try {
       await runEconomyAutomation();
-      res.json({ success: true, message: 'Generador de economía ejecutado correctamente' });
+      res.json({
+        success: true,
+        message: 'Generador de economía ejecutado correctamente',
+      });
     } catch (error: any) {
       console.error('Error in /api/run/economy:', error);
       res.status(500).json({ error: error.message });
@@ -104,12 +119,17 @@ export function start(): void {
 
     if (fs.existsSync(outputDir)) {
       try {
-        const files = fs.readdirSync(outputDir).filter(f => f.endsWith('.json'));
+        const files = fs
+          .readdirSync(outputDir)
+          .filter((f) => f.endsWith('.json'));
         for (const file of files) {
           const content = fs.readFileSync(path.join(outputDir, file), 'utf-8');
           const data = JSON.parse(content);
           if (Array.isArray(data)) {
-            const dataWithSource = data.map(ev => ({ ...ev, sourceFile: file }));
+            const dataWithSource = data.map((ev) => ({
+              ...ev,
+              sourceFile: file,
+            }));
             allEvents = allEvents.concat(dataWithSource);
           }
         }
@@ -134,12 +154,17 @@ export function start(): void {
 
     if (fs.existsSync(statsDir)) {
       try {
-        const files = fs.readdirSync(statsDir).filter(f => f.endsWith('.json'));
+        const files = fs
+          .readdirSync(statsDir)
+          .filter((f) => f.endsWith('.json'));
         for (const file of files) {
           const content = fs.readFileSync(path.join(statsDir, file), 'utf-8');
           const data = JSON.parse(content);
           if (Array.isArray(data)) {
-            const dataWithSource = data.map(st => ({ ...st, sourceFile: file }));
+            const dataWithSource = data.map((st) => ({
+              ...st,
+              sourceFile: file,
+            }));
             allStats = allStats.concat(dataWithSource);
           }
         }
@@ -164,7 +189,9 @@ export function start(): void {
 
     if (fs.existsSync(economyDir)) {
       try {
-        const files = fs.readdirSync(economyDir).filter(f => f.endsWith('.json'));
+        const files = fs
+          .readdirSync(economyDir)
+          .filter((f) => f.endsWith('.json'));
         for (const file of files) {
           const content = fs.readFileSync(path.join(economyDir, file), 'utf-8');
           const data = JSON.parse(content);
@@ -175,7 +202,9 @@ export function start(): void {
       }
     }
 
-    allEconomy.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    allEconomy.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
 
     res.json(allEconomy);
   });
@@ -186,6 +215,9 @@ export function start(): void {
 
   // Cast app to any internally to silence complex type issues if dependencies mismatch
   (app as any).listen(PORT, () => {
-    log('INFO [Server]', `API HTTP corriendo con Express en http://localhost:${PORT}/api/events`);
+    log(
+      'INFO [Server]',
+      `API HTTP corriendo con Express en http://localhost:${PORT}/api/events`,
+    );
   });
 }

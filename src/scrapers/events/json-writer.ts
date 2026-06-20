@@ -15,16 +15,24 @@ export function getRecentLocalNewsTitles(days: number = 7): string[] {
   try {
     const files = fs.readdirSync(outputDir);
     // Ordenar alfabéticamente inverso (por fecha) y tomar los últimos 'days'
-    const jsonFiles = files.filter(f => f.endsWith('.json')).sort().reverse().slice(0, days);
+    const jsonFiles = files
+      .filter((f) => f.endsWith('.json'))
+      .sort()
+      .reverse()
+      .slice(0, days);
 
     for (const file of jsonFiles) {
       const filePath = path.join(outputDir, file);
       const content = fs.readFileSync(filePath, 'utf-8');
       const data = JSON.parse(content) as TimelineEvent[];
-      allTitles = allTitles.concat(data.map(item => item.title));
+      allTitles = allTitles.concat(data.map((item) => item.title));
     }
   } catch (e: any) {
-    log('ERROR [JSON-Writer]', `Error reading recent JSONs: ${e.message}`, true);
+    log(
+      'ERROR [JSON-Writer]',
+      `Error reading recent JSONs: ${e.message}`,
+      true,
+    );
   }
   return allTitles;
 }
@@ -46,17 +54,21 @@ export function writeJsonFile(newsArray: TimelineEvent[]): string | null {
       const content = fs.readFileSync(filePath, 'utf-8');
       existingData = JSON.parse(content) as TimelineEvent[];
     } catch (e: any) {
-      log('ERROR [JSON-Writer]', `Error parsing existing JSON: ${e.message}`, true);
+      log(
+        'ERROR [JSON-Writer]',
+        `Error parsing existing JSON: ${e.message}`,
+        true,
+      );
     }
   }
 
   // Agregar UUID a las nuevas noticias y estructurarlas bien
-  const newsWithIds: TimelineEvent[] = newsArray.map(news => ({
+  const newsWithIds: TimelineEvent[] = newsArray.map((news) => ({
     id: uuidv4(),
     ...news,
     isEnriched: news.isEnriched || false,
     tags: Array.isArray(news.tags) ? news.tags : [],
-    image_url: news.image_url || null
+    image_url: news.image_url || null,
   }));
 
   const combinedData = [...existingData, ...newsWithIds];
@@ -66,14 +78,20 @@ export function writeJsonFile(newsArray: TimelineEvent[]): string | null {
   return filePath;
 }
 
-export function getRecentJsonFilesData(days: number = 3): { filePath: string, data: TimelineEvent[] }[] {
+export function getRecentJsonFilesData(
+  days: number = 3,
+): { filePath: string; data: TimelineEvent[] }[] {
   const outputDir = path.join(process.cwd(), 'noticias');
   if (!fs.existsSync(outputDir)) return [];
 
-  let results: { filePath: string, data: TimelineEvent[] }[] = [];
+  let results: { filePath: string; data: TimelineEvent[] }[] = [];
   try {
     const files = fs.readdirSync(outputDir);
-    const jsonFiles = files.filter(f => f.endsWith('.json')).sort().reverse().slice(0, days);
+    const jsonFiles = files
+      .filter((f) => f.endsWith('.json'))
+      .sort()
+      .reverse()
+      .slice(0, days);
 
     for (const file of jsonFiles) {
       const filePath = path.join(outputDir, file);
@@ -82,7 +100,11 @@ export function getRecentJsonFilesData(days: number = 3): { filePath: string, da
       results.push({ filePath, data });
     }
   } catch (e: any) {
-    log('ERROR [JSON-Writer]', `Error reading recent JSONs data: ${e.message}`, true);
+    log(
+      'ERROR [JSON-Writer]',
+      `Error reading recent JSONs data: ${e.message}`,
+      true,
+    );
   }
   return results;
 }

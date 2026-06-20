@@ -9,12 +9,18 @@ import { TimelineEventSchema, TimelineEvent, RssNewsItem } from './types.js';
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 const groq = new Groq({
-  apiKey: process.env.IA_TOKEN || ''
+  apiKey: process.env.IA_TOKEN || '',
 });
 
-const supabase = createClient(process.env.SUPABASE_URL || '', process.env.SUPABASE_KEY || '');
+const supabase = createClient(
+  process.env.SUPABASE_URL || '',
+  process.env.SUPABASE_KEY || '',
+);
 
-export async function generateMostRelevantNews(newsList: RssNewsItem[], localTitles: string[] = []): Promise<TimelineEvent[]> {
+export async function generateMostRelevantNews(
+  newsList: RssNewsItem[],
+  localTitles: string[] = [],
+): Promise<TimelineEvent[]> {
   // 1. Obtener contexto desde Supabase (últimas 10 noticias)
   console.log('Fetching context from Supabase...');
   const { data: recentEvents, error } = await supabase
@@ -27,15 +33,28 @@ export async function generateMostRelevantNews(newsList: RssNewsItem[], localTit
     console.error('Error fetching context:', error.message);
   }
 
-  const contextEventsText = recentEvents && recentEvents.length > 0 ?
-    recentEvents.map(e => `- [${e.date}] ${e.title} (${e.category_id}): ${e.description}`).join('\n') :
-    'Sin contexto previo.';
+  const contextEventsText =
+    recentEvents && recentEvents.length > 0
+      ? recentEvents
+          .map(
+            (e) =>
+              `- [${e.date}] ${e.title} (${e.category_id}): ${e.description}`,
+          )
+          .join('\n')
+      : 'Sin contexto previo.';
 
-  const localContextText = localTitles.length > 0 ?
-    `\n\nAdemás, HOY ya se generaron las siguientes noticias localmente (NO REPETIR NINGUNA DE ESTAS):\n${localTitles.map(t => `- ${t}`).join('\n')}` : '';
+  const localContextText =
+    localTitles.length > 0
+      ? `\n\nAdemás, HOY ya se generaron las siguientes noticias localmente (NO REPETIR NINGUNA DE ESTAS):\n${localTitles.map((t) => `- ${t}`).join('\n')}`
+      : '';
 
   // 2. Preparar el listado de noticias recolectadas para el prompt
-  const newsText = newsList.map((n, i) => `${i + 1}. [${n.source}] ${n.title}\nResumen: ${n.contentSnippet}`).join('\n\n');
+  const newsText = newsList
+    .map(
+      (n, i) =>
+        `${i + 1}. [${n.source}] ${n.title}\nResumen: ${n.contentSnippet}`,
+    )
+    .join('\n\n');
 
   console.log('Analyzing news with Groq...');
   const systemPrompt = `Eres un editor periodístico experto y analista de geopolítica y política uruguaya. Tu objetivo es encontrar las noticias más relevantes del día para agregarlas a una "Línea de Tiempo" de hitos históricos de Uruguay.
@@ -69,7 +88,7 @@ Estructura de CADA objeto del arreglo:
   const chatCompletion = await groq.chat.completions.create({
     messages: [
       { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt }
+      { role: 'user', content: userPrompt },
     ],
     model: 'llama-3.3-70b-versatile', // Modelo actualizado
     temperature: 0.2,
@@ -86,12 +105,16 @@ Estructura de CADA objeto del arreglo:
     // Validate with Zod TimelineEventSchema
     const validation = z.array(TimelineEventSchema).safeParse(rawArray);
     if (!validation.success) {
-      throw new Error(`Zod schema validation failed: ${validation.error.message}`);
+      throw new Error(
+        `Zod schema validation failed: ${validation.error.message}`,
+      );
     }
 
     return validation.data;
   } catch (e: any) {
     console.error('Error parsing Groq response:', e.message, aiContent);
-    throw new Error('AI did not return a valid JSON conforming to the requested schema');
+    throw new Error(
+      'AI did not return a valid JSON conforming to the requested schema',
+    );
   }
 }

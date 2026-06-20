@@ -23,10 +23,17 @@ export const EconomyIndicatorsSchema = z.object({
 
 export type EconomyIndicators = z.infer<typeof EconomyIndicatorsSchema>;
 
-export async function fetchEconomicIndicators(previousState: EconomyIndicators | null): Promise<EconomyIndicators | null> {
-  log('INFO [Gemini-Economy]', 'Asking Gemini to search for the latest macroeconomic indicators...');
+export async function fetchEconomicIndicators(
+  previousState: EconomyIndicators | null,
+): Promise<EconomyIndicators | null> {
+  log(
+    'INFO [Gemini-Economy]',
+    'Asking Gemini to search for the latest macroeconomic indicators...',
+  );
 
-  const previousContext = previousState ? `ESTADO ACTUAL CONOCIDO (Última ejecución):\n${JSON.stringify(previousState, null, 2)}\n\nINSTRUCCIÓN VITAL: Utiliza estos valores como base. SOLO debes cambiar un valor si encuentras en Google un reporte oficial MÁS RECIENTE que demuestre que el indicador se actualizó. Si las noticias o los datos que encuentras coinciden o son más viejos, devuelve null para no sobrescribir sin motivo.` : '';
+  const previousContext = previousState
+    ? `ESTADO ACTUAL CONOCIDO (Última ejecución):\n${JSON.stringify(previousState, null, 2)}\n\nINSTRUCCIÓN VITAL: Utiliza estos valores como base. SOLO debes cambiar un valor si encuentras en Google un reporte oficial MÁS RECIENTE que demuestre que el indicador se actualizó. Si las noticias o los datos que encuentras coinciden o son más viejos, devuelve null para no sobrescribir sin motivo.`
+    : '';
 
   const systemPrompt = `Eres un economista riguroso y asistente de recolección de datos de Uruguay.
 Tu trabajo es usar la herramienta de búsqueda de Google para encontrar los valores oficiales *más recientes* para 9 indicadores específicos.
@@ -61,30 +68,40 @@ IMPORTANTE: Devuelve ÚNICAMENTE el JSON crudo, sin bloques de código markdown 
 
   const maxRetries = 3;
   let attempt = 0;
-  const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
   while (attempt < maxRetries) {
     try {
       // Utilizamos el modelo flash estándar que tiene acceso a tools
       const modelName = 'gemini-2.5-flash';
-      log('INFO [Gemini-Economy]', `Trying with model: ${modelName} (Attempt ${attempt + 1})`);
+      log(
+        'INFO [Gemini-Economy]',
+        `Trying with model: ${modelName} (Attempt ${attempt + 1})`,
+      );
 
       const response = await ai.models.generateContent({
         model: modelName,
         contents: [
-          { role: 'user', parts: [{ text: systemPrompt }, { text: userPrompt }] }
+          {
+            role: 'user',
+            parts: [{ text: systemPrompt }, { text: userPrompt }],
+          },
         ],
         config: {
           tools: [{ googleSearch: {} }],
-          temperature: 0.1
-        }
+          temperature: 0.1,
+        },
       });
 
       let aiContent = response.text;
-      if (!aiContent) throw new Error("Empty response from Gemini");
+      if (!aiContent) throw new Error('Empty response from Gemini');
 
       // Limpiar posibles bloques markdown si Gemini se equivoca
-      aiContent = aiContent.replace(/^```json/g, '').replace(/^```/g, '').replace(/```$/g, '').trim();
+      aiContent = aiContent
+        .replace(/^```json/g, '')
+        .replace(/^```/g, '')
+        .replace(/```$/g, '')
+        .trim();
 
       const parsedJson = JSON.parse(aiContent);
 
@@ -99,7 +116,10 @@ IMPORTANTE: Devuelve ÚNICAMENTE el JSON crudo, sin bloques de código markdown 
       attempt++;
       log('ERROR [Gemini-Economy]', `Attempt ${attempt} failed: ${e.message}`);
       if (attempt >= maxRetries) {
-        log('WARN [Gemini-Economy]', 'Failed to fetch economy stats from Gemini after all retries. Returning nulls.');
+        log(
+          'WARN [Gemini-Economy]',
+          'Failed to fetch economy stats from Gemini after all retries. Returning nulls.',
+        );
         return null; // El orquestador manejará el null y usará los valores previos 100%
       }
       const waitTime = 15000;

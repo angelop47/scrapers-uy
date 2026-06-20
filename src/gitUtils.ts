@@ -9,10 +9,12 @@ let isGitLocked = false;
  * Ejecuta un comando Git asegurando que no haya otro comando Git en curso
  * dentro del mismo proceso de Node (previene conflictos de index.lock).
  */
-export async function execGit(command: string): Promise<{ stdout: string; stderr: string }> {
+export async function execGit(
+  command: string,
+): Promise<{ stdout: string; stderr: string }> {
   // Esperar si Git está bloqueado por otra operación en este proceso
   while (isGitLocked) {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   }
 
   isGitLocked = true;

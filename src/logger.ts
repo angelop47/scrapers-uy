@@ -20,10 +20,12 @@ function cleanOldLogs(): void {
     const files = fs.readdirSync(LOG_DIR);
     const now = DateTime.now().setZone(TIMEZONE);
 
-    files.forEach(file => {
+    files.forEach((file) => {
       if (file.startsWith('scraper-') && file.endsWith('.log')) {
         const datePart = file.replace('scraper-', '').replace('.log', '');
-        const logDate = DateTime.fromFormat(datePart, 'yyyy-MM-dd', { zone: TIMEZONE });
+        const logDate = DateTime.fromFormat(datePart, 'yyyy-MM-dd', {
+          zone: TIMEZONE,
+        });
 
         // Borrar logs de más de 14 días
         if (logDate.isValid && now.diff(logDate, 'days').days > 14) {
@@ -36,7 +38,11 @@ function cleanOldLogs(): void {
   }
 }
 
-export function log(status: string, message: string, isError: boolean = false): void {
+export function log(
+  status: string,
+  message: string,
+  isError: boolean = false,
+): void {
   const now = DateTime.now().setZone(TIMEZONE).toFormat('yyyy-MM-dd HH:mm:ss');
   const logMessage = `[${now}] ${status}: ${message}\n`;
 
@@ -65,32 +71,39 @@ export async function notifyError(message: string): Promise<void> {
   console.error(`\n[ALERT] => SENDING NOTIFICATION: ${message}\n`);
 
   if (!process.env.ALERT_EMAIL) {
-    console.error('[Logger Error] Email will not be sent. ALERT_EMAIL environment variable is missing.');
+    console.error(
+      '[Logger Error] Email will not be sent. ALERT_EMAIL environment variable is missing.',
+    );
     return;
   }
 
   try {
-    const response = await fetch(`https://formsubmit.co/ajax/${process.env.ALERT_EMAIL}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-        'Origin': 'https://automation-timeline.local',
-        'Referer': 'https://automation-timeline.local/'
+    const response = await fetch(
+      `https://formsubmit.co/ajax/${process.env.ALERT_EMAIL}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+          Origin: 'https://automation-timeline.local',
+          Referer: 'https://automation-timeline.local/',
+        },
+        body: JSON.stringify({
+          _subject: '⚠️ Alerta de Sistema - Scrapers Uruguay',
+          _template: 'box',
+          _captcha: 'false',
+          Mensaje: message,
+        }),
       },
-      body: JSON.stringify({
-        _subject: '⚠️ Alerta de Sistema - Scrapers Uruguay',
-        _template: 'box',
-        _captcha: 'false',
-        Mensaje: message
-      })
-    });
+    );
 
     if (response.ok) {
       console.log('[Email Alert] Email sent successfully via FormSubmit.');
     } else {
-      console.error(`[Logger Error] FormSubmit response error: ${response.statusText}`);
+      console.error(
+        `[Logger Error] FormSubmit response error: ${response.statusText}`,
+      );
     }
   } catch (e: any) {
     console.error(`[Logger Error] Request to FormSubmit failed: ${e.message}`);

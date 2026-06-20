@@ -8,7 +8,10 @@ dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 import { log } from '../../logger.js';
 import { getLatestEconomicIndicators } from '../../supabase.js';
-import { fetchEconomicIndicators, EconomyIndicators } from './gemini-economy.js';
+import {
+  fetchEconomicIndicators,
+  EconomyIndicators,
+} from './gemini-economy.js';
 
 const TIMEZONE = 'America/Montevideo';
 const ECONOMY_DIR = path.join(process.cwd(), 'economy');
@@ -16,9 +19,15 @@ const ECONOMY_DIR = path.join(process.cwd(), 'economy');
 export type EconomyState = EconomyIndicators & { date: string };
 
 const INDICATOR_KEYS: (keyof EconomyIndicators)[] = [
-  "inflation_annual_pct", "unemployment_pct", "country_risk_points",
-  "gdp_usd_billions", "external_debt_pct_gdp", "bcu_reserves_usd_millions",
-  "minimum_wage_uyu", "poverty_rate_pct", "fiscal_deficit_pct_gdp"
+  'inflation_annual_pct',
+  'unemployment_pct',
+  'country_risk_points',
+  'gdp_usd_billions',
+  'external_debt_pct_gdp',
+  'bcu_reserves_usd_millions',
+  'minimum_wage_uyu',
+  'poverty_rate_pct',
+  'fiscal_deficit_pct_gdp',
 ];
 
 function saveLocalJson(data: EconomyState, dateStr: string): void {
@@ -28,29 +37,43 @@ function saveLocalJson(data: EconomyState, dateStr: string): void {
   const filename = `${dateStr}.json`;
   const filepath = path.join(ECONOMY_DIR, filename);
   fs.writeFileSync(filepath, JSON.stringify(data, null, 2), 'utf8');
-  log('INFO [Economy-Runner]', `Saved economy stats to local file: ${filename}`);
+  log(
+    'INFO [Economy-Runner]',
+    `Saved economy stats to local file: ${filename}`,
+  );
 }
 
 function getLatestLocalEconomy(): EconomyState | null {
   if (!fs.existsSync(ECONOMY_DIR)) return null;
   try {
-    const files = fs.readdirSync(ECONOMY_DIR).filter(f => f.endsWith('.json'));
+    const files = fs
+      .readdirSync(ECONOMY_DIR)
+      .filter((f) => f.endsWith('.json'));
     if (files.length === 0) return null;
 
     // Sort files to get the most recent one (alphabetically by YYYY-MM-DD)
     files.sort().reverse();
     const latestFile = files[0];
 
-    const content = fs.readFileSync(path.join(ECONOMY_DIR, latestFile), 'utf-8');
+    const content = fs.readFileSync(
+      path.join(ECONOMY_DIR, latestFile),
+      'utf-8',
+    );
     return JSON.parse(content) as EconomyState;
   } catch (e: any) {
-    log('ERROR [Economy-Runner]', `Failed to read local economy state: ${e.message}`);
+    log(
+      'ERROR [Economy-Runner]',
+      `Failed to read local economy state: ${e.message}`,
+    );
     return null;
   }
 }
 
 export async function runEconomyAutomation(): Promise<void> {
-  log('INFO [Economy-Runner]', '--- Starting Macroeconomic Indicators Automation ---');
+  log(
+    'INFO [Economy-Runner]',
+    '--- Starting Macroeconomic Indicators Automation ---',
+  );
   try {
     // Determinar la fecha para guardar. Si es Sábado (6), usamos la fecha del Viernes para sobrescribir/completar el mismo archivo.
     let runDate = DateTime.now().setZone(TIMEZONE);
@@ -62,14 +85,23 @@ export async function runEconomyAutomation(): Promise<void> {
     // 1. Obtener estado anterior (Priorizamos JSON local, sino Supabase)
     let previousState = getLatestLocalEconomy();
     if (previousState) {
-      log('INFO [Economy-Runner]', `Fetched previous state from local JSON: ${previousState.date}`);
+      log(
+        'INFO [Economy-Runner]',
+        `Fetched previous state from local JSON: ${previousState.date}`,
+      );
     } else {
       const sbState = await getLatestEconomicIndicators();
       if (sbState) {
         previousState = sbState as EconomyState;
-        log('INFO [Economy-Runner]', `Fetched previous state from Supabase fallback: ${previousState.date}`);
+        log(
+          'INFO [Economy-Runner]',
+          `Fetched previous state from Supabase fallback: ${previousState.date}`,
+        );
       } else {
-        log('INFO [Economy-Runner]', 'No previous state found locally or in Supabase. This seems to be the first run.');
+        log(
+          'INFO [Economy-Runner]',
+          'No previous state found locally or in Supabase. This seems to be the first run.',
+        );
       }
     }
 
@@ -77,7 +109,10 @@ export async function runEconomyAutomation(): Promise<void> {
     const newGeminiData = await fetchEconomicIndicators(previousState);
 
     if (!newGeminiData && !previousState) {
-      log('WARN [Economy-Runner]', 'Gemini failed and no previous state exists. Aborting.');
+      log(
+        'WARN [Economy-Runner]',
+        'Gemini failed and no previous state exists. Aborting.',
+      );
       return;
     }
 
@@ -99,24 +134,40 @@ export async function runEconomyAutomation(): Promise<void> {
       }
     }
 
-    log('INFO [Economy-Runner]', `Merge complete: ${updatedCount} keys updated by Gemini, ${carriedCount} keys carried forward from previous state.`);
+    log(
+      'INFO [Economy-Runner]',
+      `Merge complete: ${updatedCount} keys updated by Gemini, ${carriedCount} keys carried forward from previous state.`,
+    );
 
     // 4. Guardar localmente
     saveLocalJson(finalData as EconomyState, targetDateStr!);
-    log('INFO [Economy-Runner]', '--- Economy Automation finished successfully ---');
+    log(
+      'INFO [Economy-Runner]',
+      '--- Economy Automation finished successfully ---',
+    );
   } catch (error: any) {
-    log('ERROR [Economy-Runner]', `Error during economy automation: ${error.message}`);
+    log(
+      'ERROR [Economy-Runner]',
+      `Error during economy automation: ${error.message}`,
+    );
   }
 }
 
 export function start(): void {
-  log('INFO [Economy-Runner]', 'Scheduling economy scraper to run on Fridays and Saturdays at 18:30...');
+  log(
+    'INFO [Economy-Runner]',
+    'Scheduling economy scraper to run on Fridays and Saturdays at 18:30...',
+  );
   // Ejecutar a las 18:30 los Viernes (5) y Sábados (6)
-  cron.schedule('30 18 * * 5,6', () => {
-    runEconomyAutomation();
-  }, {
-    timezone: TIMEZONE
-  });
+  cron.schedule(
+    '30 18 * * 5,6',
+    () => {
+      runEconomyAutomation();
+    },
+    {
+      timezone: TIMEZONE,
+    },
+  );
 }
 
 // Permitir ejecución directa desde la terminal

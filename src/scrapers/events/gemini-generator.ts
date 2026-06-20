@@ -11,9 +11,15 @@ import { TimelineEventSchema, TimelineEvent, RssNewsItem } from './types.js';
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_TOKEN || '' });
-const supabase = createClient(process.env.SUPABASE_URL || '', process.env.SUPABASE_KEY || '');
+const supabase = createClient(
+  process.env.SUPABASE_URL || '',
+  process.env.SUPABASE_KEY || '',
+);
 
-export async function generateMostRelevantNews(newsList: RssNewsItem[], localTitles: string[] = []): Promise<TimelineEvent[]> {
+export async function generateMostRelevantNews(
+  newsList: RssNewsItem[],
+  localTitles: string[] = [],
+): Promise<TimelineEvent[]> {
   log('INFO [Gemini]', 'Fetching context from Supabase...');
   const { data: recentEvents, error } = await supabase
     .from('timeline_events')
@@ -25,14 +31,27 @@ export async function generateMostRelevantNews(newsList: RssNewsItem[], localTit
     log('ERROR [Gemini]', `Error fetching context: ${error.message}`, true);
   }
 
-  const contextEventsText = recentEvents && recentEvents.length > 0 ?
-    recentEvents.map(e => `- [${e.date}] ${e.title} (${e.category_id}): ${e.description}`).join('\n') :
-    'Sin contexto previo.';
+  const contextEventsText =
+    recentEvents && recentEvents.length > 0
+      ? recentEvents
+          .map(
+            (e) =>
+              `- [${e.date}] ${e.title} (${e.category_id}): ${e.description}`,
+          )
+          .join('\n')
+      : 'Sin contexto previo.';
 
-  const localContextText = localTitles.length > 0 ?
-    `\n\nAdemás, RECIENTEMENTE ya se generaron las siguientes noticias localmente (NO REPETIR NINGUNA DE ESTAS):\n${localTitles.map(t => `- ${t}`).join('\n')}` : '';
+  const localContextText =
+    localTitles.length > 0
+      ? `\n\nAdemás, RECIENTEMENTE ya se generaron las siguientes noticias localmente (NO REPETIR NINGUNA DE ESTAS):\n${localTitles.map((t) => `- ${t}`).join('\n')}`
+      : '';
 
-  const newsText = newsList.map((n, i) => `${i + 1}. [${n.source}] ${n.title}\nResumen: ${n.contentSnippet}`).join('\n\n');
+  const newsText = newsList
+    .map(
+      (n, i) =>
+        `${i + 1}. [${n.source}] ${n.title}\nResumen: ${n.contentSnippet}`,
+    )
+    .join('\n\n');
 
   log('INFO [Gemini]', 'Analyzing news with Gemini...');
 
@@ -67,7 +86,7 @@ Estructura de CADA objeto del arreglo:
 
   const maxRetries = 4;
   let attempt = 0;
-  const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
   while (attempt < maxRetries) {
     try {
@@ -79,20 +98,20 @@ Estructura de CADA objeto del arreglo:
         contents: [
           {
             role: 'user',
-            parts: [
-              { text: systemPrompt },
-              { text: userPrompt }
-            ]
-          }
+            parts: [{ text: systemPrompt }, { text: userPrompt }],
+          },
         ],
         config: {
           temperature: 0.2,
-          responseMimeType: "application/json"
-        }
+          responseMimeType: 'application/json',
+        },
       });
 
       const aiContent = response.text || '[]';
-      log('INFO [Gemini]', `Raw response received (length: ${aiContent.length})`);
+      log(
+        'INFO [Gemini]',
+        `Raw response received (length: ${aiContent.length})`,
+      );
 
       const parsedJson = JSON.parse(aiContent);
       const rawArray = Array.isArray(parsedJson) ? parsedJson : [parsedJson];
@@ -101,13 +120,18 @@ Estructura de CADA objeto del arreglo:
       const validation = z.array(TimelineEventSchema).safeParse(rawArray);
 
       if (!validation.success) {
-        throw new Error(`Zod Schema validation failed: ${validation.error.message}`);
+        throw new Error(
+          `Zod Schema validation failed: ${validation.error.message}`,
+        );
       }
 
       const resultArray: TimelineEvent[] = validation.data;
 
       if (resultArray.length === 0) {
-        log('DEBUG [Gemini]', `Gemini returned 0 items. Raw text was: ${aiContent}`);
+        log(
+          'DEBUG [Gemini]',
+          `Gemini returned 0 items. Raw text was: ${aiContent}`,
+        );
       } else {
         log('INFO [Gemini]', `Gemini returned ${resultArray.length} items.`);
       }
@@ -116,12 +140,17 @@ Estructura de CADA objeto del arreglo:
       attempt++;
       log('ERROR [Gemini]', `Attempt ${attempt} failed: ${e.message}`, true);
       if (attempt >= maxRetries) {
-        throw new Error('AI did not return a valid JSON/Zod structure or API failed after all retries and fallbacks');
+        throw new Error(
+          'AI did not return a valid JSON/Zod structure or API failed after all retries and fallbacks',
+        );
       }
       // Exponential backoff: 60s, 120s, 240s...
       const baseWaitTime = 60000; // 60 segundos base
       const waitTime = baseWaitTime * Math.pow(2, attempt - 1);
-      log('INFO [Gemini]', `Retrying in ${waitTime / 1000} seconds... (${attempt}/${maxRetries})`);
+      log(
+        'INFO [Gemini]',
+        `Retrying in ${waitTime / 1000} seconds... (${attempt}/${maxRetries})`,
+      );
       await delay(waitTime);
     }
   }

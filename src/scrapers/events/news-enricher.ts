@@ -8,15 +8,23 @@ dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_TOKEN || '' });
 
-export async function enrichNewsContent(newsArray: TimelineEvent[]): Promise<TimelineEvent[]> {
+export async function enrichNewsContent(
+  newsArray: TimelineEvent[],
+): Promise<TimelineEvent[]> {
   if (!newsArray || newsArray.length === 0) return [];
 
-  log('INFO [News-Enricher]', `Starting deep enrichment of ${newsArray.length} news...`);
+  log(
+    'INFO [News-Enricher]',
+    `Starting deep enrichment of ${newsArray.length} news...`,
+  );
 
   const enrichedNewsArray: TimelineEvent[] = [];
 
   for (const news of newsArray) {
-    log('INFO [News-Enricher]', `Investigating and expanding: "${news.title}"...`);
+    log(
+      'INFO [News-Enricher]',
+      `Investigating and expanding: "${news.title}"...`,
+    );
 
     const systemPrompt = `Eres un historiador y experto en geopolítica y política uruguaya.
 Tu tarea es tomar un evento reciente de alto impacto y redactar un registro histórico en profundidad (content) utilizando tu conocimiento y buscando información adicional actualizada en la web.
@@ -38,43 +46,62 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
 
     let attempt = 0;
     const maxRetries = 3;
-    const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
     let enrichedContent = news.content; // Fallback al original si falla repetidas veces
 
     while (attempt < maxRetries) {
       try {
         const modelName = attempt < 2 ? 'gemini-3.5-flash' : 'gemini-2.5-flash';
-        log('INFO [News-Enricher]', `Trying to enrich with model: ${modelName}`);
+        log(
+          'INFO [News-Enricher]',
+          `Trying to enrich with model: ${modelName}`,
+        );
 
         const response = await ai.models.generateContent({
           model: modelName,
           contents: [
-            { role: 'user', parts: [{ text: systemPrompt }, { text: userPrompt }] }
+            {
+              role: 'user',
+              parts: [{ text: systemPrompt }, { text: userPrompt }],
+            },
           ],
           config: {
             tools: [{ googleSearch: {} }],
-            temperature: 0.3
-          }
+            temperature: 0.3,
+          },
         });
 
         if (response.text) {
           enrichedContent = response.text.trim();
-          log('SUCCESS [News-Enricher]', `Content successfully expanded for: "${news.title}"`);
+          log(
+            'SUCCESS [News-Enricher]',
+            `Content successfully expanded for: "${news.title}"`,
+          );
           break;
         } else {
-          throw new Error("La respuesta fue vacía.");
+          throw new Error('La respuesta fue vacía.');
         }
       } catch (error: any) {
         attempt++;
-        log('WARN [News-Enricher]', `Attempt ${attempt} failed while enriching "${news.title}": ${error.message}`);
+        log(
+          'WARN [News-Enricher]',
+          `Attempt ${attempt} failed while enriching "${news.title}": ${error.message}`,
+        );
         if (attempt >= maxRetries) {
-          log('ERROR [News-Enricher]', `Could not enrich "${news.title}" after ${maxRetries} attempts. Original content will be used.`, true);
+          log(
+            'ERROR [News-Enricher]',
+            `Could not enrich "${news.title}" after ${maxRetries} attempts. Original content will be used.`,
+            true,
+          );
         } else {
           // Exponential backoff: 60s, 120s, 240s...
           const baseWaitTime = 60000; // 60 segundos base
           const waitTime = baseWaitTime * Math.pow(2, attempt - 1);
-          log('INFO [News-Enricher]', `Retrying in ${waitTime / 1000} seconds... (${attempt}/${maxRetries})`);
+          log(
+            'INFO [News-Enricher]',
+            `Retrying in ${waitTime / 1000} seconds... (${attempt}/${maxRetries})`,
+          );
           await delay(waitTime);
         }
       }
@@ -84,7 +111,7 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
     enrichedNewsArray.push({
       ...news,
       content: enrichedContent,
-      isEnriched: enrichedContent !== news.content // si cambió, se enriqueció
+      isEnriched: enrichedContent !== news.content, // si cambió, se enriqueció
     });
 
     // Pequeño delay entre noticias para no saturar la API

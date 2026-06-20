@@ -12,11 +12,26 @@ export const TimelineEventSchema = z.object({
   title: z.string(),
   date: z.string(), // YYYY-MM-DD
   description: z.string(),
-  content: z.string().nullable().optional().transform(val => val || ""),
+  content: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((val) => val || ''),
   tags: z.array(z.string()),
-  category_id: z.enum(['business', 'crisis', 'culture', 'economic', 'entertainment', 'infrastructure', 'international', 'law', 'politics', 'social']),
+  category_id: z.enum([
+    'business',
+    'crisis',
+    'culture',
+    'economic',
+    'entertainment',
+    'infrastructure',
+    'international',
+    'law',
+    'politics',
+    'social',
+  ]),
   sources: z.array(z.string()),
-  image_url: z.string().nullable().optional()
+  image_url: z.string().nullable().optional(),
 });
 
 export type TimelineEventBase = z.infer<typeof TimelineEventSchema>;

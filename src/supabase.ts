@@ -13,7 +13,8 @@ const DOLLAR_DIR = './dollar';
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 
-export const supabase: SupabaseClient | null = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
+export const supabase: SupabaseClient | null =
+  supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 interface CsvRowRecord {
   [key: string]: string;
@@ -30,7 +31,10 @@ function getCsvData(dir: string): CsvRowRecord[] {
 
   const fileContent = fs.readFileSync(filepath, 'utf-8');
   try {
-    return parse(fileContent, { columns: true, skip_empty_lines: true }) as CsvRowRecord[];
+    return parse(fileContent, {
+      columns: true,
+      skip_empty_lines: true,
+    }) as CsvRowRecord[];
   } catch (e) {
     return [];
   }
@@ -43,7 +47,9 @@ export async function syncPetroleo(): Promise<void> {
   const now = DateTime.now().setZone(TIMEZONE);
   const fecha = now.toISODate() as string;
 
-  const todayRecords = data.filter(d => d.fecha === fecha && d.tipo === 'Brent');
+  const todayRecords = data.filter(
+    (d) => d.fecha === fecha && d.tipo === 'Brent',
+  );
   if (todayRecords.length === 0) {
     log('WARN [Supabase]', `No petroleo records found for today (${fecha}).`);
     return;
@@ -54,7 +60,9 @@ export async function syncPetroleo(): Promise<void> {
   if (isNaN(precio)) return;
 
   try {
-    const { error } = await supabase.from('oil_prices').upsert({ date: fecha, price: precio }, { onConflict: 'date' });
+    const { error } = await supabase
+      .from('oil_prices')
+      .upsert({ date: fecha, price: precio }, { onConflict: 'date' });
     if (error) throw error;
     log('SUCCESS [Supabase]', `Synced petroleo for ${fecha}`);
   } catch (err: any) {
@@ -69,7 +77,9 @@ export async function syncDolar(): Promise<void> {
   const now = DateTime.now().setZone(TIMEZONE);
   const fecha = now.toISODate() as string;
 
-  const todayRecords = data.filter(d => d.fecha === fecha && d.moneda === 'Dólar');
+  const todayRecords = data.filter(
+    (d) => d.fecha === fecha && d.moneda === 'Dólar',
+  );
   if (todayRecords.length === 0) {
     log('WARN [Supabase]', `No dolar records found for today (${fecha}).`);
     return;
@@ -79,7 +89,9 @@ export async function syncDolar(): Promise<void> {
 
   // Utilizaremos los datos de VENTA (venta) como el precio principal
   const ultimoStr = lastRecord.venta;
-  const ultimo = parseFloat(ultimoStr ? ultimoStr.replace(/\./g, '').replace(',', '.') : 'NaN');
+  const ultimo = parseFloat(
+    ultimoStr ? ultimoStr.replace(/\./g, '').replace(',', '.') : 'NaN',
+  );
   const apertura = parseFloat(lastRecord.venta_apertura);
   const maximo = parseFloat(lastRecord.venta_maximo);
   const minimo = parseFloat(lastRecord.venta_minimo);
@@ -87,13 +99,16 @@ export async function syncDolar(): Promise<void> {
   if (isNaN(ultimo)) return;
 
   try {
-    const { error } = await supabase.from('dollar_rates').upsert({
-      date: fecha,
-      ultimo,
-      apertura: isNaN(apertura) ? null : apertura,
-      maximo: isNaN(maximo) ? null : maximo,
-      minimo: isNaN(minimo) ? null : minimo
-    }, { onConflict: 'date' });
+    const { error } = await supabase.from('dollar_rates').upsert(
+      {
+        date: fecha,
+        ultimo,
+        apertura: isNaN(apertura) ? null : apertura,
+        maximo: isNaN(maximo) ? null : maximo,
+        minimo: isNaN(minimo) ? null : minimo,
+      },
+      { onConflict: 'date' },
+    );
     if (error) throw error;
     log('SUCCESS [Supabase]', `Synced dolar for ${fecha}`);
   } catch (err: any) {
@@ -136,17 +151,27 @@ export async function getLatestEconomicIndicators(): Promise<any | null> {
     if (error && error.code !== 'PGRST116') throw error; // Ignorar error si no hay filas
     return data || null;
   } catch (err: any) {
-    log('ERROR [Supabase]', `Error fetching latest economic indicators: ${err.message}`);
+    log(
+      'ERROR [Supabase]',
+      `Error fetching latest economic indicators: ${err.message}`,
+    );
     return null;
   }
 }
 
 export function start(): void {
-  log('INFO [Supabase]', 'Scheduling sync to run at 23:55 (Mon-Fri, Uruguay Time)...');
-  cron.schedule('55 23 * * 1-5', () => {
-    syncPetroleo();
-    syncDolar();
-  }, {
-    timezone: TIMEZONE
-  });
+  log(
+    'INFO [Supabase]',
+    'Scheduling sync to run at 23:55 (Mon-Fri, Uruguay Time)...',
+  );
+  cron.schedule(
+    '55 23 * * 1-5',
+    () => {
+      syncPetroleo();
+      syncDolar();
+    },
+    {
+      timezone: TIMEZONE,
+    },
+  );
 }

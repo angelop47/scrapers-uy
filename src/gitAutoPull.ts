@@ -24,41 +24,69 @@ async function checkAndPull(): Promise<void> {
         // Verificar si hay cambios locales (staged, unstaged o archivos nuevos)
         const { stdout: checkStatus } = await execGit('git status --porcelain');
         if (checkStatus.trim().length > 0) {
-          log('INFO [Git-Pull]', 'Local changes detected. Stashing temporarily...');
+          log(
+            'INFO [Git-Pull]',
+            'Local changes detected. Stashing temporarily...',
+          );
           await execGit('git stash -u');
           stashed = true;
         }
 
         log('INFO [Git-Pull]', 'Executing git pull with rebase...');
         await execGit('git pull --rebase origin main -q');
-        log('INFO [Git-Pull]', 'Git pull (with rebase) completed successfully.');
+        log(
+          'INFO [Git-Pull]',
+          'Git pull (with rebase) completed successfully.',
+        );
 
         if (stashed) {
           log('INFO [Git-Pull]', 'Restoring local changes from stash...');
           await execGit('git stash pop');
         }
 
-        log('INFO [Git-Pull]', 'Update detected. Checking and installing new dependencies (npm install)...');
+        log(
+          'INFO [Git-Pull]',
+          'Update detected. Checking and installing new dependencies (npm install)...',
+        );
         await execAsync('npm install');
 
-        log('INFO [Git-Pull]', 'Shutting down process so PM2 can auto-restart with new code...');
+        log(
+          'INFO [Git-Pull]',
+          'Shutting down process so PM2 can auto-restart with new code...',
+        );
         process.exit(0); // Reinicia el proceso automáticamente para que PM2 lo levante con la nueva versión
       } catch (errRebase: any) {
-        log('ERROR [Git-Pull]', `Error executing git pull --rebase: ${errRebase.message}`, true);
+        log(
+          'ERROR [Git-Pull]',
+          `Error executing git pull --rebase: ${errRebase.message}`,
+          true,
+        );
         log('INFO [Git-Pull]', 'Aborting rebase to return to clean state...');
-        await execGit('git rebase --abort').catch(() => { });
+        await execGit('git rebase --abort').catch(() => {});
         if (stashed) {
-          log('INFO [Git-Pull]', 'Restoring local changes from stash after error...');
-          await execGit('git stash pop').catch(() => { });
+          log(
+            'INFO [Git-Pull]',
+            'Restoring local changes from stash after error...',
+          );
+          await execGit('git stash pop').catch(() => {});
         }
-        log('ERROR [Git-Pull]', 'Rebase aborted. Manual intervention required.');
-        await notifyError(`Git Pull conflict on server. Manual intervention required. Details: ${errRebase.message}`);
+        log(
+          'ERROR [Git-Pull]',
+          'Rebase aborted. Manual intervention required.',
+        );
+        await notifyError(
+          `Git Pull conflict on server. Manual intervention required. Details: ${errRebase.message}`,
+        );
       }
     } else {
       log('INFO [Git-Pull]', 'Local repository is already up to date.');
     }
   } catch (err: any) {
-    log('ERROR [Git-Pull]', `General error checking for updates: ${err.message}`, true);
+    log(
+      'ERROR [Git-Pull]',
+      `General error checking for updates: ${err.message}`,
+      true,
+    );
   }
 }
 
@@ -67,7 +95,10 @@ export function start(): void {
   checkAndPull();
 
   // verificamos automáticamente a los 10 minutos de cada hora para evitar colisiones con los scrapers
-  log('INFO [Git-Pull]', 'Scheduling update check (minute 10 of every hour)...');
+  log(
+    'INFO [Git-Pull]',
+    'Scheduling update check (minute 10 of every hour)...',
+  );
   cron.schedule('10 * * * *', () => {
     checkAndPull();
   });

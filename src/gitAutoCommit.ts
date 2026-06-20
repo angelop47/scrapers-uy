@@ -33,30 +33,46 @@ async function autoCommitAndPush(): Promise<void> {
     try {
       await execGit('git pull --rebase origin main -q');
     } catch (errPull: any) {
-      log('ERROR [Git]', `Conflict or error in rebase before push: ${errPull.message}`, true);
-      await execGit('git rebase --abort').catch(() => { });
+      log(
+        'ERROR [Git]',
+        `Conflict or error in rebase before push: ${errPull.message}`,
+        true,
+      );
+      await execGit('git rebase --abort').catch(() => {});
       log('ERROR [Git]', 'Rebase aborted. Push was not performed.');
-      await notifyError(`Critical failure in git pull rebase when attempting auto-commit: ${errPull.message}`);
+      await notifyError(
+        `Critical failure in git pull rebase when attempting auto-commit: ${errPull.message}`,
+      );
       return;
     }
 
     // Push
     await execGit('git push origin HEAD');
     log('INFO [Git]', 'Push performed successfully.');
-
   } catch (err: any) {
-    log('ERROR [Git]', `Unexpected error in autoCommitAndPush: ${err.message}`, true);
+    log(
+      'ERROR [Git]',
+      `Unexpected error in autoCommitAndPush: ${err.message}`,
+      true,
+    );
     notifyError(`Unexpected error in autoCommitAndPush: ${err.message}`);
   }
 }
 
 export function start(): void {
-  log('INFO [Git]', 'Scheduling auto-commit at 23:50 (Every day, Montevideo Time)...');
+  log(
+    'INFO [Git]',
+    'Scheduling auto-commit at 23:50 (Every day, Montevideo Time)...',
+  );
 
   // 23:50 todos los días
-  cron.schedule('50 23 * * *', () => {
-    autoCommitAndPush();
-  }, {
-    timezone: TIMEZONE
-  });
+  cron.schedule(
+    '50 23 * * *',
+    () => {
+      autoCommitAndPush();
+    },
+    {
+      timezone: TIMEZONE,
+    },
+  );
 }

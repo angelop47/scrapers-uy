@@ -18,13 +18,19 @@ export const StatItemSchema = z.object({
   unit: z.string(),
   trend: z.enum(['up', 'down', 'stable']),
   trend_is_good: z.boolean(),
-  source: z.string()
+  source: z.string(),
 });
 
 export type StatItem = z.infer<typeof StatItemSchema>;
 
-export async function fetchStatsWithGemini(mandateId: string, recentTitles: string[] = []): Promise<StatItem[]> {
-  log('INFO [Gemini-Stats]', 'Asking Gemini to search for new mandate statistics...');
+export async function fetchStatsWithGemini(
+  mandateId: string,
+  recentTitles: string[] = [],
+): Promise<StatItem[]> {
+  log(
+    'INFO [Gemini-Stats]',
+    'Asking Gemini to search for new mandate statistics...',
+  );
 
   const systemPrompt = `Eres un asistente automatizado de recolección de datos económicos y gubernamentales de Uruguay.
 Tu trabajo es usar la herramienta de búsqueda de Google para encontrar los indicadores y estadísticas oficiales más recientes publicadas en Uruguay (ej. Inflación, Desempleo, Salario Real, PIB, Aprobación Presidencial).
@@ -53,14 +59,16 @@ Estructura de CADA objeto del arreglo:
   "source": "URL o nombre exacto de la fuente de donde obtuviste el dato"
 }`;
 
-  const localContextText = recentTitles.length > 0 ?
-    `\n\nATENCIÓN: Ya hemos guardado recientemente las siguientes estadísticas. NO VUELVAS A REPETIR NINGUNA DE ESTAS, busca únicamente información DIFERENTE:\n${recentTitles.map(t => `- ${t}`).join('\n')}` : '';
+  const localContextText =
+    recentTitles.length > 0
+      ? `\n\nATENCIÓN: Ya hemos guardado recientemente las siguientes estadísticas. NO VUELVAS A REPETIR NINGUNA DE ESTAS, busca únicamente información DIFERENTE:\n${recentTitles.map((t) => `- ${t}`).join('\n')}`
+      : '';
 
   const userPrompt = `Busca los datos macroeconómicos, estadísticos o de aprobación gubernamental más recientes publicados en Uruguay. Limítate a buscar en las fuentes oficiales o encuestadoras confiables mencionadas. Devuelve solo un JSON válido con los datos nuevos encontrados. Si no hay publicaciones nuevas recientes o si todas las recientes ya están en el contexto proveído, devuelve [].${localContextText}`;
 
   const maxRetries = 3;
   let attempt = 0;
-  const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
   while (attempt < maxRetries) {
     try {
@@ -70,13 +78,16 @@ Estructura de CADA objeto del arreglo:
       const response = await ai.models.generateContent({
         model: modelName,
         contents: [
-          { role: 'user', parts: [{ text: systemPrompt }, { text: userPrompt }] }
+          {
+            role: 'user',
+            parts: [{ text: systemPrompt }, { text: userPrompt }],
+          },
         ],
         config: {
           tools: [{ googleSearch: {} }],
           temperature: 0.1,
-          responseMimeType: "application/json"
-        }
+          responseMimeType: 'application/json',
+        },
       });
 
       const aiContent = response.text || '[]';
@@ -93,7 +104,10 @@ Estructura de CADA objeto del arreglo:
       attempt++;
       log('ERROR [Gemini-Stats]', `Attempt ${attempt} failed: ${e.message}`);
       if (attempt >= maxRetries) {
-        log('WARN [Gemini-Stats]', 'Failed to fetch stats from Gemini after all retries. Returning empty array.');
+        log(
+          'WARN [Gemini-Stats]',
+          'Failed to fetch stats from Gemini after all retries. Returning empty array.',
+        );
         return [];
       }
       const waitTime = 30000;

@@ -1,4 +1,4 @@
-import { chromium } from 'playwright';
+import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 import { DateTime } from 'luxon';
@@ -25,35 +25,36 @@ function getCsvPath() {
 export async function scrape() {
   log('INFO [Petróleo]', 'Starting scraper...');
   const currentCsvPath = getCsvPath();
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-  });
-  const page = await context.newPage();
 
   try {
-    log('INFO [Petróleo]', `Navigating to ${URL}...`);
-    await page.goto(URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    log('INFO [Petróleo]', `Fetching main page at ${URL}...`);
+    const response = await fetch(URL, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
 
-    log('INFO [Petróleo]', 'Waiting for price data...');
-    await page.waitForSelector('tr.link_oilprice_row', { timeout: 30000 });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch oilprice.com: ${response.status} ${response.statusText}`);
+    }
 
-    const rows = await page.$$eval('tr.link_oilprice_row', (trs) => {
-      return trs.map(tr => {
-        const spread = tr.getAttribute('data-spread');
-        if (spread === 'Crude Oil Brent') {
-          const tipo = 'Brent';
-          const valText = tr.querySelector('td.value')?.innerText.trim();
-          if (valText) {
-            const precioStr = valText.replace(/[^0-9.]/g, '');
-            const precio = parseFloat(precioStr);
-            if (!isNaN(precio)) {
-              return { tipo, precio };
-            }
+    const html = await response.text();
+    const $ = cheerio.load(html);
+
+    const rows = [];
+    $('tr.link_oilprice_row').each((i, el) => {
+      const spread = $(el).attr('data-spread');
+      if (spread === 'Crude Oil Brent') {
+        const tipo = 'Brent';
+        const valText = $(el).find('td.value').text().trim();
+        if (valText) {
+          const precioStr = valText.replace(/[^0-9.]/g, '');
+          const precio = parseFloat(precioStr);
+          if (!isNaN(precio)) {
+            rows.push({ tipo, precio });
           }
         }
-        return null;
-      }).filter(Boolean);
+      }
     });
 
     if (rows.length === 0) {
@@ -128,8 +129,6 @@ export async function scrape() {
     log('SUCCESS [Petróleo]', `Recorded new values for ${newRecords.map(r => r.tipo).join(', ')}.`);
   } catch (error) {
     log('ERROR [Petróleo]', `Scraping failed: ${error.message}`);
-  } finally {
-    await browser.close();
   }
 }
 

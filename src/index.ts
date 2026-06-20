@@ -8,6 +8,7 @@ import { start as startNews } from './generate-news.js';
 import { start as startStats } from './scrapers/stats/stats-runner.js';
 import { start as startEconomy } from './scrapers/economy/economy-runner.js';
 import { start as startServer } from './server.js';
+import { start as startBackup } from './backup.js';
 import { log } from './logger.js';
 
 log('INFO [System]', 'Starting scrapers system...');
@@ -20,6 +21,7 @@ startSupabaseSync();
 startNews();
 startStats();
 startEconomy();
+startBackup();
 startServer();
 
 log('INFO [System]', 'All scrapers have been scheduled.');

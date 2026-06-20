@@ -87,7 +87,7 @@ npx tsx src/test-alert.ts
 El proyecto incluye automatizaciones diseñadas para ejecutarse en un servidor sin intervención manual:
 
 - **Auto-Pull:** Al iniciarse y a los 5 minutos de cada hora (ej. 10:05), el sistema verifica si hay actualizaciones en el repositorio remoto de GitHub. Si existen, ejecuta un stash temporal de los datos locales, realiza un `git pull --rebase`, y finalmente restaura el stash. Se ejecuta de forma escalonada respecto a los scrapers para prevenir condiciones de carrera al editar los CSV, y permite que PM2 reinicie la aplicación de forma automática y transparente con el nuevo código.
-- **Auto-Commit:** De Lunes a Viernes a las 23:50 (hora de Montevideo), el sistema realiza un commit y push de todos los archivos generados en el día hacia GitHub mediante operaciones atómicas y seguras con bloqueo de procesos.
+- **Auto-Commit:** Todos los días a las 23:59 (hora de Montevideo), el sistema realiza un commit y push de todos los archivos generados en el día hacia GitHub mediante operaciones atómicas y seguras con bloqueo de procesos.
 
 ## Sincronización con Supabase
 
@@ -101,6 +101,17 @@ El sistema incluye un módulo de sincronización central (`src/supabase.ts`) que
   - Inserta el precio final del día del **Petróleo Brent** en la tabla `oil_prices`.
   - Inserta el último precio de venta del **Dólar** junto a sus estadísticas (apertura, mínimo y máximo) en la tabla `dollar_rates`.
 - Para activarlo, es necesario configurar las variables `SUPABASE_URL` y `SUPABASE_KEY` (usando la service role key) en tu archivo `.env`.
+
+## Respaldo Automático de Supabase (Backup)
+
+Dado que este proyecto está diseñado para la infraestructura de la **[Línea del Tiempo Uruguay](https://lineadeltiempo.uy)**, aprovechamos la integración con Supabase para realizar un respaldo automático y periódico de la base de datos completa.
+
+- **Frecuencia:** Se ejecuta de manera automática todos los días a las 23:50 (hora de Uruguay).
+- **Funcionamiento:**
+  - Descubre dinámicamente todas las tablas públicas de la base de datos a través de la descripción OpenAPI de PostgREST (excluyendo explícitamente `profiles` y `user_roles` para proteger la privacidad de datos de identidad).
+  - Descarga los registros en lotes de forma paginada para evitar límites en el tamaño de la respuesta.
+  - Guarda los respaldos en formato JSON bajo el directorio `backups/` (ej. `backups/timeline_events.json`).
+  - Estos archivos son rastreados por Git y subidos automáticamente a GitHub ese mismo día mediante el proceso de **Auto-Commit** a las 23:59, manteniendo un historial de cambios eficiente, legible y versionado a lo largo del tiempo.
 
 ## Ejecución
 

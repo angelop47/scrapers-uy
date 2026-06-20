@@ -10,7 +10,9 @@ async function autoCommitAndPush(): Promise<void> {
 
   try {
     // Agregar archivos explícitamente para evitar subir basura accidentalmente
-    await execGit('git add petroleo/ dollar/ noticias/ stats/ economy/');
+    await execGit(
+      'git add petroleo/ dollar/ noticias/ stats/ economy/ backups/',
+    );
 
     const now = DateTime.now().setZone(TIMEZONE);
     const fecha = now.toISODate() as string;
@@ -38,7 +40,7 @@ async function autoCommitAndPush(): Promise<void> {
         `Conflict or error in rebase before push: ${errPull.message}`,
         true,
       );
-      await execGit('git rebase --abort').catch(() => {});
+      await execGit('git rebase --abort').catch(() => { });
       log('ERROR [Git]', 'Rebase aborted. Push was not performed.');
       await notifyError(
         `Critical failure in git pull rebase when attempting auto-commit: ${errPull.message}`,
@@ -62,12 +64,12 @@ async function autoCommitAndPush(): Promise<void> {
 export function start(): void {
   log(
     'INFO [Git]',
-    'Scheduling auto-commit at 23:50 (Every day, Montevideo Time)...',
+    'Scheduling auto-commit at 23:59 (Every day, Montevideo Time)...',
   );
 
-  // 23:50 todos los días
+  // 23:59 todos los días
   cron.schedule(
-    '50 23 * * *',
+    '59 23 * * *',
     () => {
       autoCommitAndPush();
     },

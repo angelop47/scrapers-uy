@@ -1,0 +1,50 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Tasa de Empleo de Abril",
+    "description": "La tasa de empleo en Uruguay se situó en 59,5% en abril de 2026, mostrando una leve mejora respecto al mes anterior.",
+    "indicator": "employment_rate",
+    "value": 59.5,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Tasa de Actividad de Abril",
+    "description": "La tasa de actividad en Uruguay se ubicó en 64,2% en abril de 2026, registrando una leve disminución frente al mes anterior.",
+    "indicator": "activity_rate",
+    "value": 64.2,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Inflación Mensual de Mayo",
+    "description": "El Índice de Precios del Consumidor (IPC) de Mayo 2026 registró una variación mensual de 0,70%, acelerándose respecto al mes anterior.",
+    "indicator": "monthly_inflation",
+    "value": 0.7,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-09",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Junio)",
+    "description": "La aprobación del presidente Yamandú Orsi se ubicó en 39,4% en junio de 2026, según el ranking de CB Consultora, registrando su segundo descenso consecutivo.",
+    "indicator": "approval_rating",
+    "value": 39.4,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "CB Consultora"
+  }
+]

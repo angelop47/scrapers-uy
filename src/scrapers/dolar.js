@@ -1,4 +1,4 @@
-import { chromium } from 'playwright';
+import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 import { DateTime } from 'luxon';
@@ -25,31 +25,57 @@ function getCsvPath() {
 export async function scrape() {
   log('INFO [Dólar]', 'Starting scraper...');
   const currentCsvPath = getCsvPath();
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-  });
-  const page = await context.newPage();
 
   try {
-    log('INFO [Dólar]', `Navigating to ${URL}...`);
-    await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
+    log('INFO [Dólar]', `Fetching main page at ${URL}...`);
+    const mainResponse = await fetch(URL, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!mainResponse.ok) {
+      throw new Error(`Failed to fetch main page: ${mainResponse.status} ${mainResponse.statusText}`);
+    }
+    
+    const mainHtml = await mainResponse.text();
 
-    // Wait for the table to be visible
-    log('INFO [Dólar]', 'Waiting for table content...');
-    await page.waitForSelector('.cotizacion-portlet table', { timeout: 30000 });
+    // Extract Liferay portlet URL for the cotizaciones table
+    const urlMatch = mainHtml.match(/url:"(\\x2fc\\x2fportal\\x2frender_portlet[^"]*cotizacionfull_WAR_broutmfportlet[^"]*)"/);
+    if (!urlMatch) {
+      throw new Error('No portlet URL found in main page HTML. The page structure might have changed.');
+    }
+    
+    // Decode Liferay escaped URL string
+    const portletUrl = urlMatch[1]
+      .replace(/\\x2f/g, '/')
+      .replace(/\\x3f/g, '?')
+      .replace(/\\x3d/g, '=')
+      .replace(/\\x26/g, '&');
+      
+    log('INFO [Dólar]', 'Fetching portlet data...');
+    const portletResponse = await fetch(`https://www.brou.com.uy${portletUrl}`, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
 
-    const rows = await page.$$eval('.cotizacion-portlet table tr', (trs) => {
-      return trs.map(tr => {
-        const moneda = tr.querySelector('td:nth-child(1) .moneda')?.innerText.trim();
-        const compra = tr.querySelector('td:nth-child(3) .valor')?.innerText.trim();
-        const venta = tr.querySelector('td:nth-child(5) .valor')?.innerText.trim();
-        // Filter specifically for "Dólar"
-        if (moneda === 'Dólar' && compra && venta) {
-          return { moneda, compra, venta };
-        }
-        return null;
-      }).filter(Boolean);
+    if (!portletResponse.ok) {
+      throw new Error(`Failed to fetch portlet: ${portletResponse.status} ${portletResponse.statusText}`);
+    }
+
+    const portletHtml = await portletResponse.text();
+    const $ = cheerio.load(portletHtml);
+    
+    const rows = [];
+    $('.cotizacion-portlet table tbody tr').each((i, el) => {
+      const moneda = $(el).find('td:nth-child(1) .moneda').text().trim();
+      const compra = $(el).find('td:nth-child(3) .valor').text().trim();
+      const venta = $(el).find('td:nth-child(5) .valor').text().trim();
+      
+      if (moneda === 'Dólar' && compra && venta) {
+        rows.push({ moneda, compra, venta });
+      }
     });
 
     if (rows.length === 0) {
@@ -155,8 +181,6 @@ export async function scrape() {
     log('SUCCESS [Dólar]', `Recorded new values for ${newRecords.length} currencies.`);
   } catch (error) {
     log('ERROR [Dólar]', `Scraping failed: ${error.message}`);
-  } finally {
-    await browser.close();
   }
 }
 

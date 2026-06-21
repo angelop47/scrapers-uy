@@ -32,8 +32,24 @@ async function autoCommitAndPush(): Promise<void> {
 
     // Sincronizar antes de pushear para evitar conflictos (hace un pull rebase)
     log('INFO [Git]', 'Syncing with remote before pushing (rebase)...');
+    let stashed = false;
     try {
+      // Verificar si hay cambios locales sin confirmar después del commit (por ejemplo, package-lock.json)
+      const { stdout: checkStatus } = await execGit('git status --porcelain');
+      if (checkStatus.trim().length > 0) {
+        log('INFO [Git]', 'Unstaged changes detected. Stashing temporarily...');
+        await execGit('git stash -u');
+        stashed = true;
+      }
+
       await execGit('git pull --rebase origin main -q');
+      log('INFO [Git]', 'Git pull (rebase) successful.');
+
+      if (stashed) {
+        log('INFO [Git]', 'Restoring unstaged changes from stash...');
+        await execGit('git stash pop');
+        stashed = false;
+      }
     } catch (errPull: any) {
       log(
         'ERROR [Git]',
@@ -41,6 +57,10 @@ async function autoCommitAndPush(): Promise<void> {
         true,
       );
       await execGit('git rebase --abort').catch(() => { });
+      if (stashed) {
+        log('INFO [Git]', 'Restoring unstaged changes from stash after error...');
+        await execGit('git stash pop').catch(() => { });
+      }
       log('ERROR [Git]', 'Rebase aborted. Push was not performed.');
       await notifyError(
         `Critical failure in git pull rebase when attempting auto-commit: ${errPull.message}`,

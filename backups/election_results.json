@@ -1,0 +1,314 @@
+[
+  {
+    "election_id": "2024-general",
+    "position": 0,
+    "candidate": "Yamandú Orsi",
+    "percentage": 46.22,
+    "votes": 1071826,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2024-general",
+    "position": 1,
+    "candidate": "Álvaro Delgado",
+    "percentage": 28.26,
+    "votes": 655426,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2024-general",
+    "position": 2,
+    "candidate": "Andrés Ojeda",
+    "percentage": 16.93,
+    "votes": 392592,
+    "party_id": "partido-colorado"
+  },
+  {
+    "election_id": "2024-general",
+    "position": 3,
+    "candidate": "Gustavo Salle",
+    "percentage": 2.84,
+    "votes": 65796,
+    "party_id": "identidad-soberana"
+  },
+  {
+    "election_id": "2024-general",
+    "position": 4,
+    "candidate": "Guido Manini Ríos",
+    "percentage": 2.61,
+    "votes": 60549,
+    "party_id": "cabildo-abierto"
+  },
+  {
+    "election_id": "2024-general",
+    "position": 5,
+    "candidate": "Pablo Mieres",
+    "percentage": 1.79,
+    "votes": 41618,
+    "party_id": "partido-independiente"
+  },
+  {
+    "election_id": "2024-general",
+    "position": 6,
+    "candidate": "Eduardo Lust",
+    "percentage": 0.51,
+    "votes": 11865,
+    "party_id": "partido-constitucional-ambientalista"
+  },
+  {
+    "election_id": "2024-general",
+    "position": 7,
+    "candidate": "Gonzalo Martínez",
+    "percentage": 0.44,
+    "votes": 10102,
+    "party_id": "unidad-popular"
+  },
+  {
+    "election_id": "2024-general",
+    "position": 8,
+    "candidate": "César Vega",
+    "percentage": 0.4,
+    "votes": 9281,
+    "party_id": "peri"
+  },
+  {
+    "election_id": "2019-general",
+    "position": 0,
+    "candidate": "Daniel Martínez",
+    "percentage": 40.49,
+    "votes": 949376,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2019-general",
+    "position": 1,
+    "candidate": "Luis Lacalle Pou",
+    "percentage": 29.7,
+    "votes": 696452,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2019-general",
+    "position": 2,
+    "candidate": "Ernesto Talvi",
+    "percentage": 12,
+    "votes": 300177,
+    "party_id": "partido-colorado"
+  },
+  {
+    "election_id": "2019-general",
+    "position": 3,
+    "candidate": "Guido Manini Ríos",
+    "percentage": 11.46,
+    "votes": 268736,
+    "party_id": "cabildo-abierto"
+  },
+  {
+    "election_id": "2019-general",
+    "position": 4,
+    "candidate": "César Vega",
+    "percentage": 1.43,
+    "votes": 33461,
+    "party_id": "peri"
+  },
+  {
+    "election_id": "2019-general",
+    "position": 5,
+    "candidate": "Edgardo Novick",
+    "percentage": 1.12,
+    "votes": 26313,
+    "party_id": "partido-de-la-gente"
+  },
+  {
+    "election_id": "2019-general",
+    "position": 6,
+    "candidate": "Pablo Mieres",
+    "percentage": 1.01,
+    "votes": 23580,
+    "party_id": "partido-independiente"
+  },
+  {
+    "election_id": "2019-general",
+    "position": 7,
+    "candidate": "Gonzalo Abella",
+    "percentage": 0.84,
+    "votes": 19728,
+    "party_id": "unidad-popular"
+  },
+  {
+    "election_id": "2014-general",
+    "position": 0,
+    "candidate": "Tabaré Vázquez",
+    "percentage": 49.45,
+    "votes": 1134187,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2014-general",
+    "position": 1,
+    "candidate": "Luis Lacalle Pou",
+    "percentage": 31.94,
+    "votes": 732601,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2014-general",
+    "position": 2,
+    "candidate": "Pedro Bordaberry",
+    "percentage": 13.33,
+    "votes": 305699,
+    "party_id": "partido-colorado"
+  },
+  {
+    "election_id": "2014-general",
+    "position": 3,
+    "candidate": "Pablo Mieres",
+    "percentage": 3.2,
+    "votes": 73379,
+    "party_id": "partido-independiente"
+  },
+  {
+    "election_id": "2014-general",
+    "position": 4,
+    "candidate": "Gonzalo Abella",
+    "percentage": 1.17,
+    "votes": 26869,
+    "party_id": "unidad-popular"
+  },
+  {
+    "election_id": "2014-general",
+    "position": 5,
+    "candidate": "César Vega",
+    "percentage": 0.78,
+    "votes": 17835,
+    "party_id": "peri"
+  },
+  {
+    "election_id": "2009-general",
+    "position": 0,
+    "candidate": "José Mujica",
+    "percentage": 49.34,
+    "votes": 1105262,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2009-general",
+    "position": 1,
+    "candidate": "Luis Alberto Lacalle",
+    "percentage": 29.9,
+    "votes": 669942,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2009-general",
+    "position": 2,
+    "candidate": "Pedro Bordaberry",
+    "percentage": 17.51,
+    "votes": 392307,
+    "party_id": "partido-colorado"
+  },
+  {
+    "election_id": "2009-general",
+    "position": 3,
+    "candidate": "Pablo Mieres",
+    "percentage": 2.56,
+    "votes": 57360,
+    "party_id": "partido-independiente"
+  },
+  {
+    "election_id": "2024-balotaje",
+    "position": 0,
+    "candidate": "Yamandú Orsi",
+    "percentage": 52,
+    "votes": 1212833,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2024-balotaje",
+    "position": 1,
+    "candidate": "Álvaro Delgado",
+    "percentage": 48,
+    "votes": 1119537,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2019-balotaje",
+    "position": 0,
+    "candidate": "Lacalle Pou / Argimón",
+    "percentage": 50.79,
+    "votes": 1189313,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2019-balotaje",
+    "position": 1,
+    "candidate": "Martínez / Villar",
+    "percentage": 49.21,
+    "votes": 1152271,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2014-balotaje",
+    "position": 0,
+    "candidate": "Tabaré Vázquez / R. Sendic",
+    "percentage": 56.5,
+    "votes": 1241568,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2014-balotaje",
+    "position": 1,
+    "candidate": "Lacalle Pou / J. Larrañaga",
+    "percentage": 43.5,
+    "votes": 955741,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2009-balotaje",
+    "position": 0,
+    "candidate": "José Mujica",
+    "percentage": 54.63,
+    "votes": 1197638,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2009-balotaje",
+    "position": 1,
+    "candidate": "Luis Alberto Lacalle",
+    "percentage": 45.37,
+    "votes": 994510,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2004-general",
+    "position": 0,
+    "candidate": "Tabaré Vázquez",
+    "percentage": 51.68,
+    "votes": 1124761,
+    "party_id": "frente-amplio"
+  },
+  {
+    "election_id": "2004-general",
+    "position": 1,
+    "candidate": "Jorge Larrañaga",
+    "percentage": 35.13,
+    "votes": 764739,
+    "party_id": "partido-nacional"
+  },
+  {
+    "election_id": "2004-general",
+    "position": 2,
+    "candidate": "Guillermo Stirling",
+    "percentage": 10.61,
+    "votes": 231036,
+    "party_id": "partido-colorado"
+  },
+  {
+    "election_id": "2004-general",
+    "position": 3,
+    "candidate": "Pablo Mieres",
+    "percentage": 1.88,
+    "votes": 41011,
+    "party_id": "partido-independiente"
+  }
+]

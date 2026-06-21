@@ -1,0 +1,65 @@
+[
+  {
+    "id": "2024-balotaje",
+    "date": "2024-11-24",
+    "title": "Balotaje Presidencial 2024",
+    "description": "Segunda vuelta electoral para definir al Presidente de la República, resultando electiveado Yamandú Orsi.",
+    "type": "balotaje"
+  },
+  {
+    "id": "2024-general",
+    "date": "2024-10-27",
+    "title": "Elecciones Nacionales 2024",
+    "description": "Elecciones legislativas y primera vuelta presidencial. Ningún candidato obtuvo mayoría absoluta, pasando a balotaje.",
+    "type": "general"
+  },
+  {
+    "id": "2019-balotaje",
+    "date": "2019-11-24",
+    "title": "Balotaje 2019",
+    "description": "Segunda vuelta electoral. Luis Lacalle Pou venció a Daniel Martínez apoyado por la Coalición Multicolor (sectores del PC, CA, entre otros).",
+    "type": "balotaje"
+  },
+  {
+    "id": "2019-general",
+    "date": "2019-10-27",
+    "title": "Elecciones Nacionales 2019",
+    "description": "Elecciones legislativas y primera vuelta presidencial. Ningún candidato obtuvo mayoría absoluta, pasando a balotaje.",
+    "type": "general"
+  },
+  {
+    "id": "2014-balotaje",
+    "date": "2014-11-30",
+    "title": "Balotaje 2014",
+    "description": "Segunda vuelta electoral. Resultó electa la fórmula de Tabaré Vázquez y Raúl Sendic (Frente Amplio) para un segundo mandato.",
+    "type": "balotaje"
+  },
+  {
+    "id": "2014-general",
+    "date": "2014-10-26",
+    "title": "Elecciones Nacionales 2014",
+    "description": "Primera vuelta de las elecciones presidenciales. El Frente Amplio fue el partido más votado (49,5%), pero al no alcanzar el 50% más un voto, hubo balotaje.",
+    "type": "general"
+  },
+  {
+    "id": "2009-balotaje",
+    "date": "2009-11-29",
+    "title": "Balotaje Presidencial 2009",
+    "description": "Segunda vuelta presidencial 2009",
+    "type": "balotaje"
+  },
+  {
+    "id": "2009-general",
+    "date": "2009-10-25",
+    "title": "Elecciones Nacionales 2009",
+    "description": "Elecciones legislativas y primera vuelta presidencial. El Frente Amplio obtuvo su segunda mayoría parlamentaria.",
+    "type": "general"
+  },
+  {
+    "id": "2004-general",
+    "date": "2004-10-31",
+    "title": "Elecciones Nacionales 2004",
+    "description": "Victoria histórica del Frente Amplio en primera vuelta, rompiendo el bipartidismo tradicional.",
+    "type": "general"
+  }
+]

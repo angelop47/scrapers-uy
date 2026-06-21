@@ -1,0 +1,101 @@
+[
+  {
+    "id": "frente-amplio",
+    "name": "Frente Amplio",
+    "abbreviation": "FA",
+    "color": "#e3001b",
+    "ribbon": "linear-gradient(to right, #1d4ed8 33.33%, #dc2626 33.33% 66.66%, #ffffff 66.66%)",
+    "bg_class": "bg-red-50",
+    "border_class": "border-red-100"
+  },
+  {
+    "id": "partido-nacional",
+    "name": "Partido Nacional",
+    "abbreviation": "PN",
+    "color": "#3399ff",
+    "ribbon": "linear-gradient(to right, #1d4ed8 50%, #ffffff 50%)",
+    "bg_class": "bg-blue-50",
+    "border_class": "border-blue-100"
+  },
+  {
+    "id": "partido-colorado",
+    "name": "Partido Colorado",
+    "abbreviation": "PC",
+    "color": "#ed1c24",
+    "ribbon": "linear-gradient(to right, #dc2626 50%, #ffffff 50%)",
+    "bg_class": "bg-red-50",
+    "border_class": "border-red-100"
+  },
+  {
+    "id": "partido-independiente",
+    "name": "Partido Independiente",
+    "abbreviation": "PI",
+    "color": "#5b2c86",
+    "ribbon": "#9333ea",
+    "bg_class": "bg-purple-50",
+    "border_class": "border-purple-100"
+  },
+  {
+    "id": "union-civica",
+    "name": "Unión Cívica",
+    "abbreviation": "UC",
+    "color": "#0ba54a",
+    "ribbon": "#0ba54a",
+    "bg_class": "bg-green-50",
+    "border_class": "border-green-100"
+  },
+  {
+    "id": "unidad-popular",
+    "name": "Unidad Popular",
+    "abbreviation": "UP",
+    "color": "#7f1d1d",
+    "ribbon": "#7f1d1d",
+    "bg_class": "bg-red-950",
+    "border_class": "border-red-900"
+  },
+  {
+    "id": "partido-de-la-gente",
+    "name": "Partido de la Gente",
+    "abbreviation": "PG",
+    "color": "#f59e0b",
+    "ribbon": "#f59e0b",
+    "bg_class": "bg-amber-50",
+    "border_class": "border-amber-100"
+  },
+  {
+    "id": "peri",
+    "name": "Partido Ecologista Radical Intransigente",
+    "abbreviation": "PERI",
+    "color": "#16a34a",
+    "ribbon": "#16a34a",
+    "bg_class": "bg-green-50",
+    "border_class": "border-green-100"
+  },
+  {
+    "id": "partido-constitucional-ambientalista",
+    "name": "Partido Constitucional Ambientalista",
+    "abbreviation": "PCA",
+    "color": "#2e7d32",
+    "ribbon": "linear-gradient(to right, #16a34a 50%, #22c55e 50%)",
+    "bg_class": "bg-green-50",
+    "border_class": "border-green-100"
+  },
+  {
+    "id": "identidad-soberana",
+    "name": "Identidad Soberana",
+    "abbreviation": "IS",
+    "color": "#000000",
+    "ribbon": "linear-gradient(to right, #1e3a8a 33.33%, #ffffff 33.33% 66.66%, #eab308 66.66%)",
+    "bg_class": "bg-gray-50",
+    "border_class": "border-gray-100"
+  },
+  {
+    "id": "cabildo-abierto",
+    "name": "Cabildo Abierto",
+    "abbreviation": "CA",
+    "color": "#6f2b3e",
+    "ribbon": "#1e3a8a",
+    "bg_class": "bg-yellow-50",
+    "border_class": "border-yellow-100"
+  }
+]

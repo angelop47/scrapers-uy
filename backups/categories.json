@@ -1,0 +1,62 @@
+[
+  {
+    "id": "crisis",
+    "label": "Crisis",
+    "color_variant": "red",
+    "description": "Crisis políticas, económicas o sociales"
+  },
+  {
+    "id": "social",
+    "label": "Social",
+    "color_variant": "purple",
+    "description": "Eventos sociales y de bienestar"
+  },
+  {
+    "id": "economic",
+    "label": "Económico",
+    "color_variant": "green",
+    "description": "Eventos de índole económica"
+  },
+  {
+    "id": "international",
+    "label": "Internacional",
+    "color_variant": "teal",
+    "description": "Relaciones exteriores y eventos internacionales"
+  },
+  {
+    "id": "infrastructure",
+    "label": "Infraestructura",
+    "color_variant": "orange",
+    "description": "Obras públicas e infraestructura nacional"
+  },
+  {
+    "id": "politics",
+    "label": "Política",
+    "color_variant": "slate",
+    "description": "Eventos políticos nacionales"
+  },
+  {
+    "id": "culture",
+    "label": "Cultura",
+    "color_variant": "pink",
+    "description": "Arte, cultura y patrimonio"
+  },
+  {
+    "id": "entertainment",
+    "label": "Entretenimiento",
+    "color_variant": "indigo",
+    "description": "Entretenimiento y espectáculos"
+  },
+  {
+    "id": "business",
+    "label": "Negocios",
+    "color_variant": "yellow",
+    "description": "Empresas y negocios destacados"
+  },
+  {
+    "id": "law",
+    "label": "Ley / Decreto",
+    "color_variant": "lime",
+    "description": "Legislación, decretos y normativas"
+  }
+]

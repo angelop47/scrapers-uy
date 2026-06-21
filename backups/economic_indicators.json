@@ -1,0 +1,122 @@
+[
+  {
+    "date": "1990-02-28",
+    "inflation_annual_pct": 112.5,
+    "unemployment_pct": 8.5,
+    "country_risk_points": null,
+    "gdp_usd_billions": null,
+    "external_debt_pct_gdp": null,
+    "bcu_reserves_usd_millions": null,
+    "minimum_wage_uyu": null,
+    "poverty_rate_pct": null,
+    "fiscal_deficit_pct_gdp": null
+  },
+  {
+    "date": "1985-03-01",
+    "inflation_annual_pct": 72.2,
+    "unemployment_pct": 13.1,
+    "country_risk_points": null,
+    "gdp_usd_billions": null,
+    "external_debt_pct_gdp": null,
+    "bcu_reserves_usd_millions": null,
+    "minimum_wage_uyu": null,
+    "poverty_rate_pct": null,
+    "fiscal_deficit_pct_gdp": null
+  },
+  {
+    "date": "1995-02-28",
+    "inflation_annual_pct": 35.4,
+    "unemployment_pct": 10.3,
+    "country_risk_points": null,
+    "gdp_usd_billions": null,
+    "external_debt_pct_gdp": null,
+    "bcu_reserves_usd_millions": null,
+    "minimum_wage_uyu": null,
+    "poverty_rate_pct": null,
+    "fiscal_deficit_pct_gdp": null
+  },
+  {
+    "date": "2000-02-29",
+    "inflation_annual_pct": 4.8,
+    "unemployment_pct": 11.5,
+    "country_risk_points": 175,
+    "gdp_usd_billions": null,
+    "external_debt_pct_gdp": null,
+    "bcu_reserves_usd_millions": null,
+    "minimum_wage_uyu": null,
+    "poverty_rate_pct": null,
+    "fiscal_deficit_pct_gdp": null
+  },
+  {
+    "date": "2005-02-28",
+    "inflation_annual_pct": 5.5,
+    "unemployment_pct": 12.1,
+    "country_risk_points": 380,
+    "gdp_usd_billions": null,
+    "external_debt_pct_gdp": null,
+    "bcu_reserves_usd_millions": null,
+    "minimum_wage_uyu": null,
+    "poverty_rate_pct": null,
+    "fiscal_deficit_pct_gdp": null
+  },
+  {
+    "date": "2010-02-28",
+    "inflation_annual_pct": 6.9,
+    "unemployment_pct": 7.3,
+    "country_risk_points": 210,
+    "gdp_usd_billions": null,
+    "external_debt_pct_gdp": null,
+    "bcu_reserves_usd_millions": null,
+    "minimum_wage_uyu": null,
+    "poverty_rate_pct": null,
+    "fiscal_deficit_pct_gdp": null
+  },
+  {
+    "date": "2015-02-28",
+    "inflation_annual_pct": 8.6,
+    "unemployment_pct": 6.6,
+    "country_risk_points": 185,
+    "gdp_usd_billions": null,
+    "external_debt_pct_gdp": null,
+    "bcu_reserves_usd_millions": null,
+    "minimum_wage_uyu": null,
+    "poverty_rate_pct": null,
+    "fiscal_deficit_pct_gdp": null
+  },
+  {
+    "date": "2020-02-29",
+    "inflation_annual_pct": 8.79,
+    "unemployment_pct": 8.5,
+    "country_risk_points": 178,
+    "gdp_usd_billions": null,
+    "external_debt_pct_gdp": null,
+    "bcu_reserves_usd_millions": null,
+    "minimum_wage_uyu": null,
+    "poverty_rate_pct": null,
+    "fiscal_deficit_pct_gdp": null
+  },
+  {
+    "date": "2026-05-19",
+    "inflation_annual_pct": 3.16,
+    "unemployment_pct": 7.8,
+    "country_risk_points": 75,
+    "gdp_usd_billions": 81.71,
+    "external_debt_pct_gdp": 60,
+    "bcu_reserves_usd_millions": 18581,
+    "minimum_wage_uyu": 25383,
+    "poverty_rate_pct": 16.6,
+    "fiscal_deficit_pct_gdp": 4.5
+  },
+  {
+    "date": "2025-02-28",
+    "inflation_annual_pct": 5.43,
+    "unemployment_pct": 8.2,
+    "country_risk_points": 82,
+    "gdp_usd_billions": 71.1,
+    "external_debt_pct_gdp": 62.5,
+    "bcu_reserves_usd_millions": 16100,
+    "minimum_wage_uyu": 23604,
+    "poverty_rate_pct": 10.1,
+    "fiscal_deficit_pct_gdp": 3.5
+  }
+]

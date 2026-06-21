@@ -1,0 +1,92 @@
+[
+  {
+    "id": "sanguinetti-1985-1990",
+    "president": "Julio María Sanguinetti",
+    "parliamentary_majority": false,
+    "start_date": "1985-03-01",
+    "end_date": "1990-02-28",
+    "image_url": null,
+    "election_id": null,
+    "party_id": "partido-colorado"
+  },
+  {
+    "id": "lacalle-1990-1995",
+    "president": "Luis Alberto Lacalle",
+    "parliamentary_majority": false,
+    "start_date": "1990-03-01",
+    "end_date": "1995-02-28",
+    "image_url": null,
+    "election_id": null,
+    "party_id": "partido-nacional"
+  },
+  {
+    "id": "sanguinetti-1995-2000",
+    "president": "Julio María Sanguinetti",
+    "parliamentary_majority": false,
+    "start_date": "1995-03-01",
+    "end_date": "2000-02-29",
+    "image_url": null,
+    "election_id": null,
+    "party_id": "partido-colorado"
+  },
+  {
+    "id": "batlle-2000-2005",
+    "president": "Jorge Batlle",
+    "parliamentary_majority": false,
+    "start_date": "2000-03-01",
+    "end_date": "2005-02-28",
+    "image_url": null,
+    "election_id": null,
+    "party_id": "partido-colorado"
+  },
+  {
+    "id": "vazquez-2005-2010",
+    "president": "Tabaré Vázquez",
+    "parliamentary_majority": true,
+    "start_date": "2005-03-01",
+    "end_date": "2010-02-28",
+    "image_url": null,
+    "election_id": "2004-general",
+    "party_id": "frente-amplio"
+  },
+  {
+    "id": "mujica-2010-2015",
+    "president": "José Mujica",
+    "parliamentary_majority": true,
+    "start_date": "2010-03-01",
+    "end_date": "2015-02-28",
+    "image_url": null,
+    "election_id": "2009-balotaje",
+    "party_id": "frente-amplio"
+  },
+  {
+    "id": "vazquez-2015-2020",
+    "president": "Tabaré Vázquez",
+    "parliamentary_majority": true,
+    "start_date": "2015-03-01",
+    "end_date": "2020-02-29",
+    "image_url": null,
+    "election_id": "2014-balotaje",
+    "party_id": "frente-amplio"
+  },
+  {
+    "id": "lacalle-pou-2020-2025",
+    "president": "Luis Lacalle Pou",
+    "parliamentary_majority": false,
+    "start_date": "2020-03-01",
+    "end_date": "2025-02-28",
+    "image_url": null,
+    "election_id": "2019-balotaje",
+    "party_id": "partido-nacional"
+  },
+  {
+    "id": "orsi-2025-2030",
+    "president": "Yamandú Orsi",
+    "parliamentary_majority": false,
+    "start_date": "2025-03-01",
+    "end_date": "2030-02-28",
+    "image_url": null,
+    "election_id": "2024-balotaje",
+    "party_id": "frente-amplio"
+  }
+]

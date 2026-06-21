@@ -1,0 +1,83 @@
+[
+  {
+    "id": "aK7jM2",
+    "date": "1987-06-15",
+    "mandate_id": "sanguinetti-1985-1990",
+    "president": "Julio María Sanguinetti",
+    "approval_pct": 45,
+    "disapproval_pct": 30,
+    "source": "Factum"
+  },
+  {
+    "id": "rT9vW4",
+    "date": "1992-08-10",
+    "mandate_id": "lacalle-1990-1995",
+    "president": "Luis Alberto Lacalle",
+    "approval_pct": 32,
+    "disapproval_pct": 48,
+    "source": "Opción"
+  },
+  {
+    "id": "mB5cQ1",
+    "date": "2002-08-01",
+    "mandate_id": "batlle-2000-2005",
+    "president": "Jorge Batlle",
+    "approval_pct": 12,
+    "disapproval_pct": 75,
+    "source": "Equipos Consultores"
+  },
+  {
+    "id": "zF8dK9",
+    "date": "2007-10-15",
+    "mandate_id": "vazquez-2005-2010",
+    "president": "Tabaré Vázquez",
+    "approval_pct": 52,
+    "disapproval_pct": 25,
+    "source": "Factum"
+  },
+  {
+    "id": "gH2jS6",
+    "date": "2012-09-05",
+    "mandate_id": "mujica-2010-2015",
+    "president": "José Mujica",
+    "approval_pct": 39,
+    "disapproval_pct": 33,
+    "source": "Equipos Consultores"
+  },
+  {
+    "id": "tY4pR3",
+    "date": "2017-06-25",
+    "mandate_id": "vazquez-2015-2020",
+    "president": "Tabaré Vázquez",
+    "approval_pct": 42,
+    "disapproval_pct": 35,
+    "source": "Cifra"
+  },
+  {
+    "id": "xN1bV7",
+    "date": "2023-04-10",
+    "mandate_id": "lacalle-pou-2020-2025",
+    "president": "Luis Lacalle Pou",
+    "approval_pct": 46,
+    "disapproval_pct": 38,
+    "source": "Equipos Consultores"
+  },
+  {
+    "id": "JjUd3k",
+    "date": "2026-05-15",
+    "mandate_id": "orsi-2025-2030",
+    "president": "Yamandú Orsi",
+    "approval_pct": 27,
+    "disapproval_pct": 48,
+    "source": null
+  },
+  {
+    "id": "b84ac60e-8868-414a-854c-27e11797d56a",
+    "date": "2026-06-03",
+    "mandate_id": "orsi-2025-2030",
+    "president": "Yamandú Orsi",
+    "approval_pct": 20,
+    "disapproval_pct": 48,
+    "source": "Opción"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-05",
+    "title": "Expectativas de Inflación Empresarial (Mayo 2026)",
+    "description": "En mayo de 2026, la media recortada al 90% de la inflación esperada por los empresarios se situó en 5,0% para el año 2026, manteniéndose firme en mínimos históricos.",
+    "indicator": "business_inflation_expectations",
+    "value": 5,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-12",
+    "title": "Variación del Mercado de Alquileres (Abril 2026)",
+    "description": "El alquiler promedio en pesos corrientes de abril de 2026 registró una variación mensual de 0,17%.",
+    "indicator": "rental_market_variation",
+    "value": 0.17,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-28",
+    "title": "Índice de Costo de la Construcción de Vivienda (Abril 2026)",
+    "description": "El Índice de Costo de la Construcción de Vivienda (ICCV) registró una variación mensual de 0,36% en abril de 2026.",
+    "indicator": "construction_cost_index_growth",
+    "value": 0.36,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  }
+]

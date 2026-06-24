@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-05",
+    "title": "Índice Líder de CERES (Mayo 2026)",
+    "description": "El Índice Líder de Ceres (ILC), indicador adelantado de la actividad económica, registró un aumento de 0,3% en mayo de 2026, acumulando dos meses consecutivos de crecimiento y apuntando a una mejora del dinamismo económico.",
+    "indicator": "economic_activity_index",
+    "value": 0.3,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Centro de Estudios de la Realidad Económica y Social (CERES)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-22",
+    "title": "Variación Interanual de Precios de Compraventa de Inmuebles (Marzo 2026)",
+    "description": "La mediana de los precios de las transacciones de propiedades inmuebles en dólares en marzo de 2026 registró una variación acumulada en los últimos 12 meses de 9,09%.",
+    "indicator": "real_estate_price_growth",
+    "value": 9.09,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-22",
+    "title": "Tasa de Desempleo Juvenil (Junio 2026)",
+    "description": "El desempleo juvenil en Uruguay se sitúa en niveles cercanos al 25%, triplicando la tasa de desempleo general del país.",
+    "indicator": "youth_unemployment",
+    "value": 25,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "Ministerio de Trabajo y Seguridad Social (MTSS)"
+  }
+]

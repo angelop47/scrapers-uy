@@ -4713,5 +4713,23 @@
     },
     "changed_by": null,
     "changed_at": "2026-06-21T17:37:43.3717+00:00"
+  },
+  {
+    "id": "c79b210c-0957-4af0-8954-8216cb6d2809",
+    "table_name": "approvals",
+    "action": "INSERT",
+    "record_id": "6ba08747-86fc-46a4-b827-96ba1db0d26c",
+    "old_data": null,
+    "new_data": {
+      "id": "6ba08747-86fc-46a4-b827-96ba1db0d26c",
+      "date": "2026-06-24",
+      "source": "Cifra",
+      "president": "Yamandú Orsi",
+      "mandate_id": "orsi-2025-2030",
+      "approval_pct": 20,
+      "disapproval_pct": 65
+    },
+    "changed_by": "5a85e9b1-7527-42ea-a960-2c9f19887582",
+    "changed_at": "2026-06-25T14:36:10.096264+00:00"
   }
 ]

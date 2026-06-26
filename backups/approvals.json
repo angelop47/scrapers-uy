@@ -79,5 +79,14 @@
     "approval_pct": 20,
     "disapproval_pct": 48,
     "source": "Opción"
+  },
+  {
+    "id": "6ba08747-86fc-46a4-b827-96ba1db0d26c",
+    "date": "2026-06-24",
+    "mandate_id": "orsi-2025-2030",
+    "president": "Yamandú Orsi",
+    "approval_pct": 20,
+    "disapproval_pct": 65,
+    "source": "Cifra"
   }
 ]

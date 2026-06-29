@@ -1,0 +1,62 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-24",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Cifra)",
+    "description": "Evaluación de la gestión del presidente Yamandú Orsi realizada por la consultora Cifra en junio de 2026, registrando un mínimo histórico de aprobación tras la polémica por la compra de su camioneta.",
+    "indicator": "approval_rating",
+    "value": 20,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Cifra"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-24",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Cifra)",
+    "description": "Porcentaje de desaprobación de la gestión del presidente Yamandú Orsi según la encuesta de Cifra de junio de 2026, alcanzando un máximo histórico de rechazo.",
+    "indicator": "disapproval_rating",
+    "value": 65,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Cifra"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-26",
+    "title": "Tipo de Cambio Real Efectivo (Mayo 2026)",
+    "description": "Índice de Tipo de Cambio Real Efectivo (TCRE) global publicado por el Banco Central del Uruguay, que mide la competitividad de precios del país.",
+    "indicator": "real_exchange_rate",
+    "value": 93.7,
+    "unit": "puntos",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-26",
+    "title": "Índice de Costo de la Construcción de Vivienda (Mayo 2026)",
+    "description": "Variación mensual del Índice de Costo de la Construcción de Vivienda (ICCV) en Uruguay para el mes de mayo de 2026.",
+    "indicator": "construction_cost_index_monthly",
+    "value": 0.35,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-24",
+    "title": "Empresas Activas (I Trimestre 2026)",
+    "description": "Cantidad de empresas activas registradas en Uruguay durante el primer trimestre de 2026, según el informe de Demografía de Empresas del INE.",
+    "indicator": "active_companies",
+    "value": 207182,
+    "unit": "empresas",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  }
+]

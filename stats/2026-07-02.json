@@ -1,0 +1,86 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-22",
+    "title": "Crecimiento Interanual del PIB (I Trimestre 2026)",
+    "description": "El Producto Interno Bruto (PIB) de Uruguay registró un crecimiento interanual de 0,9% en el primer trimestre de 2026 en comparación con el mismo período de 2025, impulsado por sectores de servicios, comercio y telecomunicaciones.",
+    "indicator": "gdp_growth",
+    "value": 0.9,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-22",
+    "title": "Crecimiento Trimestral Desestacionalizado del PIB (I Trimestre 2026)",
+    "description": "La actividad económica de Uruguay se expandió un 0,8% en el primer trimestre de 2026 en términos desestacionalizados respecto al cuarto trimestre de 2025, mostrando una recuperación de la dinámica trimestral.",
+    "indicator": "gdp_growth_quarterly",
+    "value": 0.8,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Tasa de Desempleo de Mayo 2026",
+    "description": "La tasa de desempleo en Uruguay se situó en 7,6% en mayo de 2026, manteniéndose estable respecto al mes anterior.",
+    "indicator": "unemployment",
+    "value": 7.6,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Tasa de Empleo de Mayo 2026",
+    "description": "La tasa de empleo en Uruguay se ubicó en 59,5% en mayo de 2026, mostrando estabilidad en el mercado laboral.",
+    "indicator": "employment_rate",
+    "value": 59.5,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Tasa de Actividad de Mayo 2026",
+    "description": "La tasa de actividad en Uruguay alcanzó el 64,4% en mayo de 2026.",
+    "indicator": "activity_rate",
+    "value": 64.4,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Variación Interanual del Salario Real de Mayo 2026",
+    "description": "El salario real en Uruguay registró un incremento interanual de 1,29% en mayo de 2026, impulsado por un ajuste real positivo debido a que el IMS (5,12%) superó a la inflación (3,77%).",
+    "indicator": "real_wage_growth",
+    "value": 1.29,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Exportaciones de Bienes de Junio 2026",
+    "description": "Las solicitudes de exportación de bienes (incluyendo zonas francas) alcanzaron los US$ 1.307 millones en junio de 2026, registrando una caída interanual del 4% debido principalmente a menores ventas de soja por la sequía.",
+    "indicator": "exports",
+    "value": 1307,
+    "unit": "millones USD",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Uruguay XXI"
+  }
+]

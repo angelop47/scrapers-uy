@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-03",
+    "title": "Inflación Interanual de Junio 2026",
+    "description": "El Índice de Precios del Consumo (IPC) de junio de 2026 registró una variación interanual de 4.25%, manteniéndose dentro del rango meta del Banco Central del Uruguay.",
+    "indicator": "inflation",
+    "value": 4.25,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Variación Interanual del Índice Medio de Salarios (IMS) de Mayo 2026",
+    "description": "El Índice Medio de Salarios (IMS) de mayo de 2026 registró una variación interanual de 5.12%, reflejando la evolución de los salarios nominales en el país.",
+    "indicator": "wage_growth",
+    "value": 5.12,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Tasa de Política Monetaria (TPM) de Julio 2026",
+    "description": "El Directorio del Banco Central del Uruguay (BCU) resolvió por unanimidad mantener la Tasa de Política Monetaria (TPM) en 5.75% en su reunión de julio.",
+    "indicator": "interest_rate",
+    "value": 5.75,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  }
+]

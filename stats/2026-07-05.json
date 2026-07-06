@@ -1,0 +1,62 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Déficit Fiscal de Mayo 2026",
+    "description": "El resultado del Sector Público Global (SPG), excluyendo los ingresos al Fideicomiso II de la Seguridad Social (FSS II), se ubicó en un déficit de 4.3% del PIB en los doce meses cerrados a mayo de 2026.",
+    "indicator": "fiscal_deficit",
+    "value": 4.3,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "Ministerio de Economía y Finanzas (MEF)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Factum - Junio 2026)",
+    "description": "La aprobación de la gestión del presidente Yamandú Orsi cayó al 24% en la medición de junio de 2026 de la consultora Factum, en medio de polémicas políticas.",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Factum"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Factum - Junio 2026)",
+    "description": "La desaprobación de la gestión del presidente Yamandú Orsi aumentó al 56% en la encuesta de Factum de junio de 2026.",
+    "indicator": "disapproval_rating",
+    "value": 56,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Factum"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-10",
+    "title": "Índice de Confianza del Consumidor (Abril 2026)",
+    "description": "El Índice de Confianza del Consumidor cayó a 47.9 puntos en abril de 2026, ingresando en la zona de moderado pesimismo por primera vez desde junio de 2023.",
+    "indicator": "consumer_confidence",
+    "value": 47.9,
+    "unit": "puntos",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Equipos Consultores / UCU Business School"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-16",
+    "title": "Índice de Precios al Productor de Productos Nacionales (Mayo 2026)",
+    "description": "El IPPN General de Mayo 2026 registró una variación mensual de 1.85%, impulsado principalmente por el sector de industrias manufactureras.",
+    "indicator": "producer_price_index",
+    "value": 1.85,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  }
+]

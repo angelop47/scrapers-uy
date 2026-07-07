@@ -1,0 +1,74 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-29",
+    "title": "Ingreso Medio de los Hogares (I Trimestre 2026)",
+    "description": "El ingreso medio de los hogares para el total del país se situó en $97.541 mensuales en el primer trimestre de 2026, lo que representa un incremento real del 4,5% interanual y un nuevo máximo histórico.",
+    "indicator": "household_income",
+    "value": 97541,
+    "unit": "UYU",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-29",
+    "title": "Ingreso Medio Per Cápita (I Trimestre 2026)",
+    "description": "El ingreso medio per cápita a nivel nacional se estimó en $34.606 mensuales durante el primer trimestre de 2026, consolidando un avance frente al trimestre anterior.",
+    "indicator": "per_capita_income",
+    "value": 34606,
+    "unit": "UYU",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-03",
+    "title": "Variación Mensual del IPC (Junio 2026)",
+    "description": "El Índice de Precios del Consumo (IPC) registró en junio de 2026 una variación mensual de 0,37%, acumulando un 3,33% en lo que va del año.",
+    "indicator": "monthly_inflation",
+    "value": 0.37,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-12",
+    "title": "Expectativas de Inflación a 12 meses (Junio 2026)",
+    "description": "La mediana de expectativas de inflación a 12 meses disminuyó de 4,9% a 4,7% en Uruguay, según la encuesta de expectativas del Banco Central del Uruguay (BCU).",
+    "indicator": "inflation_expectations",
+    "value": 4.7,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-11",
+    "title": "Índice de Volumen Físico de la Industria Manufacturera (Abril 2026)",
+    "description": "La producción de la industria manufacturera aumentó un 4,0% interanual en abril de 2026, según el Instituto Nacional de Estadística (INE).",
+    "indicator": "industrial_production",
+    "value": 4,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Indicador Mensual de Actividad Económica (Abril 2026)",
+    "description": "El Indicador Mensual de Actividad Económica (IMAE) registró una variación interanual de -1,3% en abril de 2026, según el Banco Central del Uruguay (BCU).",
+    "indicator": "gdp_growth",
+    "value": -1.3,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Banco Central del Uruguay (BCU)"
+  }
+]

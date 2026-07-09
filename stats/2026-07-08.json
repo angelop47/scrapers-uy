@@ -1,0 +1,86 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-07",
+    "title": "Expectativas de Inflación Empresarial (Junio 2026)",
+    "description": "La media recortada al 90% de la inflación esperada por los empresarios para el año 2026 se situó en 5,0%, manteniéndose estable respecto al mes anterior.",
+    "indicator": "inflation_expectations",
+    "value": 5,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-14",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Equipos - Abril 2026)",
+    "description": "La aprobación de la gestión del presidente Yamandú Orsi cayó al 27% en abril de 2026, según la encuesta de Equipos Consultores.",
+    "indicator": "approval_rating",
+    "value": 27,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Equipos Consultores"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-14",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Equipos - Abril 2026)",
+    "description": "La desaprobación de la gestión del presidente Yamandú Orsi subió al 48% en abril de 2026, según la encuesta de Equipos Consultores.",
+    "indicator": "disapproval_rating",
+    "value": 48,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Equipos Consultores"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Opción - Junio 2026)",
+    "description": "La aprobación personal del presidente Yamandú Orsi se ubicó en 26% en la medición del segundo trimestre de 2026 de Opción Consultores.",
+    "indicator": "approval_rating",
+    "value": 26,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Opción Consultores"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Opción - Junio 2026)",
+    "description": "La desaprobación personal del presidente Yamandú Orsi alcanzó el 43% en la medición del segundo trimestre de 2026 de Opción Consultores.",
+    "indicator": "disapproval_rating",
+    "value": 43,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Opción Consultores"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Aprobación de la Gestión del Gobierno (Opción - Junio 2026)",
+    "description": "La aprobación de la gestión del gobierno de Yamandú Orsi cayó al 20% en el segundo trimestre de 2026, según Opción Consultores.",
+    "indicator": "approval_rating",
+    "value": 20,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Opción Consultores"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-03",
+    "title": "Desaprobación de la Gestión del Gobierno (Opción - Junio 2026)",
+    "description": "La desaprobación de la gestión del gobierno de Yamandú Orsi subió al 48% en el segundo trimestre de 2026, según Opción Consultores.",
+    "indicator": "disapproval_rating",
+    "value": 48,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Opción Consultores"
+  }
+]

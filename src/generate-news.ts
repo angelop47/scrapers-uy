@@ -1,12 +1,12 @@
 import { fetchNews } from './scrapers/events/news-fetcher.js';
-import { generateMostRelevantNews } from './scrapers/events/gemini-generator.js';
+import { generateMostRelevantNews } from './scrapers/events/minimax-generator.js';
 import {
   writeJsonFile,
   getRecentLocalNewsTitles,
   getRecentJsonFilesData,
   updateJsonFile,
 } from './scrapers/events/json-writer.js';
-import { enrichNewsContent } from './scrapers/events/news-enricher.js';
+import { enrichNewsContent } from './scrapers/events/minimax-enricher.js';
 import { log } from './logger.js';
 import cron from 'node-cron';
 import { fileURLToPath } from 'url';
@@ -50,7 +50,7 @@ export async function runNewsAutomation(): Promise<void> {
       return;
     }
 
-    // Verificación ESTRICTA local: Evitar que Groq/Gemini se haya "saltado" la regla
+    // Verificación ESTRICTA local: Evitar que el modelo de IA se haya "saltado" la regla
     const localTitlesLower = localTitles.map((t) => t.toLowerCase());
     const verifiedNews = relevantNewsArray.filter((news) => {
       const isDuplicate = localTitlesLower.some(

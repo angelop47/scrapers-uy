@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-02",
+    "title": "Posición Neta Deudora frente al Resto del Mundo (Marzo 2026)",
+    "description": "A fines de marzo de 2026, la economía uruguaya continuó mostrando una posición neta deudora frente al resto del mundo, que ascendió a US$ 18.069 millones, lo que implica una reducción del endeudamiento neto en más de US$ 1.200 millones respecto al período anterior.",
+    "indicator": "external_debt_position",
+    "value": 18069,
+    "unit": "millones USD",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://www.ambito.com/uruguay/achico-su-endeudamiento-neto-el-exterior-mas-us-1200-millones-n6295545/amp"
+  }
+]

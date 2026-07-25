@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Deuda Externa Bruta Total del Uruguay (I Trimestre 2026)",
+    "description": "La deuda externa bruta total del Uruguay alcanzó los 50.557 millones de USD al cierre del primer trimestre de 2026, aumentando desde los 49.652 millones de USD registrados en el cuarto trimestre de 2025.",
+    "indicator": "external_debt",
+    "value": 50557,
+    "unit": "millones USD",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Banco Central del Uruguay (BCU) - https://www.bcu.gub.uy/"
+  }
+]

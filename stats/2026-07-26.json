@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Proyección de Crecimiento del PIB para 2026",
+    "description": "El Banco Central del Uruguay y analistas privados revisaron a la baja la proyección de crecimiento del PIB para 2026, situándola en 1,8%. El ajuste responde a factores coyunturales que afectan la dinámica económica del país.",
+    "indicator": "gdp_growth_projection",
+    "value": 1.8,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Banco Central del Uruguay (BCU)"
+  }
+]

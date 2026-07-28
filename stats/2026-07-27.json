@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-31",
+    "title": "Tasa de Desempleo de Mayo 2026",
+    "description": "Tasa de desempleo de Uruguay correspondiente a mayo de 2026 según los datos publicados por el INE a partir de la Encuesta Continua de Hogares (ECH).",
+    "indicator": "unemployment",
+    "value": 7.6,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE) - ine.gub.uy"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Reservas Internacionales del BCU (Cierre Primer Semestre 2026)",
+    "description": "Las reservas internacionales brutas del Banco Central del Uruguay (BCU) cerraron el primer semestre de 2026 en USD 17.699 millones, con una caída de USD 2.190 millones respecto al cierre del semestre anterior.",
+    "indicator": "international_reserves",
+    "value": 17699,
+    "unit": "millones USD",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Banco Central del Uruguay (BCU) - bcu.gub.uy"
+  }
+]

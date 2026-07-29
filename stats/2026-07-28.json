@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-24",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Cifra - Junio 2026)",
+    "description": "Según encuesta de Cifra publicada el 24 de junio de 2026, el 20% de los uruguayos aprueba la gestión del presidente Yamandú Orsi.",
+    "indicator": "approval_rating",
+    "value": 20,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Encuesta Cifra - elpaisuy / Instagram (junio 2026)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-24",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Cifra - Junio 2026)",
+    "description": "Según encuesta de Cifra publicada el 24 de junio de 2026, el 65% de los uruguayos desaprueba la gestión del presidente Yamandú Orsi.",
+    "indicator": "approval_rating",
+    "value": 65,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Encuesta Cifra - elpaisuy / Instagram (junio 2026)"
+  }
+]

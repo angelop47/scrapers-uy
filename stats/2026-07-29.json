@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-31",
+    "title": "Variación Mensual del Índice Medio de Salarios (Mayo 2026)",
+    "description": "El IMS correspondiente a mayo de 2026 registró una variación mensual del 0,07%. El nuevo monto nominal promedio del salario es de $25.383.",
+    "indicator": "ims_monthly_variation",
+    "value": 0.07,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "INE Uruguay (ine.gub.uy)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-05-31",
+    "title": "Variación Acumulada en el Año del Índice Medio de Salarios (Mayo 2026)",
+    "description": "La variación acumulada del IMS en lo que va del año 2026 al cierre de mayo fue de 3,83%, reflejando el crecimiento nominal de los salarios en el período.",
+    "indicator": "ims_ytd_variation",
+    "value": 3.83,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "INE Uruguay (ine.gub.uy)"
+  }
+]

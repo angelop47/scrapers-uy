@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Desempleo de Junio 2026",
+    "description": "El INE reportó que la tasa de desempleo en Uruguay se situó en 7,0% en junio de 2026, con una tasa de actividad de 63,9% y una tasa de empleo de 59,5% para el total país. Representa una baja respecto a mayo.",
+    "indicator": "unemployment",
+    "value": 7,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "INE (ine.gub.uy) - reportado por medios uruguayos en julio 2026"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Factum - Mayo/Junio 2026)",
+    "description": "Según la encuesta de Factum correspondiente al tercer bimestre de 2026 (mayo-junio), el nivel de aprobación de la gestión del presidente Yamandú Orsi alcanza el 24%.",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Factum (portal.factum.uy/analisis/2026/ana260701.php)"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Actividad (Junio 2026)",
+    "description": "Tasa de actividad para el total país según la Encuesta Continua de Hogares del INE, correspondiente a junio de 2026.",
+    "indicator": "activity_rate",
+    "value": 63.9,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://x.com/ine_uruguay"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-03-31",
+    "title": "Crecimiento del PIB en el Primer Trimestre 2026",
+    "description": "La economía uruguaya creció 0,8% en el primer trimestre de 2026, según datos publicados por el Banco Central del Uruguay. Se trata de crecimiento real inter-anual de la actividad económica reportado por BCU.",
+    "indicator": "gdp_growth",
+    "value": 0.8,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Banco Central del Uruguay (BCU) - https://www.bcu.gub.uy/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Proyección de Inflación para Cierre de 2026 (BCU)",
+    "description": "El Banco Central del Uruguay proyecta que la inflación cerrará 2026 en 5%, ubicándose por encima de la meta oficial de 4,5%, aunque dentro del rango de tolerancia del Comité de Política Monetaria.",
+    "indicator": "inflation_projection",
+    "value": 5,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Banco Central del Uruguay (BCU)"
+  }
+]

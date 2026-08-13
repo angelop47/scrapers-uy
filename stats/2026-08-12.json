@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Empleo (Junio 2026)",
+    "description": "Tasa de empleo a nivel total país según la Encuesta Continua de Hogares (ECH) del Instituto Nacional de Estadística, correspondiente a junio de 2026. Complementa los datos ya publicados de tasa de actividad (63,9%) y desempleo (7,0%) del mismo período.",
+    "indicator": "employment_rate",
+    "value": 59.5,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "INE Uruguay (https://x.com/ine_uruguay)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Equipos - Julio 2026)",
+    "description": "Nivel de aprobación de la gestión del presidente Yamandú Orsi según la encuesta más reciente de Equipos Consultores, publicada en julio de 2026. Muestra una caída desde la medición anterior de junio de 2026.",
+    "indicator": "approval_rating",
+    "value": 26,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Encuesta de Equipos Consultores"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-01",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Equipos - Julio 2026)",
+    "description": "Nivel de desaprobación de la gestión del presidente Yamandú Orsi según la encuesta más reciente de Equipos Consultores, publicada en julio de 2026. La desaprobación subió a 53% respecto a la medición anterior.",
+    "indicator": "disapproval_rating",
+    "value": 53,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Encuesta de Equipos Consultores"
+  }
+]

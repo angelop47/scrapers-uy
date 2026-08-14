@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-15",
+    "title": "Expectativas de Inflación Empresarial (Julio 2026)",
+    "description": "La media recortada al 90% de la inflación esperada por las/os empresarias/os según el INE se sitúa en 5,0% para el año 2026 y 5,3% para el año móvil, de acuerdo con las expectativas relevadas en julio de 2026.",
+    "indicator": "inflation_expectations",
+    "value": 5,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones"
+  }
+]

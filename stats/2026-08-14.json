@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Desempleo - Primer Semestre 2026",
+    "description": "La tasa de desempleo promedio del primer semestre de 2026 se ubicó en 7,4%, registrando una caída de 0,4 puntos porcentuales respecto al mismo período del año anterior, según datos de la Encuesta Continua de Hogares (ECH) del INE.",
+    "indicator": "unemployment",
+    "value": 7.4,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "INE - Encuesta Continua de Hogares (ECH)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-31",
+    "title": "Exportaciones de Bienes - Julio 2026",
+    "description": "Las exportaciones uruguayas de bienes, incluidas las zonas francas, alcanzaron US$ 1.219 millones en julio de 2026.",
+    "indicator": "exports",
+    "value": 1219,
+    "unit": "millones USD",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Uruguay XXI"
+  }
+]

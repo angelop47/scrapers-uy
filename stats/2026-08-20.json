@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-30",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Opción - Octubre 2026)",
+    "description": "Encuesta reciente de Opción Consultores muestra que la aprobación del presidente Orsi se ubica en apenas un 22%, continuando la tendencia descendente registrada durante 2026.",
+    "indicator": "approval_rating",
+    "value": 22,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "Opción Consultores (vía El Observador / redes sociales)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-30",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Opción - Octubre 2026)",
+    "description": "La desaprobación del presidente Orsi alcanza el 57% según la última encuesta de Opción Consultores, marcando un nuevo pico en la caída de su imagen.",
+    "indicator": "disapproval_rating",
+    "value": 57,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "Opción Consultores (vía El Observador / redes sociales)"
+  }
+]

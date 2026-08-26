@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Desempleo - Junio 2026",
+    "description": "Tasa de desempleo mensual según la Encuesta Continua de Hogares (ECH) del INE. Bajó 0,6 puntos respecto a mayo de 2026 (7,6%).",
+    "indicator": "unemployment",
+    "value": 7,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "INE - https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones/actividad-empleo-desempleo-ech-junio-2026"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Actividad - Junio 2026",
+    "description": "Tasa de actividad mensual según la Encuesta Continua de Hogares (ECH) del INE para el total país.",
+    "indicator": "labor_force_participation",
+    "value": 63.9,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "INE - https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones/actividad-empleo-desempleo-ech-junio-2026"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Empleo - Junio 2026",
+    "description": "Tasa de empleo mensual según la Encuesta Continua de Hogares (ECH) del INE para el total país.",
+    "indicator": "employment_rate",
+    "value": 59.5,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "INE - https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones/actividad-empleo-desempleo-ech-junio-2026"
+  }
+]

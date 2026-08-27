@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-31",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Factum - 3º Bimestre 2026)",
+    "description": "Encuesta de Factum correspondiente al tercer bimestre de 2026. El nivel de aprobación del presidente Yamandú Orsi se sitúa en 24%, según datos publicados por la encuestadora Factum en su portal de encuestas.",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://portal.factum.uy/encuestas/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-31",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Factum - 3º Bimestre 2026)",
+    "description": "Encuesta de Factum correspondiente al tercer bimestre de 2026. El nivel de desaprobación del presidente Yamandú Orsi alcanza el 56%, según datos publicados por la encuestadora Factum en su portal de encuestas.",
+    "indicator": "approval_rating",
+    "value": 56,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://portal.factum.uy/encuestas/"
+  }
+]

@@ -356,7 +356,16 @@
         btn.style.opacity = '0.7';
 
         try {
-          const response = await fetch(`/api/run/${type}`, { method: 'POST' });
+          let token = sessionStorage.getItem('automationApiToken');
+          if (!token) {
+            token = window.prompt('Ingresá el token de administración:') || '';
+            if (token) sessionStorage.setItem('automationApiToken', token);
+          }
+          const response = await fetch(`/api/run/${type}`, {
+            method: 'POST',
+            headers: { 'x-api-token': token },
+          });
+          if (response.status === 401) sessionStorage.removeItem('automationApiToken');
           const data = await response.json();
 
           if (response.ok) {
@@ -409,7 +418,12 @@
 
       async function fetchLogs() {
         try {
-          const response = await fetch('/api/logs');
+          let token = sessionStorage.getItem('automationApiToken');
+          if (!token) return;
+          const response = await fetch('/api/logs', {
+            headers: { 'x-api-token': token },
+          });
+          if (response.status === 401) sessionStorage.removeItem('automationApiToken');
           if (response.ok) {
             const data = await response.json();
             if (logViewer.innerText !== data.logs) {

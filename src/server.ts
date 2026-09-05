@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express';
+import { timingSafeEqual } from 'crypto';
+import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
@@ -11,11 +12,48 @@ import { runEconomyAutomation } from './scrapers/economy/economy-runner.js';
 
 const PORT = process.env.PORT || 3000;
 
+function hasValidApiToken(req: Request): boolean {
+  const expected = process.env.AUTOMATION_API_TOKEN?.trim();
+  const provided = req.header('x-api-token')?.trim();
+  if (!expected || !provided) return false;
+
+  const expectedBuffer = Buffer.from(expected);
+  const providedBuffer = Buffer.from(provided);
+  return (
+    expectedBuffer.length === providedBuffer.length &&
+    timingSafeEqual(expectedBuffer, providedBuffer)
+  );
+}
+
+function requireApiToken(req: Request, res: Response, next: NextFunction): void {
+  if (!process.env.AUTOMATION_API_TOKEN?.trim()) {
+    res.status(503).json({ error: 'AUTOMATION_API_TOKEN no está configurado.' });
+    return;
+  }
+  if (!hasValidApiToken(req)) {
+    res.status(401).json({ error: 'No autorizado.' });
+    return;
+  }
+  next();
+}
+
 export function start(): void {
   const app = express();
 
-  app.use(cors());
+  const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+  app.use(cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error('Origin not allowed by CORS'));
+    },
+    allowedHeaders: ['Content-Type', 'x-api-token'],
+  }));
   app.use(express.static('public'));
+  app.use('/api/run', requireApiToken);
 
   app.get('/', (req: Request, res: Response) => {
     res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
@@ -98,7 +136,7 @@ export function start(): void {
     }
   });
 
-  app.get('/api/logs', (req: Request, res: Response) => {
+  app.get('/api/logs', requireApiToken, (req: Request, res: Response) => {
     try {
       const logPath = getDailyLogPath();
       if (!fs.existsSync(logPath)) {
@@ -213,8 +251,7 @@ export function start(): void {
     res.status(404).json({ error: 'Ruta no encontrada' });
   });
 
-  // Cast app to any internally to silence complex type issues if dependencies mismatch
-  (app as any).listen(PORT, () => {
+  app.listen(PORT, () => {
     log(
       'INFO [Server]',
       `API HTTP corriendo con Express en http://localhost:${PORT}/api/events`,

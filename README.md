@@ -140,6 +140,19 @@ npm install
 npm start
 ```
 
+Antes de iniciar, configurá `AUTOMATION_API_TOKEN` con un valor aleatorio largo.
+El token protege la ejecución manual de scrapers y la lectura de logs del panel.
+También podés limitar navegadores externos con `ALLOWED_ORIGINS`, usando una lista
+de orígenes separados por coma. El panel conserva el token únicamente durante la
+sesión de la pestaña.
+
+Para validar el proyecto antes de desplegar:
+
+```bash
+npm test
+npm run build
+```
+
 > [!TIP]
 > Para ejecución en servidores y VPS, es altamente recomendable utilizar **PM2**. Además de mantener el script corriendo, es fundamental para que el sistema de actualizaciones (`Auto-Pull`) funcione sin intervención manual.
 

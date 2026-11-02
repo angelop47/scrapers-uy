@@ -12,8 +12,14 @@ export interface LLMRequestOptions {
   temperature?: number;
   jsonMode?: boolean;
   maxTokens?: number;
-  /** Activa el plugin `web` de OpenRouter (búsqueda nativa del proveedor). */
-  webSearch?: boolean;
+  /**
+   * Búsqueda web de OpenRouter.
+   * - `true`: plugin `web`, una búsqueda por request.
+   * - `{ maxUses }`: herramienta `openrouter:web_search`; el modelo decide
+   *   cuántas búsquedas hacer (hasta `maxUses`). Sirve cuando la respuesta
+   *   necesita varias fuentes distintas.
+   */
+  webSearch?: boolean | { maxUses: number };
 }
 
 /**
@@ -65,7 +71,17 @@ export async function callLLM(
     body.max_tokens = options.maxTokens;
   }
 
-  if (options.webSearch) {
+  if (typeof options.webSearch === 'object') {
+    body.tools = [
+      {
+        type: 'openrouter:web_search',
+        parameters: {
+          max_uses: options.webSearch.maxUses,
+          max_results: WEB_SEARCH_MAX_RESULTS,
+        },
+      },
+    ];
+  } else if (options.webSearch) {
     body.plugins = [{ id: 'web', max_results: WEB_SEARCH_MAX_RESULTS }];
   }
 

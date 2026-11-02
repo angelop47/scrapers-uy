@@ -1,12 +1,10 @@
-import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import path from 'path';
 import { z } from 'zod';
 import { log } from '../../logger.js';
+import { callLLM, getLLMModel } from '../../lib/llm-client.js';
 
 dotenv.config({ path: path.join(process.cwd(), '.env') });
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_TOKEN || '' });
 
 export const StatItemSchema = z.object({
   mandate_id: z.string(),
@@ -23,13 +21,16 @@ export const StatItemSchema = z.object({
 
 export type StatItem = z.infer<typeof StatItemSchema>;
 
-export async function fetchStatsWithGemini(
+// Estadísticas del mandato vía el LLM configurado en `src/lib/llm-client.ts`.
+// La búsqueda web la hace el plugin `web` de OpenRouter (webSearch: true).
+
+export async function fetchStats(
   mandateId: string,
   recentTitles: string[] = [],
 ): Promise<StatItem[]> {
   log(
-    'INFO [Gemini-Stats]',
-    'Asking Gemini to search for new mandate statistics...',
+    'INFO [LLM-Stats]',
+    'Asking the LLM to search for new mandate statistics...',
   );
 
   const systemPrompt = `Eres un asistente automatizado de recolección de datos económicos y gubernamentales de Uruguay.
@@ -72,25 +73,16 @@ Estructura de CADA objeto del arreglo:
 
   while (attempt < maxRetries) {
     try {
-      const modelName = attempt < 2 ? 'gemini-3.5-flash' : 'gemini-2.5-flash';
-      log('INFO [Gemini-Stats]', `Trying with model: ${modelName}`);
+      log('INFO [LLM-Stats]', `Trying with model: ${getLLMModel()}`);
 
-      const response = await ai.models.generateContent({
-        model: modelName,
-        contents: [
-          {
-            role: 'user',
-            parts: [{ text: systemPrompt }, { text: userPrompt }],
-          },
+      const aiContent = await callLLM(
+        [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
         ],
-        config: {
-          tools: [{ googleSearch: {} }],
-          temperature: 0.1,
-          responseMimeType: 'application/json',
-        },
-      });
+        { temperature: 0.1, jsonMode: true, webSearch: true },
+      );
 
-      const aiContent = response.text || '[]';
       const parsedJson = JSON.parse(aiContent);
       const rawArray = Array.isArray(parsedJson) ? parsedJson : [parsedJson];
 
@@ -102,11 +94,11 @@ Estructura de CADA objeto del arreglo:
       return validation.data;
     } catch (e: any) {
       attempt++;
-      log('ERROR [Gemini-Stats]', `Attempt ${attempt} failed: ${e.message}`);
+      log('ERROR [LLM-Stats]', `Attempt ${attempt} failed: ${e.message}`);
       if (attempt >= maxRetries) {
         log(
-          'WARN [Gemini-Stats]',
-          'Failed to fetch stats from Gemini after all retries. Returning empty array.',
+          'WARN [LLM-Stats]',
+          'Failed to fetch stats from the LLM after all retries. Returning empty array.',
         );
         return [];
       }

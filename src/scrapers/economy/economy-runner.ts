@@ -11,7 +11,7 @@ import { getLatestEconomicIndicators } from '../../supabase.js';
 import {
   fetchEconomicIndicators,
   EconomyIndicators,
-} from './minimax-economy.js';
+} from './llm-economy.js';
 
 const TIMEZONE = 'America/Montevideo';
 const ECONOMY_DIR = path.join(process.cwd(), 'economy');
@@ -105,13 +105,13 @@ export async function runEconomyAutomation(): Promise<void> {
       }
     }
 
-    // 2. Pedir a MiniMax M3 los datos de hoy pasándole el estado anterior como contexto
-    const newMinimaxData = await fetchEconomicIndicators(previousState);
+    // 2. Pedir a the LLM los datos de hoy pasándole el estado anterior como contexto
+    const newLlmData = await fetchEconomicIndicators(previousState);
 
-    if (!newMinimaxData && !previousState) {
+    if (!newLlmData && !previousState) {
       log(
         'WARN [Economy-Runner]',
-        'MiniMax M3 failed and no previous state exists. Aborting.',
+        'the LLM failed and no previous state exists. Aborting.',
       );
       return;
     }
@@ -122,12 +122,12 @@ export async function runEconomyAutomation(): Promise<void> {
     let carriedCount = 0;
 
     for (const key of INDICATOR_KEYS) {
-      const minimaxVal = newMinimaxData ? newMinimaxData[key] : null;
+      const llmVal = newLlmData ? newLlmData[key] : null;
       const prevVal = previousState ? previousState[key] : null;
 
-      if (minimaxVal !== null && minimaxVal !== undefined) {
-        (finalData as any)[key] = minimaxVal;
-        if (minimaxVal !== prevVal) updatedCount++;
+      if (llmVal !== null && llmVal !== undefined) {
+        (finalData as any)[key] = llmVal;
+        if (llmVal !== prevVal) updatedCount++;
       } else {
         (finalData as any)[key] = prevVal !== undefined ? prevVal : null;
         carriedCount++;
@@ -136,7 +136,7 @@ export async function runEconomyAutomation(): Promise<void> {
 
     log(
       'INFO [Economy-Runner]',
-      `Merge complete: ${updatedCount} keys updated by MiniMax M3, ${carriedCount} keys carried forward from previous state.`,
+      `Merge complete: ${updatedCount} keys updated by the LLM, ${carriedCount} keys carried forward from previous state.`,
     );
 
     // 4. Guardar localmente

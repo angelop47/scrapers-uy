@@ -2,8 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { z } from 'zod';
 import { log } from '../../logger.js';
-import { callMinimax } from '../../lib/minimax-client.js';
-import { buildSearchContext } from '../../lib/minimax-search.js';
+import { callLLM, getLLMModel } from '../../lib/llm-client.js';
 
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
@@ -21,31 +20,16 @@ export const EconomyIndicatorsSchema = z.object({
 
 export type EconomyIndicators = z.infer<typeof EconomyIndicatorsSchema>;
 
-// Espejo de gemini-economy.ts usando MiniMax M3 en lugar de Google Gemini.
-// Los prompts son IDÉNTICOS al original. Se omite `tools: [{ googleSearch: {} }]`
-// porque MiniMax M3 no expone esa herramienta nativa.
+// Indicadores económicos vía el LLM configurado en `src/lib/llm-client.ts`.
+// La búsqueda web la hace el plugin `web` de OpenRouter (webSearch: true).
 
 export async function fetchEconomicIndicators(
   previousState: EconomyIndicators | null,
 ): Promise<EconomyIndicators | null> {
   log(
-    'INFO [Minimax-Economy]',
-    'Asking MiniMax M3 to search for the latest macroeconomic indicators...',
+    'INFO [LLM-Economy]',
+    'Asking the LLM to search for the latest macroeconomic indicators...',
   );
-
-  // Búsqueda previa en la web: MiniMax M3 no decide cuándo buscar como Gemini,
-  // así que inyectamos resultados relevantes como contexto antes del prompt principal.
-  const searchQueries = [
-    'Uruguay INE inflación anual 2026',
-    'Uruguay BCU PIB deuda externa reservas 2026',
-    'Uruguay salario mínimo nacional MEF 2026',
-    'Uruguay riesgo país UBI BEVSA 2026',
-  ];
-  log(
-    'INFO [Minimax-Economy]',
-    `Buscando en web: ${searchQueries.length} queries...`,
-  );
-  const searchContext = await buildSearchContext(searchQueries, 3);
 
   const previousContext = previousState
     ? `ESTADO ACTUAL CONOCIDO (Última ejecución):\n${JSON.stringify(previousState, null, 2)}\n\nINSTRUCCIÓN VITAL: Utiliza estos valores como base. SOLO debes cambiar un valor si encuentras en Google un reporte oficial MÁS RECIENTE que demuestre que el indicador se actualizó. Si las noticias o los datos que encuentras coinciden o son más viejos, devuelve null para no sobrescribir sin motivo.`
@@ -88,24 +72,20 @@ IMPORTANTE: Devuelve ÚNICAMENTE el JSON crudo, sin bloques de código markdown 
 
   while (attempt < maxRetries) {
     try {
-      const modelName = process.env.MINIMAX_MODEL || 'MiniMax-M3';
       log(
-        'INFO [Minimax-Economy]',
-        `Trying with model: ${modelName} (Attempt ${attempt + 1})`,
+        'INFO [LLM-Economy]',
+        `Trying with model: ${getLLMModel()} (Attempt ${attempt + 1})`,
       );
 
-      let aiContent = await callMinimax(
+      let aiContent = await callLLM(
         [
-          {
-            role: 'system',
-            content: `${systemPrompt}\n\nA continuación tenés resultados actualizados de búsqueda web para ayudarte a responder. Priorizá las fuentes oficiales (INE, BCU, MEF) presentes en estos resultados sobre otros datos:\n\n${searchContext}`,
-          },
+          { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        { temperature: 0.1, jsonMode: true },
+        { temperature: 0.1, jsonMode: true, webSearch: true },
       );
 
-      if (!aiContent) throw new Error('Empty response from MiniMax M3');
+      if (!aiContent) throw new Error('Empty response from LLM');
 
       // Limpiar posibles bloques markdown si el modelo se equivoca
       aiContent = aiContent
@@ -125,11 +105,11 @@ IMPORTANTE: Devuelve ÚNICAMENTE el JSON crudo, sin bloques de código markdown 
       return parsed.data;
     } catch (e: any) {
       attempt++;
-      log('ERROR [Minimax-Economy]', `Attempt ${attempt} failed: ${e.message}`);
+      log('ERROR [LLM-Economy]', `Attempt ${attempt} failed: ${e.message}`);
       if (attempt >= maxRetries) {
         log(
-          'WARN [Minimax-Economy]',
-          'Failed to fetch economy stats from MiniMax M3 after all retries. Returning nulls.',
+          'WARN [LLM-Economy]',
+          'Failed to fetch economy stats from the LLM after all retries. Returning nulls.',
         );
         return null; // El orquestador manejará el null y usará los valores previos 100%
       }

@@ -1,8 +1,8 @@
-import { GoogleGenAI } from '@google/genai';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import path from 'path';
 import { log } from '../../logger.js';
+import { callLLM, getLLMModel } from '../../lib/llm-client.js';
 import { DateTime } from 'luxon';
 import { z } from 'zod';
 import { TimelineEventSchema, TimelineEvent, RssNewsItem } from './types.js';
@@ -10,17 +10,19 @@ import { TimelineEventSchema, TimelineEvent, RssNewsItem } from './types.js';
 // Cargar .env desde el directorio raíz
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_TOKEN || '' });
 const supabase = createClient(
   process.env.SUPABASE_URL || '',
   process.env.SUPABASE_KEY || '',
 );
 
+// Selecciona las noticias más relevantes usando el LLM configurado en
+// `src/lib/llm-client.ts` (variable LLM_MODEL). Esta etapa no usa búsqueda web.
+
 export async function generateMostRelevantNews(
   newsList: RssNewsItem[],
   localTitles: string[] = [],
 ): Promise<TimelineEvent[]> {
-  log('INFO [Gemini]', 'Fetching context from Supabase...');
+  log('INFO [LLM-Generator]', 'Fetching context from Supabase...');
   const { data: recentEvents, error } = await supabase
     .from('timeline_events')
     .select('title, description, category_id, date')
@@ -28,7 +30,7 @@ export async function generateMostRelevantNews(
     .limit(10);
 
   if (error) {
-    log('ERROR [Gemini]', `Error fetching context: ${error.message}`, true);
+    log('ERROR [LLM-Generator]', `Error fetching context: ${error.message}`, true);
   }
 
   const contextEventsText =
@@ -53,7 +55,7 @@ export async function generateMostRelevantNews(
     )
     .join('\n\n');
 
-  log('INFO [Gemini]', 'Analyzing news with Gemini...');
+  log('INFO [LLM-Generator]', 'Analyzing news with the LLM...');
 
   const systemPrompt = `Eres un historiador y analista de geopolítica y política uruguaya. Tu objetivo es encontrar los eventos más relevantes del día para documentarlos en una "Línea de Tiempo" de hitos históricos de Uruguay.
     
@@ -90,26 +92,18 @@ Estructura de CADA objeto del arreglo:
 
   while (attempt < maxRetries) {
     try {
-      const modelName = attempt < 2 ? 'gemini-3.5-flash' : 'gemini-2.5-flash';
-      log('INFO [Gemini]', `Trying with model: ${modelName}`);
+      log('INFO [LLM-Generator]', `Trying with model: ${getLLMModel()}`);
 
-      const response = await ai.models.generateContent({
-        model: modelName,
-        contents: [
-          {
-            role: 'user',
-            parts: [{ text: systemPrompt }, { text: userPrompt }],
-          },
+      const aiContent = await callLLM(
+        [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
         ],
-        config: {
-          temperature: 0.2,
-          responseMimeType: 'application/json',
-        },
-      });
+        { temperature: 0.2, jsonMode: true },
+      );
 
-      const aiContent = response.text || '[]';
       log(
-        'INFO [Gemini]',
+        'INFO [LLM-Generator]',
         `Raw response received (length: ${aiContent.length})`,
       );
 
@@ -129,16 +123,16 @@ Estructura de CADA objeto del arreglo:
 
       if (resultArray.length === 0) {
         log(
-          'DEBUG [Gemini]',
-          `Gemini returned 0 items. Raw text was: ${aiContent}`,
+          'DEBUG [LLM-Generator]',
+          `LLM returned 0 items. Raw text was: ${aiContent}`,
         );
       } else {
-        log('INFO [Gemini]', `Gemini returned ${resultArray.length} items.`);
+        log('INFO [LLM-Generator]', `LLM returned ${resultArray.length} items.`);
       }
       return resultArray;
     } catch (e: any) {
       attempt++;
-      log('ERROR [Gemini]', `Attempt ${attempt} failed: ${e.message}`, true);
+      log('ERROR [LLM-Generator]', `Attempt ${attempt} failed: ${e.message}`, true);
       if (attempt >= maxRetries) {
         throw new Error(
           'AI did not return a valid JSON/Zod structure or API failed after all retries and fallbacks',
@@ -148,7 +142,7 @@ Estructura de CADA objeto del arreglo:
       const baseWaitTime = 60000; // 60 segundos base
       const waitTime = baseWaitTime * Math.pow(2, attempt - 1);
       log(
-        'INFO [Gemini]',
+        'INFO [LLM-Generator]',
         `Retrying in ${waitTime / 1000} seconds... (${attempt}/${maxRetries})`,
       );
       await delay(waitTime);

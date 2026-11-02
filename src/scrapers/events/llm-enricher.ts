@@ -1,12 +1,13 @@
-import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import path from 'path';
 import { log } from '../../logger.js';
+import { callLLM, getLLMModel } from '../../lib/llm-client.js';
 import { TimelineEvent } from './types.js';
 
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_TOKEN || '' });
+// Enriquece las noticias vía el LLM configurado en `src/lib/llm-client.ts`.
+// La búsqueda web la hace el plugin `web` de OpenRouter (webSearch: true).
 
 export async function enrichNewsContent(
   newsArray: TimelineEvent[],
@@ -52,36 +53,40 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
 
     while (attempt < maxRetries) {
       try {
-        const modelName = attempt < 2 ? 'gemini-3.5-flash' : 'gemini-2.5-flash';
         log(
           'INFO [News-Enricher]',
-          `Trying to enrich with model: ${modelName}`,
+          `Trying to enrich with model: ${getLLMModel()}`,
         );
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: [
-            {
-              role: 'user',
-              parts: [{ text: systemPrompt }, { text: userPrompt }],
-            },
+        const responseText = await callLLM(
+          [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
           ],
-          config: {
-            tools: [{ googleSearch: {} }],
-            temperature: 0.3,
-          },
-        });
+          { temperature: 0.3, webSearch: true },
+        );
 
-        if (response.text) {
-          enrichedContent = response.text.trim();
-          log(
-            'SUCCESS [News-Enricher]',
-            `Content successfully expanded for: "${news.title}"`,
+        // Defensa contra respuestas que arrancan con meta-conversación del
+        // estilo "I'll research this event..." en vez del contenido real.
+        const stripped = responseText.trim();
+        const looksLikeMetaOnly =
+          stripped.length < 80 ||
+          /^(?:I'll |Let me |I need to |I should |Here'?s? |Sure[,!.] )/i.test(
+            stripped,
           );
-          break;
-        } else {
-          throw new Error('La respuesta fue vacía.');
+
+        if (!responseText || looksLikeMetaOnly) {
+          throw new Error(
+            `Respuesta demasiado corta o sólo meta-conversación (length=${stripped.length}): "${stripped.slice(0, 80)}..."`,
+          );
         }
+
+        enrichedContent = stripped;
+        log(
+          'SUCCESS [News-Enricher]',
+          `Content successfully expanded for: "${news.title}"`,
+        );
+        break;
       } catch (error: any) {
         attempt++;
         log(

@@ -1,12 +1,12 @@
 import { fetchNews } from './scrapers/events/news-fetcher.js';
-import { generateMostRelevantNews } from './scrapers/events/minimax-generator.js';
+import { generateMostRelevantNews } from './scrapers/events/llm-generator.js';
 import {
   writeJsonFile,
   getRecentLocalNewsTitles,
   getRecentJsonFilesData,
   updateJsonFile,
 } from './scrapers/events/json-writer.js';
-import { enrichNewsContent } from './scrapers/events/minimax-enricher.js';
+import { enrichNewsContent } from './scrapers/events/llm-enricher.js';
 import { log } from './logger.js';
 import cron from 'node-cron';
 import { fileURLToPath } from 'url';

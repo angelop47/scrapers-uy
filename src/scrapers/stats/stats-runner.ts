@@ -8,7 +8,7 @@ dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 import { log } from '../../logger.js';
 import { getActiveMandateId } from '../../supabase.js';
-import { fetchStatsWithMinimax, StatItem } from './minimax-stats.js';
+import { fetchStats, StatItem } from './llm-stats.js';
 
 const TIMEZONE = 'America/Montevideo';
 const STATS_DIR = path.join(process.cwd(), 'stats');
@@ -111,14 +111,14 @@ export async function runStatsAutomation(): Promise<void> {
       }
     }
 
-    const stats = await fetchStatsWithMinimax(activeMandateId, recentTitles);
+    const stats = await fetchStats(activeMandateId, recentTitles);
 
     if (stats && stats.length > 0) {
       writeStatsJson(stats);
     } else {
       log(
         'INFO [Stats-Runner]',
-        'No relevant stats found by MiniMax M3 today.',
+        'No relevant stats found by the LLM today.',
       );
     }
 

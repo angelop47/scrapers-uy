@@ -76,7 +76,7 @@ Estructura de CADA objeto del arreglo:
   "title": "Título corto y directo del evento (String)",
   "date": "Fecha del evento en formato YYYY-MM-DD (String)",
   "description": "Un resumen corto de 1 o 2 párrafos para leer rápido (String)",
-  "content": "Desarrollo completo y EXTENSO de la noticia en formato Markdown usando ## para subtítulos. Si la noticia es simple o no amerita un desarrollo largo, devuélvelo como un string vacío \\"\\" o null.",
+  "content": "Devuélvelo SIEMPRE como string vacío \\"\\". El desarrollo extenso se redacta en una etapa posterior de investigación.",
   "tags": ["tag1", "tag2", "tag3"],
   "category_id": "DEBE ser EXTREMADAMENTE EXACTO y sólo uno de estos valores: business, crisis, culture, economic, entertainment, infrastructure, international, law, politics, social",
   "sources": ["Nombre de la fuente 1", "Nombre de la fuente 2"],

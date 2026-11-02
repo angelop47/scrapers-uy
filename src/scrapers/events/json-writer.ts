@@ -7,23 +7,34 @@ import { TimelineEvent } from './types.js';
 
 const TIMEZONE = 'America/Montevideo';
 
+/**
+ * Archivos `YYYY-MM-DD.json` de los últimos `days` días calendario (hoy
+ * incluido), del más nuevo al más viejo. Se filtra por fecha del nombre y no
+ * por cantidad de archivos: si el scraper estuvo meses sin correr, los
+ * archivos viejos no cuentan como "recientes".
+ */
+function getRecentJsonFileNames(outputDir: string, days: number): string[] {
+  const oldest = DateTime.now()
+    .setZone(TIMEZONE)
+    .minus({ days: days - 1 })
+    .toISODate();
+
+  return fs
+    .readdirSync(outputDir)
+    .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
+    .filter((f) => f.slice(0, 10) >= (oldest ?? ''))
+    .sort()
+    .reverse();
+}
+
 export function getRecentLocalNewsTitles(days: number = 7): string[] {
   const outputDir = path.join(process.cwd(), 'noticias');
   if (!fs.existsSync(outputDir)) return [];
 
   let allTitles: string[] = [];
   try {
-    const files = fs.readdirSync(outputDir);
-    // Ordenar alfabéticamente inverso (por fecha) y tomar los últimos 'days'
-    const jsonFiles = files
-      .filter((f) => f.endsWith('.json'))
-      .sort()
-      .reverse()
-      .slice(0, days);
-
-    for (const file of jsonFiles) {
-      const filePath = path.join(outputDir, file);
-      const content = fs.readFileSync(filePath, 'utf-8');
+    for (const file of getRecentJsonFileNames(outputDir, days)) {
+      const content = fs.readFileSync(path.join(outputDir, file), 'utf-8');
       const data = JSON.parse(content) as TimelineEvent[];
       allTitles = allTitles.concat(data.map((item) => item.title));
     }
@@ -86,14 +97,7 @@ export function getRecentJsonFilesData(
 
   let results: { filePath: string; data: TimelineEvent[] }[] = [];
   try {
-    const files = fs.readdirSync(outputDir);
-    const jsonFiles = files
-      .filter((f) => f.endsWith('.json'))
-      .sort()
-      .reverse()
-      .slice(0, days);
-
-    for (const file of jsonFiles) {
+    for (const file of getRecentJsonFileNames(outputDir, days)) {
       const filePath = path.join(outputDir, file);
       const content = fs.readFileSync(filePath, 'utf-8');
       const data = JSON.parse(content) as TimelineEvent[];

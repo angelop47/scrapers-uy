@@ -100,8 +100,8 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
             true,
           );
         } else {
-          // Exponential backoff: 60s, 120s, 240s...
-          const baseWaitTime = 60000; // 60 segundos base
+          // Exponential backoff: 10s, 20s, 40s...
+          const baseWaitTime = 10000; // 10 segundos base
           const waitTime = baseWaitTime * Math.pow(2, attempt - 1);
           log(
             'INFO [News-Enricher]',
@@ -120,7 +120,7 @@ Por favor, investiga a fondo este evento en internet para enriquecer y expandir 
     });
 
     // Pequeño delay entre noticias para no saturar la API
-    if (newsArray.length > 1) await delay(5000);
+    if (newsArray.length > 1) await delay(1000);
   }
 
   log('INFO [News-Enricher]', 'Enrichment completed.');

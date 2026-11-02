@@ -4,6 +4,7 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { log, getDailyLogPath } from './logger.js';
+import { isOriginAllowed } from './lib/cors-origin.js';
 import { scrape as scrapeDolar } from './scrapers/dolar.js';
 import { scrape as scrapePetroleo } from './scrapers/petroleo.js';
 import { runNewsAutomation } from './generate-news.js';
@@ -45,13 +46,18 @@ export function start(): void {
     .map((origin) => origin.trim())
     .filter(Boolean);
 
-  app.use(cors({
-    origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error('Origin not allowed by CORS'));
-    },
-    allowedHeaders: ['Content-Type', 'x-api-token'],
-  }));
+  app.use(
+    cors((req, callback) => {
+      const origin = req.header('origin');
+      if (!isOriginAllowed(origin, req.header('host'), allowedOrigins)) {
+        return callback(new Error(`Origin not allowed by CORS: ${origin}`));
+      }
+      callback(null, {
+        origin: true,
+        allowedHeaders: ['Content-Type', 'x-api-token'],
+      });
+    }),
+  );
   app.use(express.static('public'));
   app.use('/api/run', requireApiToken);
 

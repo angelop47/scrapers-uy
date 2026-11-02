@@ -45,6 +45,46 @@ export interface CurrencyRecord {
   venta_maximo: string;
 }
 
+const USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36';
+
+// Liferay publica la URL del portlet como `url:"..."` o `refreshURL: '...'`,
+// con los caracteres especiales escapados como \xNN.
+function extractPortletUrl(html: string): string | null {
+  const match = html.match(
+    /(?:url|refreshURL):\s*["'](\\x2fc\\x2fportal\\x2frender_portlet[^"']*cotizacionfull_WAR_broutmfportlet[^"']*)["']/,
+  );
+  if (!match) return null;
+  return match[1].replace(/\\x([0-9a-fA-F]{2})/g, (_, hex) =>
+    String.fromCharCode(parseInt(hex, 16)),
+  );
+}
+
+function parseRows(html: string): ScrapedRow[] {
+  const $ = cheerio.load(html);
+  const rows: ScrapedRow[] = [];
+
+  $('.cotizacion-portlet table tbody tr').each((_, el) => {
+    const moneda = $(el).find('td:nth-child(1) .moneda').text().trim();
+    const compra = $(el).find('td:nth-child(3) .valor').text().trim();
+    const venta = $(el).find('td:nth-child(5) .valor').text().trim();
+
+    if (moneda === 'Dólar' && compra && venta) {
+      const parsed = ScrapedRowSchema.safeParse({ moneda, compra, venta });
+      if (parsed.success) {
+        rows.push(parsed.data);
+      } else {
+        log(
+          'WARN [Dólar]',
+          `Zod validation failed for ${moneda}: ${parsed.error.message}`,
+        );
+      }
+    }
+  });
+
+  return rows;
+}
+
 export async function scrape(): Promise<void> {
   log('INFO [Dólar]', 'Starting scraper...');
   const currentCsvPath = getCsvPath();
@@ -52,10 +92,7 @@ export async function scrape(): Promise<void> {
   try {
     log('INFO [Dólar]', `Fetching main page at ${URL}...`);
     const mainResponse = await fetch(URL, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-      },
+      headers: { 'User-Agent': USER_AGENT },
     });
 
     if (!mainResponse.ok) {
@@ -66,61 +103,32 @@ export async function scrape(): Promise<void> {
 
     const mainHtml = await mainResponse.text();
 
-    // Extract Liferay portlet URL for the cotizaciones table
-    const urlMatch = mainHtml.match(
-      /url:"(\\x2fc\\x2fportal\\x2frender_portlet[^"]*cotizacionfull_WAR_broutmfportlet[^"]*)"/,
-    );
-    if (!urlMatch) {
-      throw new Error(
-        'No portlet URL found in main page HTML. The page structure might have changed.',
-      );
-    }
+    // La tabla de cotizaciones viene renderizada en la página principal. El
+    // portlet separado solo se consulta si la tabla no está en el HTML.
+    let rows = parseRows(mainHtml);
 
-    // Decode Liferay escaped URL string
-    const portletUrl = urlMatch[1]
-      .replace(/\\x2f/g, '/')
-      .replace(/\\x3f/g, '?')
-      .replace(/\\x3d/g, '=')
-      .replace(/\\x26/g, '&');
-
-    log('INFO [Dólar]', 'Fetching portlet data...');
-    const portletResponse = await fetch(
-      `https://www.brou.com.uy${portletUrl}`,
-      {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        },
-      },
-    );
-
-    if (!portletResponse.ok) {
-      throw new Error(
-        `Failed to fetch portlet: ${portletResponse.status} ${portletResponse.statusText}`,
-      );
-    }
-
-    const portletHtml = await portletResponse.text();
-    const $ = cheerio.load(portletHtml);
-
-    const rows: ScrapedRow[] = [];
-    $('.cotizacion-portlet table tbody tr').each((i, el) => {
-      const moneda = $(el).find('td:nth-child(1) .moneda').text().trim();
-      const compra = $(el).find('td:nth-child(3) .valor').text().trim();
-      const venta = $(el).find('td:nth-child(5) .valor').text().trim();
-
-      if (moneda === 'Dólar' && compra && venta) {
-        const parsed = ScrapedRowSchema.safeParse({ moneda, compra, venta });
-        if (parsed.success) {
-          rows.push(parsed.data);
-        } else {
-          log(
-            'WARN [Dólar]',
-            `Zod validation failed for ${moneda}: ${parsed.error.message}`,
-          );
-        }
+    if (rows.length === 0) {
+      log('INFO [Dólar]', 'Table not in main page, fetching portlet data...');
+      const portletUrl = extractPortletUrl(mainHtml);
+      if (!portletUrl) {
+        throw new Error(
+          'No "Dólar" table nor portlet URL found in main page HTML. The page structure might have changed.',
+        );
       }
-    });
+
+      const portletResponse = await fetch(
+        `https://www.brou.com.uy${portletUrl}`,
+        { headers: { 'User-Agent': USER_AGENT } },
+      );
+
+      if (!portletResponse.ok) {
+        throw new Error(
+          `Failed to fetch portlet: ${portletResponse.status} ${portletResponse.statusText}`,
+        );
+      }
+
+      rows = parseRows(await portletResponse.text());
+    }
 
     if (rows.length === 0) {
       throw new Error(

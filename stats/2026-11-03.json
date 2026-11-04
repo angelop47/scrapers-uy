@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-08-31",
+    "title": "Actividad Económica (IMAE) - Agosto 2026",
+    "description": "El IMAE del BCU, indicador adelantado del PIB, creció 0,8% interanual en agosto de 2026, frente a 1,7% en julio. En términos desestacionalizados cayó 1,1% respecto a julio, y la tendencia-ciclo mostró 0,0%. Es el dato más reciente y muestra una desaceleración de la actividad.",
+    "indicator": "economic_activity_imae",
+    "value": 0.8,
+    "unit": "% interanual",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.ambito.com/uruguay/la-actividad-economica-cayo-un-11-agosto-y-profundiza-las-senales-estancamiento-n6339935 (datos del BCU, IMAE agosto 2026)"
+  }
+]

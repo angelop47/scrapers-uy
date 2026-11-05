@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Índice de Precios al Productor de Productos Nacionales (IPPN) - Setiembre 2026",
+    "description": "Variación mensual del precio que cobran los productores nacionales por sus bienes, según el INE. El ritmo subió frente al 0,40% mensual registrado en agosto, lo que indica presión de costos aguas arriba que podría trasladarse al IPC.",
+    "indicator": "producer_prices",
+    "value": 1.56,
+    "unit": "% variación mensual",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones"
+  }
+]

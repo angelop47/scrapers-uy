@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Inflación Interanual de Octubre 2026",
+    "description": "Variación del IPC en los últimos 12 meses, con una suba mensual de 0,59% en octubre. El dato queda dentro de la banda de tolerancia del BCU (3%-6%), pero por encima de la meta central de 4,5%. Se registra un alza frente al 4,68% interanual de setiembre.",
+    "indicator": "inflation",
+    "value": 4.87,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/ipc-indice-precios-del-consumo"
+  }
+]

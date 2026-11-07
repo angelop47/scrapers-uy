@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Salario Real (IMS) - Setiembre 2026",
+    "description": "Variación interanual del salario real medido por el Índice Medio de Salarios, deflactado por inflación. El dato, publicado por el INE el 30 de octubre de 2026, muestra una mejora en doce meses, aunque en el mes de setiembre el poder adquisitivo retrocedió frente a los precios, con mayor caída en el sector público. Tendencia calculada contra la medición interanual previa (agosto 2026, alrededor de 0,7%).",
+    "indicator": "real_wages",
+    "value": 1.25,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/ (INE - Índice Medio de Salarios, setiembre 2026)"
+  }
+]

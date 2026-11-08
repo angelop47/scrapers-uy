@@ -1,0 +1,50 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Equipos - Octubre 2026)",
+    "description": "Porcentaje de uruguayos que aprueba la gestión del presidente según Equipos Consultores (trabajo de campo del 6 al 21 de octubre, publicado el 5 de noviembre de 2026). La aprobación bajó 4 puntos respecto a la medición de agosto (28%) y es el registro más bajo del período, con un saldo neto de -28 puntos.",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.subrayado.com.uy/evaluacion-la-gestion-del-presidente-yamandu-orsi-24-aprueba-y-52-desaprueba-n1022823"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Equipos - Octubre 2026)",
+    "description": "Porcentaje de uruguayos que desaprueba la gestión del presidente según Equipos Consultores (trabajo de campo del 6 al 21 de octubre, publicado el 5 de noviembre de 2026). La desaprobación subió un punto frente a la medición anterior (51%), y la cifra es la más alta de la serie de la consultora.",
+    "indicator": "disapproval_rating",
+    "value": 52,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/11/encuesta-de-equipos-52-desaprueba-la-gestion-de-orsi-y-24-la-aprueba/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Exportaciones de Bienes de Octubre 2026 (solicitudes de exportación)",
+    "description": "Solicitudes de exportación de bienes, incluidas zonas francas, según Uruguay XXI (datos preliminares). Alcanzaron US$ 1.089 millones, con un crecimiento interanual de 1%, pero el crecimiento se desaceleró fuerte frente al +10% de setiembre y el monto mensual cayó desde los US$ 1.398 millones de setiembre. La sequía que redujo la zafra de soja cerca de 50% pesa sobre el resultado; el acumulado enero-octubre suma US$ 11.430 millones (+1%).",
+    "indicator": "exports",
+    "value": 1089,
+    "unit": "millones USD",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.uruguayxxi.gub.uy/es/centro-informacion/informes-de-comercio-exterior/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Déficit Fiscal del Sector Público Global - 12 meses a Setiembre 2026",
+    "description": "Resultado fiscal del Sector Público Global en los doce meses cerrados a setiembre de 2026, excluyendo los ingresos extraordinarios del Fideicomiso II de la Seguridad Social, según el MEF. El déficit se mantuvo en 4,7% del PIB, igual al cierre de agosto, y sigue por encima de la meta estructural de 4% fijada para 2026. Incluyendo los ingresos del fideicomiso, el déficit baja a 4,3% del PIB.",
+    "indicator": "fiscal_deficit",
+    "value": 4.7,
+    "unit": "% del PIB",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://www.eltelegrafo.com/2026/10/la-caida-de-los-ingresos-y-la-estabilidad-del-gasto-mantuvieron-el-deficit-fiscal-en-47-del-pbi/"
+  }
+]

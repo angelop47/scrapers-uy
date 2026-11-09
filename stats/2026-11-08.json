@@ -1,0 +1,50 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Inflación Mensual de Octubre 2026",
+    "description": "Variación mensual del IPC en octubre de 2026, por encima de lo previsto por analistas consultados por el BCU (0,44%). Principales incidencias: alimentos, transporte, ropa y calzado. Dentro del rango meta (3%-6%).",
+    "indicator": "inflation_monthly",
+    "value": 0.59,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/ (INE, Índice de Precios del Consumo, publicado el 5 de noviembre de 2026)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Inflación Subyacente Interanual de Octubre 2026",
+    "description": "Inflación subyacente (excluye frutas, verduras y combustibles) a 12 meses en octubre de 2026, frente al 4,47% de setiembre. Sigue por encima de la meta puntual de 4,5%.",
+    "indicator": "core_inflation",
+    "value": 4.57,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.elobservador.com.uy/economia-y-empresas/la-inflacion-uruguay-volvio-acelerarse-y-llego-49-interanual-octubre-n6062882"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-08",
+    "title": "Tasa de Política Monetaria del BCU (octubre 2026)",
+    "description": "El Banco Central subió la tasa de política monetaria 25 puntos básicos, desde 5,75% hasta 6%, para anclar expectativas de inflación ante el shock energético y de alimentos. Medida de endurecimiento monetario.",
+    "indicator": "monetary_policy_rate",
+    "value": 6,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/economia/articulo/2026/10/el-banco-central-incremento-la-tasa-de-interes-en-25-puntos-basicos-y-la-fijo-en-6/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Pobreza por Ingresos - Primer Semestre 2026",
+    "description": "Porcentaje de personas bajo la línea de pobreza por ingresos en el primer semestre de 2026, por debajo del 17,7% del año anterior. Metodología actualizada (no incluye valor locativo ni cuotas imputadas a Fonasa).",
+    "indicator": "poverty_rate",
+    "value": 14.8,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://www.elobservador.com.uy/economia-y-empresas/pobreza-uruguay-y-fue-148-el-primer-semestre-2026-n6059738"
+  }
+]

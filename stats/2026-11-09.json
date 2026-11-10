@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Inflación Mensual de Setiembre 2026",
+    "description": "Variación mensual del IPC en setiembre de 2026 según el INE, con alimentos como principal incidencia. Fue más del doble de la de agosto (0,24%) y quedó por encima de las expectativas del mercado, por lo que la tendencia mensual se aceleró.",
+    "indicator": "inflation_monthly",
+    "value": 0.54,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/ipc-indice-precios-del-consumo (Informe IPC Setiembre 2026, INE, publicado el 5 de octubre de 2026)"
+  }
+]

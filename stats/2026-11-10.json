@@ -1,0 +1,74 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Tasa de Desempleo de Setiembre 2026",
+    "description": "Tasa de desempleo mensual del total país según la Encuesta Continua de Hogares (ECH) del INE. Se mantuvo en un nivel similar al del mes anterior y al de setiembre de 2025. Las mujeres y los jóvenes de 14 a 24 años siguen siendo los grupos más afectados.",
+    "indicator": "unemployment",
+    "value": 7.1,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/actividad-empleo-desempleo"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-07-31",
+    "title": "Actividad Económica (IMAE) de Julio 2026",
+    "description": "Variación interanual del Indicador Mensual de Actividad Económica publicado por el BCU, que funciona como adelanto del PIB. En términos desestacionalizados avanzó 0,2% respecto a junio, mientras que la tendencia-ciclo subió 0,1%. El dato muestra una desaceleración de la variación mensual frente al 1,4% de junio.",
+    "indicator": "economic_activity",
+    "value": 1.7,
+    "unit": "% interanual",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "https://www.elobservador.com.uy/economia-y-empresas/la-actividad-economica-registro-una-leve-recuperacion-julio-n6059007"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-17",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Factum - Octubre 2026)",
+    "description": "Aprobación de la gestión del presidente según la encuesta telefónica de Factum, realizada entre el 1 y el 17 de octubre a 900 personas, con margen de error de unos 3,3 puntos. La aprobación no varió respecto a la medición anterior y la consultora habla de estabilización en niveles bajos, sin reversión de la tendencia.",
+    "indicator": "approval_rating",
+    "value": 26,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://www.montevideo.com.uy/Noticias/Encuesta-Factum-aprobacion-de-Orsi-es-de-26-y-desaprobacion-de-52--uc980247"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-17",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Factum - Octubre 2026)",
+    "description": "Desaprobación de la gestión del presidente según la misma encuesta de Factum (1 al 17 de octubre, 900 personas). Retrocedió tres puntos frente a la medición anterior, lo que la consultora atribuye a una moderación del rechazo.",
+    "indicator": "disapproval_rating",
+    "value": 52,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://www.montevideo.com.uy/Noticias/Encuesta-Factum-aprobacion-de-Orsi-es-de-26-y-desaprobacion-de-52--uc980247"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-12",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Cifra - Octubre 2026)",
+    "description": "Aprobación de la gestión del presidente según Cifra, con entrevistas telefónicas a 800 personas entre el 30 de setiembre y el 12 de octubre de 2026. Cae dos puntos respecto a agosto, y la consultora la ubica entre las más bajas desde comienzos de siglo.",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.montevideo.com.uy/Noticias/Encuesta-Cifra-aprobacion-de-Orsi-es-de-24-y-desaprobacion-de-57--uc978759"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-12",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Cifra - Octubre 2026)",
+    "description": "Desaprobación de la gestión del presidente según la misma encuesta de Cifra (800 personas, 30 de setiembre al 12 de octubre de 2026). Se mantiene en el mismo nivel que en la medición de agosto, en un contexto de deterioro de la imagen personal del presidente.",
+    "indicator": "disapproval_rating",
+    "value": 57,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://www.montevideo.com.uy/Noticias/Encuesta-Cifra-aprobacion-de-Orsi-es-de-24-y-desaprobacion-de-57--uc978759"
+  }
+]

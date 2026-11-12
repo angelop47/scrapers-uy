@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-08-31",
+    "title": "Actividad Económica (IMAE) de Agosto 2026",
+    "description": "El IMAE de agosto creció 0,8% interanual frente a agosto de 2025, pero cayó 1,1% mes a mes en la serie desestacionalizada, lo que muestra una pérdida de impulso de la actividad. El avance interanual se atribuye sobre todo a una base de comparación baja.",
+    "indicator": "economic_activity",
+    "value": 0.8,
+    "unit": "% interanual",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.elobservador.com.uy/la-actividad-economica-cayo-11-agosto-frente-julio-n6062246"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "PIB del Segundo Trimestre 2026",
+    "description": "El Producto Interno Bruto del segundo trimestre de 2026 cayó 0,5% frente al mismo trimestre de 2025, revirtiendo el crecimiento de 0,9% interanual registrado en el primer trimestre. Según los datos, el sector agropecuario tuvo un desempeño muy distinto al resto de la economía.",
+    "indicator": "gdp_growth",
+    "value": -0.5,
+    "unit": "% interanual",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.bcu.gub.uy/Estadisticas-e-Indicadores/Paginas/Ultimo-informe-disponible.aspx"
+  }
+]

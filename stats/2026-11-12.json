@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Índice de Volumen Físico de la Industria Manufacturera de Setiembre 2026",
+    "description": "Producción física de la industria manufacturera con un alza de 7,7% interanual frente a setiembre de 2025, pero con deterioro del empleo fabril: el personal ocupado cayó 2,8% y las horas trabajadas de obreros 2,9% interanual. En el acumulado del año la industria registra un 3,8% de crecimiento en volumen físico. La tendencia se indica con la variación interanual, porque no se encontró el dato del mes anterior para comparar.",
+    "indicator": "industrial_production",
+    "value": 7.7,
+    "unit": "% interanual",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "https://diariocambio.com.uy/la-industria-crecio-un-77-en-septiembre-impulsada-por-la-refineria-pero-cae-empleo-fabril (datos del INE, ine.gub.uy)"
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Tasa de Actividad de Setiembre 2026",
+    "description": "La tasa de actividad nacional se ubicó en 64,1% en setiembre de 2026 (65,4% en Montevideo y 63,3% en el interior), similar al mes anterior. Mide la proporción de la población en edad de trabajar que participa del mercado laboral.",
+    "indicator": "labor_activity_rate",
+    "value": 64.1,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones/actividad-empleo-desempleo-ech-setiembre-2026"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Tasa de Empleo de Setiembre 2026",
+    "description": "La tasa de empleo nacional se ubicó en 59,6% en setiembre de 2026 (60,7% en Montevideo y 58,8% en el interior), similar al mes anterior. Mide la proporción de la población en edad de trabajar que se encuentra ocupada.",
+    "indicator": "employment_rate",
+    "value": 59.6,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones/actividad-empleo-desempleo-ech-setiembre-2026"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Empleo Formal (Puestos Cotizantes) Interanual de Setiembre 2026",
+    "description": "Los puestos de trabajo cotizantes registrados se ubicaron 1,6% por encima de setiembre de 2025, confirmando una expansión sostenida del empleo formal. Respecto al mes anterior hubo una caída marginal de 0,05%, que no altera la tendencia alcista.",
+    "indicator": "formal_employment_growth",
+    "value": 1.6,
+    "unit": "% interanual",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "https://deuda.mef.gub.uy/innovaportal/file/32420/1/newsletter_third-quarter_2026-consolidado.pdf"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Beneficiarios del Seguro de Desempleo de Setiembre 2026",
+    "description": "En setiembre de 2026 se registraron 41.192 beneficiarios en el sistema de seguro de desempleo, un aumento de 0,1% respecto al mismo período del año anterior.",
+    "indicator": "unemployment_insurance_beneficiaries",
+    "value": 41192,
+    "unit": "personas",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://deuda.mef.gub.uy/innovaportal/file/32420/1/newsletter_third-quarter_2026-consolidado.pdf"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Inflación Esperada por Empresarios para 2026",
+    "description": "Según la Encuesta de Expectativas Empresariales de setiembre de 2026, la media recortada al 90% de la inflación esperada por las y los empresarios es de 5,0% para el año 2026, por encima del rango objetivo del Banco Central (4,5%).",
+    "indicator": "business_inflation_expectations",
+    "value": 5,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/comunicacion/publicaciones/encuesta-expectativas-empresariales-eee-setiembre-2026"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Deuda Bruta del Gobierno Central a Setiembre 2026",
+    "description": "La deuda bruta del Gobierno Central equivalía a 62,5% del PIB a fines de setiembre de 2026, con un aumento de 2,7 puntos porcentuales respecto a 2025T4. Se mantiene por debajo del ancla de deuda de mediano plazo.",
+    "indicator": "gross_public_debt",
+    "value": 62.5,
+    "unit": "% del PIB",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://deuda.mef.gub.uy/innovaportal/file/32420/1/newsletter_third-quarter_2026-consolidado.pdf"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-01",
+    "title": "Líneas de Crédito Contingente para El Niño",
+    "description": "El Gobierno obtuvo US$750 millones en líneas de crédito contingente del BID y CAF (US$300 millones en 2026 y US$450 millones en 2027) como preparación financiera ante el fenómeno de El Niño.",
+    "indicator": "contingent_credit_lines",
+    "value": 750,
+    "unit": "millones USD",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://deuda.mef.gub.uy/innovaportal/file/32420/1/newsletter_third-quarter_2026-consolidado.pdf"
+  }
+]

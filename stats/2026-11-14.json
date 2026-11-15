@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-05",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Opción Consultores - Noviembre 2026)",
+    "description": "Porcentaje de uruguayos que aprueba la gestión personal del presidente según el monitor de Opción Consultores (trabajo de campo octubre-noviembre 2026, 803 entrevistas telefónicas, margen de error ±3,5 pp). Baja respecto de la medición anterior, que la ubicaba en 22%.",
+    "indicator": "approval_rating",
+    "value": 20,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.elobservador.com.uy/nacional/nueva-encuesta-opcion-desaprobacion-del-gobierno-yamandu-orsi-baja-cinco-puntos-pero-sigue-52-n6063736"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-05",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Opción Consultores - Noviembre 2026)",
+    "description": "Porcentaje de uruguayos que desaprueba la gestión personal del presidente según Opción Consultores (octubre-noviembre 2026). Retrocede un punto frente a la medición previa, que había registrado 50%.",
+    "indicator": "disapproval_rating",
+    "value": 49,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://www.elobservador.com.uy/nacional/nueva-encuesta-opcion-desaprobacion-del-gobierno-yamandu-orsi-baja-cinco-puntos-pero-sigue-52-n6063736"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Salario Real Interanual de Setiembre 2026",
+    "description": "Índice Medio de Salarios descontada la inflación del INE: el poder de compra promedio creció 1,25% en 12 meses, pero en el mes cayó 0,43% porque los salarios nominales subieron 0,10% mientras los precios avanzaron más. El dato del sector privado fue más favorable que el del sector público.",
+    "indicator": "real_wage",
+    "value": 1.25,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/ims-indice-medio-salarios"
+  }
+]

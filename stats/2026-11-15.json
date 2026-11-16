@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Equipos - Octubre 2026)",
+    "description": "Porcentaje de uruguayos que aprueba la gestión del presidente según la encuesta de Equipos Consultores (medición de octubre, difundida en Subrayado). El 22% no aprueba ni desaprueba y el 2% no respondió. Bajó 4 puntos respecto de la medición anterior (28%).",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/11/encuesta-de-equipos-52-desaprueba-la-gestion-de-orsi-y-24-la-aprueba/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Equipos - Octubre 2026)",
+    "description": "Porcentaje de uruguayos que desaprueba la gestión del presidente según la encuesta de Equipos Consultores (medición de octubre, difundida en Subrayado). Es el saldo negativo más alto de la serie de esa consultora, con una diferencia de 28 puntos frente a la aprobación. Subió un punto respecto de la medición anterior (51%).",
+    "indicator": "disapproval_rating",
+    "value": 52,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/11/encuesta-de-equipos-52-desaprueba-la-gestion-de-orsi-y-24-la-aprueba/"
+  }
+]

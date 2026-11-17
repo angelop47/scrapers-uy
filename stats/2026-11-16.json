@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Inflación Mensual de Octubre 2026",
+    "description": "Variación mensual del Índice de Precios del Consumo (IPC) en octubre de 2026, publicada por el INE. Sube frente al 0,54% mensual de setiembre, con incidencias principales en alimentos, transporte y restaurantes.",
+    "indicator": "inflation_monthly",
+    "value": 0.59,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/ipc-indice-precios-del-consumo"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Inflación Interanual de Octubre 2026",
+    "description": "Variación del IPC en los últimos 12 meses a octubre de 2026, publicada por el INE el 5 de noviembre. Se ubica dentro del rango meta del BCU (3%-6%) pero por encima del punto medio de 4,5%, y acelera frente al 4,68% de setiembre.",
+    "indicator": "inflation",
+    "value": 4.87,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/ipc-indice-precios-del-consumo"
+  }
+]

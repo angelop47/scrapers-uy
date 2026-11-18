@@ -1,0 +1,74 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Tasa de Informalidad (No registro a la seguridad social) de Setiembre 2026",
+    "description": "Porcentaje de ocupados que no aportan a la seguridad social según la ECH. Bajó 1,3 puntos porcentuales frente a setiembre de 2025. Montevideo registra 15,2% y el interior 24,8%.",
+    "indicator": "informality_rate",
+    "value": 21,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/actividad-empleo-desempleo"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Tasa de Desempleo Juvenil (14 a 24 años) de Setiembre 2026",
+    "description": "Desempleo entre personas de 14 a 24 años según la Encuesta Continua de Hogares. Triplica el promedio nacional de 7,1%. La tasa de empleo juvenil es de 33% y la de actividad de 42,1%.",
+    "indicator": "youth_unemployment",
+    "value": 21.6,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/actividad-empleo-desempleo"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Resultado Fiscal del Sector Público (12 meses a Setiembre 2026)",
+    "description": "Déficit fiscal anual del sector público equivalente a 4,7% del PIB, sin considerar ingresos extraordinarios del Fideicomiso de la Seguridad Social. Se mantuvo igual que en el año móvil a agosto.",
+    "indicator": "fiscal_deficit",
+    "value": 4.7,
+    "unit": "% del PIB",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://www.busqueda.com.uy/economia/exportaciones-deficit-fiscal-actividad-economica-salario-y-desempleo-uruguay-numeros-n5418887"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Solicitudes de Exportación de Mercaderías de Octubre 2026",
+    "description": "Solicitudes de exportación de mercaderías, incluidas zonas francas, por US$ 1.089 millones en octubre, con un aumento interanual de 1% según Uruguay XXI. Dato reportado por Búsqueda.",
+    "indicator": "exports_requests",
+    "value": 1089,
+    "unit": "millones USD",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "https://www.busqueda.com.uy/economia/exportaciones-deficit-fiscal-actividad-economica-salario-y-desempleo-uruguay-numeros-n5418887"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Expectativa de Crecimiento del PIB 2026 (Encuesta de Expectativas BCU, Setiembre)",
+    "description": "Mediana de las proyecciones de analistas, bancos y consultoras relevadas por el BCU para el crecimiento del PIB de 2026. Bajó desde 1,2% estimado en la consulta de agosto y queda muy por debajo del 1,6% del MEF.",
+    "indicator": "gdp_growth_expectations",
+    "value": 1,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.elobservador.com.uy/economia-y-empresas/la-actividad-economica-registro-una-leve-recuperacion-julio-n6059007"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-05",
+    "title": "Desaprobación de la Gestión del Gobierno (Opción Consultores - Noviembre 2026)",
+    "description": "Proporción de uruguayos que evalúa negativamente la gestión del gobierno, medida por Opción Consultores con trabajo de campo entre octubre y noviembre. Es 5 puntos menos que en la medición previa, aunque la aprobación gubernamental se mantuvo en 19%.",
+    "indicator": "government_disapproval_rating",
+    "value": 52,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/11/19-de-la-poblacion-aprueba-la-gestion-del-gobierno-y-52-la-desaprueba-segun-opcion/"
+  }
+]

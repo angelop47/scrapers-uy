@@ -1,0 +1,62 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Tasa de Desempleo de Setiembre 2026",
+    "description": "Desempleo general del país en setiembre de 2026, según la Encuesta Continua de Hogares. Se mantiene prácticamente igual al mes anterior y al mismo mes de 2025. Las mujeres (8,6%) tienen más desempleo que los hombres (5,8%), y los jóvenes de 14 a 24 años, con 21,6%, son el grupo más afectado.",
+    "indicator": "unemployment",
+    "value": 7.1,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "Instituto Nacional de Estadística (INE) - ine.gub.uy, difundido por EFE (https://unitel.bo/noticias/agencias/uruguay-mantiene-el-desempleo-en-el-71-en-septiembre-y-la-informalidad-bajo-en-un-ano-NB24342186)"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-28",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Factum - 5º Bimestre 2026)",
+    "description": "Aprobación de la gestión del presidente en la Encuesta Nacional de Factum realizada entre el 1 y el 17 de octubre de 2026, con 900 casos. Se mantiene en el mismo nivel que en la medición anterior y es el segundo registro consecutivo sin cambios, tras un mínimo de 24% en el tercer bimestre. Entre votantes del Frente Amplio la aprobación es de 54%.",
+    "indicator": "approval_rating",
+    "value": 26,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://portal.factum.uy/analisis/2026/ana260826.php y https://www.montevideo.com.uy/Noticias/Encuesta-Factum-aprobacion-de-Orsi-es-de-26-y-desaprobacion-de-52--uc980247"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-28",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Factum - 5º Bimestre 2026)",
+    "description": "Desaprobación de la gestión presidencial en la Encuesta Nacional de Factum de octubre de 2026. Baja tres puntos frente a la medición anterior, aunque sigue siendo mayoritaria. La mejora del saldo se explica sobre todo por la moderación del rechazo y no por un aumento de la aprobación.",
+    "indicator": "disapproval_rating",
+    "value": 52,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://portal.factum.uy/analisis/2026/ana260826.php y https://www.ambito.com/uruguay/la-desaprobacion-la-gestion-orsi-se-modero-al-52-mientras-la-aprobacion-se-estanca-niveles-minimos-n6339097"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-22",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Cifra - Octubre 2026)",
+    "description": "Aprobación de la gestión de Orsi en la encuesta de Cifra realizada entre el 30 de setiembre y el 12 de octubre de 2026. Con 800 entrevistas, la consultora describe cierta estabilidad en los últimos meses. La fecha de publicación es aproximada, porque las fuentes consultadas dan fechas distintas.",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/10/24-aprueba-la-gestion-de-orsi-y-57-la-desaprueba-segun-cifra/ y https://www.montevideo.com.uy/Noticias/Encuesta-Cifra-aprobacion-de-Orsi-es-de-24-y-desaprobacion-de-57--uc978759"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-16",
+    "title": "Tasa de Política Monetaria (TPM) de Noviembre 2026",
+    "description": "El Comité de Política Monetaria del BCU resolvió por unanimidad mantener la TPM en 6%. El Banco Central sostiene que la inflación se ubicará transitoriamente por encima de la meta de 4,5% en los próximos meses, por el traspaso de los precios del petróleo y de algunos alimentos, aunque sin presiones generalizadas.",
+    "indicator": "policy_rate",
+    "value": 6,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://www.infobae.com/america/agencias/2026/11/16/uruguay-mantiene-en-6-su-tasa-de-politica-monetaria/ y https://www.elobservador.com.uy/bcu-mantuvo-la-tasa-6-un-escenario-inflacion-controlada-n6064058"
+  }
+]

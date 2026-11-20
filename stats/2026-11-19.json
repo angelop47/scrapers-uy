@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "PIB del Segundo Trimestre 2026 (interanual)",
+    "description": "El producto interno bruto real cayó frente al mismo trimestre de 2025, con una contracción que el BCU atribuye en parte a la sequía, que afectó al sector agropecuario y a las exportaciones. Respecto al primer trimestre, cuando el PIB había crecido 0,9% interanual, el dato empeora.",
+    "indicator": "gdp_growth",
+    "value": -0.5,
+    "unit": "% interanual",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.bcu.gub.uy/Estadisticas-e-Indicadores/Paginas/Ultimo-informe-disponible.aspx"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Pobreza del Primer Semestre 2026",
+    "description": "El INE estimó la pobreza en 14,8% de la población en el primer semestre de 2026, frente a 17,7% un año antes, con una reducción de unas 95.000 personas bajo la línea de pobreza. La indigencia también bajó, a 1,2%. La nueva metodología no incluye el valor locativo ni las cuotas imputadas a Fonasa, por lo que la comparación con mediciones anteriores debe hacerse con cautela.",
+    "indicator": "poverty_rate",
+    "value": 14.8,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://www.elobservador.com.uy/economia-y-empresas/pobreza-uruguay-y-fue-148-el-primer-semestre-2026-n6059738"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-05",
+    "title": "Aprobación de la Gestión del Gobierno (Opción Consultores - Noviembre 2026)",
+    "description": "Según la encuesta de Opción Consultores realizada en octubre y noviembre de 2026, el 19% de los uruguayos evalúa positivamente la gestión del gobierno, sin cambios respecto de la medición previa. La desaprobación bajó cinco puntos, hasta 52%, pero la aprobación no se movió. La encuestadora la considera la más adversa de los cuatro gobiernos del Frente Amplio.",
+    "indicator": "government_approval_rating",
+    "value": 19,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://www.elobservador.com.uy/nacional/nueva-encuesta-opcion-desaprobacion-del-gobierno-yamandu-orsi-baja-cinco-puntos-pero-sigue-52-n6063736"
+  }
+]

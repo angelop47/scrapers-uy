@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Expectativa de Inflación 2026 según Analistas BCU (Octubre)",
+    "description": "Mediana de las expectativas de analistas consultados por el BCU para la inflación de cierre de 2026 (relevamiento de octubre). Se ubica por encima de la meta de 4,5% y subió frente al relevamiento de setiembre, en línea con el ajuste de combustibles.",
+    "indicator": "inflation_expectations",
+    "value": 4.87,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.bcu.gub.uy/Politica-Economica-y-Mercados/Expectativas%20para%20la%20inflacin%20y%20la%20economa/Monitor_mensual_oct26.html"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Expectativa de Inflación a 12 meses según Analistas BCU (Octubre)",
+    "description": "Mediana de las expectativas de inflación para los próximos 12 meses (octubre 2026 a setiembre 2027) según la encuesta de analistas del BCU. Se mantiene estable y cercana a la meta de 4,5%, lo que indica anclaje de expectativas.",
+    "indicator": "inflation_expectations",
+    "value": 4.6,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://www.bcu.gub.uy/Politica-Economica-y-Mercados/Expectativas%20para%20la%20inflacin%20y%20la%20economa/Monitor_mensual_oct26.html"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-06-30",
+    "title": "Tasa de Indigencia del Primer Semestre 2026",
+    "description": "La indigencia por ingresos se ubicó en 1,2% en el primer semestre de 2026, frente a 1,8% en el mismo período de 2025, según el INE. La medición usa la nueva metodología de ingreso, que excluye el valor locativo y las cuotas imputadas a Fonasa, por lo que no es estrictamente comparable con la serie anterior.",
+    "indicator": "indigence_rate",
+    "value": 1.2,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://elobservador.com.uy/economia-y-empresas/pobreza-uruguay-y-fue-148-el-primer-semestre-2026-n6059738"
+  }
+]

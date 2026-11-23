@@ -1,0 +1,50 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Índice Medio de Salarios Nominal a 12 meses (Setiembre)",
+    "description": "Variación interanual nominal del Índice Medio de Salarios de setiembre de 2026, publicado por el INE el 30 de octubre. Sube frente al 5,89% de agosto. Mide salarios nominales de empleados permanentes del sector privado y público formal.",
+    "indicator": "wages_nominal_index",
+    "value": 5.98,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/ims-indice-medio-salarios"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Salario Real Interanual (Setiembre)",
+    "description": "Variación interanual del salario real de setiembre de 2026 según el INE. Aunque el dato anual sigue positivo, el poder de compra cayó en el mes: el índice real retrocedió 0,41% en el sector privado y 0,50% en el público frente a agosto.",
+    "indicator": "real_wages",
+    "value": 1.25,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.newsdigitales.com/nota/348893/uruguay-los-salarios-subieron-5-98-pero-perdieron-poder-de-compra-en-septiembre/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-08-31",
+    "title": "IMAE Interanual de Agosto 2026",
+    "description": "Variación interanual del Indicador Mensual de Actividad Económica del BCU en agosto de 2026. Se desacelera frente al 1,7% de julio. En la comparación desestacionalizada con julio cayó 1,1%.",
+    "indicator": "imae",
+    "value": 0.8,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.bcu.gub.uy/Estadisticas-e-Indicadores/Paginas/Informe-del-Indicador-Mensual-de-Actividad-Economica-(IMAE).aspx"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-19",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Opción - 4º Trimestre 2026)",
+    "description": "Porcentaje que aprueba el desempeño personal del presidente según la encuesta de Opción Consultores del cuarto trimestre de 2026. Baja dos puntos frente al trimestre anterior (22%). La desaprobación presidencial se ubicó en 49%.",
+    "indicator": "approval_rating",
+    "value": 20,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/11/19-de-la-poblacion-aprueba-la-gestion-del-gobierno-y-52-la-desaprueba-segun-opcion/"
+  }
+]

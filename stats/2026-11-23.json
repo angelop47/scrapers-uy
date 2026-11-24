@@ -1,0 +1,50 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Equipos - Octubre 2026)",
+    "description": "Medición de Equipos Consultores sobre la gestión del presidente: 24% aprueba, 52% desaprueba y 22% tiene una opinión neutra. La aprobación cayó cuatro puntos frente a la medición de agosto.",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/11/encuesta-de-equipos-52-desaprueba-la-gestion-de-orsi-y-24-la-aprueba/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Equipos - Octubre 2026)",
+    "description": "Medición de Equipos Consultores de octubre: la desaprobación del presidente llegó a 52%, un punto más que en la medición anterior y con un saldo negativo de 28 puntos, el más alto de la serie de la consultora.",
+    "indicator": "disapproval_rating",
+    "value": 52,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/11/encuesta-de-equipos-52-desaprueba-la-gestion-de-orsi-y-24-la-aprueba/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-20",
+    "title": "Expectativa de Inflación 2026 según Analistas BCU (Noviembre)",
+    "description": "Mediana de las proyecciones de más de veinte analistas relevadas por el BCU en la encuesta de noviembre para la inflación de cierre de 2026. Se ubica por encima de la meta de 4,5% y dentro del rango de tolerancia de 3% a 6%, con una suba de dos décimas frente a octubre.",
+    "indicator": "inflation_expectation",
+    "value": 5.1,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/economia/articulo/2026/11/perspectivas-economicas-que-se-puede-esperar-en-el-corto-plazo/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-20",
+    "title": "Expectativa de Crecimiento del PIB 2026 según Analistas BCU (Noviembre)",
+    "description": "Mediana de las proyecciones de analistas relevadas por el BCU en noviembre para el crecimiento del PIB de 2026. La cifra no cambió respecto a octubre y queda por debajo de la proyección oficial de 1,6% de la Rendición de Cuentas.",
+    "indicator": "gdp_growth_expectation",
+    "value": 1,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://ladiaria.com.uy/economia/articulo/2026/11/perspectivas-economicas-que-se-puede-esperar-en-el-corto-plazo/"
+  }
+]

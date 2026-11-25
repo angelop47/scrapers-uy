@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Inflación interanual de Octubre 2026",
+    "description": "Variación de los últimos 12 meses del IPC publicada por el INE. Se ubica dentro del rango meta del BCU (3% a 6%), pero por encima del punto medio de 4,5%, y sube frente al 4,68% de setiembre.",
+    "indicator": "inflation",
+    "value": 4.87,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/ipc-indice-precios-del-consumo"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Inflación mensual de Octubre 2026",
+    "description": "Variación mensual del Índice de Precios del Consumo publicada por el INE. Fue superior a lo que anticipaban los analistas consultados por el BCU y se explica sobre todo por alimentos, transporte y restaurantes.",
+    "indicator": "inflation_monthly",
+    "value": 0.59,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.gub.uy/instituto-nacional-estadistica/tematica/ipc-indice-precios-del-consumo"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Inflación subyacente interanual de Octubre 2026",
+    "description": "Inflación subyacente, que excluye frutas, verduras y combustibles, según reporte de El Observador con datos del INE. Subió frente al 4,47% de setiembre, lo que indica presiones de precios más persistentes.",
+    "indicator": "core_inflation",
+    "value": 4.57,
+    "unit": "%",
+    "trend": "up",
+    "trend_is_good": false,
+    "source": "https://www.elobservador.com.uy/economia-y-empresas/la-inflacion-uruguay-volvio-acelerarse-y-llego-49-interanual-octubre-n6062882"
+  }
+]

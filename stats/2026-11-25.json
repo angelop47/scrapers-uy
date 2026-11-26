@@ -1,0 +1,26 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Tasa de Desempleo de Octubre 2026",
+    "description": "Desempleo de 6,5% según la Encuesta Continua de Hogares, publicado el 23/11/2026. Bajó 0,6 puntos frente a setiembre y 0,8 puntos interanual, pero la caída se explica sobre todo por menor tasa de actividad y no por más empleo. Es el nivel más bajo desde 2014.",
+    "indicator": "unemployment",
+    "value": 6.5,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "INE Uruguay - Actividad, Empleo y Desempleo (ECH) Octubre 2026, https://www.gub.uy/instituto-nacional-estadistica/tematica/estadisticas-economicas"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-31",
+    "title": "Informalidad Laboral de Octubre 2026",
+    "description": "Proporción de ocupados sin registro en la seguridad social, según la ECH del INE (publicada el 23/11/2026). Bajó 0,4 puntos frente a setiembre y es el nivel más bajo desde mediados de 2023. Persisten diferencias fuertes entre Montevideo (14,7%) y el interior (24,6%).",
+    "indicator": "informality",
+    "value": 20.6,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "INE Uruguay - Actividad, Empleo y Desempleo (ECH) Octubre 2026, https://www.gub.uy/instituto-nacional-estadistica/tematica/estadisticas-economicas"
+  }
+]

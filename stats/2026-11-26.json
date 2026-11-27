@@ -1,0 +1,50 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-16",
+    "title": "Tasa de Política Monetaria (TPM) de noviembre",
+    "description": "El Directorio del BCU mantuvo la TPM en 6% por unanimidad, tras la suba de octubre desde 5,75%. La decisión se tomó con la inflación interanual en 4,87% en octubre y las expectativas ancladas cerca de la meta de 4,5%.",
+    "indicator": "monetary_policy_rate",
+    "value": 6,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://bcu.gub.uy/Paginas/Default.aspx?u="
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-11-19",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Opción - 4º Trimestre 2026)",
+    "description": "Según Opción Consultores, el 49% de los uruguayos desaprueba el desempeño del presidente, un punto menos que en el trimestre anterior (50%). Es la medición de desaprobación presidencial de Opción, distinta de la aprobación ya guardada.",
+    "indicator": "disapproval_rating",
+    "value": 49,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://ladiaria.com.uy/politica/articulo/2026/11/19-de-la-poblacion-aprueba-la-gestion-del-gobierno-y-52-la-desaprueba-segun-opcion/"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-17",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Factum - 5º Bimestre 2026)",
+    "description": "La encuesta de Factum, realizada entre el 1 y el 17 de octubre de 2026 con 900 casos, muestra que la aprobación presidencial se mantuvo en 26% por segunda medición consecutiva. La consultora sostiene que todavía no hay una reversión de la tendencia.",
+    "indicator": "approval_rating",
+    "value": 26,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": true,
+    "source": "https://www.montevideo.com.uy/Noticias/Encuesta-Factum-aprobacion-de-Orsi-es-de-26-y-desaprobacion-de-52--uc980247"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-17",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Factum - 5º Bimestre 2026)",
+    "description": "La misma encuesta de Factum (campo del 1 al 17 de octubre de 2026, 900 casos) registra que la desaprobación presidencial bajó tres puntos, desde 55% a 52%. La consultora atribuye la mejora a una moderación del rechazo, no a un aumento del apoyo.",
+    "indicator": "disapproval_rating",
+    "value": 52,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": true,
+    "source": "https://www.montevideo.com.uy/Noticias/Encuesta-Factum-aprobacion-de-Orsi-es-de-26-y-desaprobacion-de-52--uc980247"
+  }
+]

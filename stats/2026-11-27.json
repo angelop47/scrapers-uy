@@ -1,0 +1,38 @@
+[
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-15",
+    "title": "Aprobación Presidencial de Yamandú Orsi (Cifra - Octubre 2026)",
+    "description": "Porcentaje de uruguayos que aprueba la gestión presidencial de Orsi según la encuesta de Cifra (relevamiento del 30 de setiembre al 12 de octubre de 2026, 800 entrevistas). Bajó de 26% a 24% respecto a la medición de agosto, aunque la diferencia está dentro del margen de error. La consultora la describe como una medición de estabilidad, con 47% de antipatía hacia el presidente.",
+    "indicator": "approval_rating",
+    "value": 24,
+    "unit": "%",
+    "trend": "down",
+    "trend_is_good": false,
+    "source": "https://www.montevideo.com.uy/Noticias/Encuesta-Cifra-aprobacion-de-Orsi-es-de-24-y-desaprobacion-de-57--uc978759"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-10-15",
+    "title": "Desaprobación Presidencial de Yamandú Orsi (Cifra - Octubre 2026)",
+    "description": "Porcentaje de uruguayos que desaprueba la gestión presidencial de Orsi según Cifra (relevamiento del 30 de setiembre al 12 de octubre de 2026). Se mantiene en 57%, el mismo nivel de la medición previa, tras haber bajado desde 65% en agosto. Un 6% no opina y un 13% ni aprueba ni desaprueba.",
+    "indicator": "disapproval_rating",
+    "value": 57,
+    "unit": "%",
+    "trend": "stable",
+    "trend_is_good": false,
+    "source": "https://www.montevideo.com.uy/Noticias/Encuesta-Cifra-aprobacion-de-Orsi-es-de-24-y-desaprobacion-de-57--uc978759"
+  },
+  {
+    "mandate_id": "orsi-2025-2030",
+    "date": "2026-09-30",
+    "title": "Producción Industrial Interanual de Setiembre 2026",
+    "description": "Variación interanual del índice de volumen físico de la industria manufacturera (IVFIM) del INE. Gran parte del aumento se explica por la refinería de ANCAP, que había estado parada en setiembre de 2025; sin esa división, la industria creció 1,8% interanual, frente a 1,0% en agosto. Las horas trabajadas y el empleo cayeron pese al alza de la producción.",
+    "indicator": "industrial_production",
+    "value": 7.7,
+    "unit": "% interanual",
+    "trend": "up",
+    "trend_is_good": true,
+    "source": "https://www.riotimesonline.com/uruguay-industrial-production-september-2026"
+  }
+]
